@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#331039">
+<title>سوق هلا للمناسبات  — تأجير وبيع مستلزمات الأفراح والمناسبات | اليمن — صنعاء وضواحيها</title>
+<meta name="description" content="سوق هلا للمناسبات  — تأجير وبيع مستلزمات الأفراح والأعراس والحفلات والفعاليات في اليمن — العاصمة صنعاء وضواحيها (المرحلة الأولى): لكل قطعة عدة عروض موثقة بمواصفات وأسعار تأجير وتأمين، مع نظام الرغبات الثلاث لضمان عدم تأجيل مناسبتك.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="هلا المتعاهد">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Celllipse cx='256' cy='256' rx='246' ry='251' fill='%23d4af37'/%3E%3Celllipse cx='256' cy='256' rx='208' ry='214' fill='%23e8e8ec'/%3E%3Ccircle cx='272' cy='252' r='50' fill='%23c9a6e8' stroke='%234a154b' stroke-width='6'/%3E%3Ctext x='272' y='272' text-anchor='middle' font-size='54' font-style='italic' font-weight='bold' fill='%234a154b' font-family='Tahoma'%3EH%3C/text%3E%3Ccircle cx='352' cy='214' r='13' fill='%234a154b'/%3E%3Cpath d='M324 198a50 50 0 0 1 60-28' fill='none' stroke='%234a154b' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M314 178a74 74 0 0 1 90-40' fill='none' stroke='%234a154b' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  :root{
+    --bg:#f6f2ec; --surface:#fffdf9; --ink:#241026; --mut:#7a6b7c; --line:#eadfd9;
+    --plum:#331039; --plum2:#240b28; --plum3:#47194e;
+    --gold1:#8a6a1c; --gold2:#d4af37; --gold3:#f6e27a;
+    --danger:#c03434; --ok:#0d6b4f;
+    --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Tajawal',system-ui,sans-serif;overflow-x:hidden}
+  .font-display{font-family:'Changa',sans-serif}
+  ::selection{background:rgba(212,175,55,.35)}
+  ::-webkit-scrollbar{width:9px;height:8px}::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#d9c9c2;border-radius:99px}::-webkit-scrollbar-thumb:hover{background:#bfa89f}
+  .no-sb::-webkit-scrollbar{display:none}.no-sb{scrollbar-width:none}
+  .gold{background:linear-gradient(100deg,var(--gold1),var(--gold2) 28%,var(--gold3) 50%,var(--gold2) 72%,var(--gold1));}
+  .gold-txt{background:linear-gradient(100deg,#a97f22,#e8c65a 45%,#fdf0b0 55%,#c79a2e);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .plum-pat{background-color:var(--plum2);background-image:radial-gradient(circle at 1px 1px,rgba(246,226,122,.10) 1px,transparent 0);background-size:20px 20px}
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.96)}}
+  .toast{animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3)}.toast.bye{animation:toastOut .3s forwards}
+  @keyframes pop{50%{transform:scale(1.45)}}.pop{animation:pop .35s ease}
+  @keyframes shimmer{to{background-position:200% center}}.gold-shine{background-size:200% auto;animation:shimmer 3.5s linear infinite}
+  .ribbon{position:absolute;top:14px;inset-inline-start:-38px;transform:rotate(45deg);background:linear-gradient(90deg,#8f1d2c,#c22a3c);color:#fff;font-size:10px;font-weight:800;padding:4px 42px;box-shadow:0 6px 16px -6px rgba(0,0,0,.5);z-index:2}
+  .pill{padding:.5rem 1.1rem;border-radius:99px;background:#e9e1da;color:var(--mut);font-size:.78rem;font-weight:800;white-space:nowrap;transition:all .25s;border:1px solid transparent}
+  .pill:hover{color:var(--plum);background:#e0d5cc}
+  .pill.active{background:linear-gradient(100deg,var(--gold1),var(--gold2) 30%,var(--gold3) 50%,var(--gold2) 70%,var(--gold1));color:var(--plum2);box-shadow:0 10px 22px -10px rgba(180,140,40,.8)}
+  .pcard{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+  .pcard:hover{transform:translateY(-5px);box-shadow:0 22px 44px -18px rgba(51,16,57,.28)}
+  .pcard:hover .pimg{transform:scale(1.07)}
+  .pimg{transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  .btn-gold{background:linear-gradient(100deg,var(--gold1),var(--gold2) 30%,var(--gold3) 50%,var(--gold2) 70%,var(--gold1));color:var(--plum2);font-weight:800;transition:filter .2s,transform .15s;box-shadow:0 12px 26px -12px rgba(180,140,40,.9)}
+  .btn-gold:hover{filter:brightness(1.07)}.btn-gold:active{transform:scale(.97)}
+  .btn-plum{background:var(--plum);color:#f6e27a;transition:background .2s,transform .15s}
+  .btn-plum:hover{background:var(--plum3)}.btn-plum:active{transform:scale(.97)}
+  .btn-ghost{background:var(--surface);border:1px solid var(--line);color:var(--ink);transition:all .2s}
+  .btn-ghost:hover{border-color:var(--gold2);color:var(--plum)}
+  .field{width:100%;height:2.75rem;border-radius:.8rem;border:1px solid var(--line);background:#fff;padding:0 .9rem;font-size:.85rem;outline:none;transition:border .2s,box-shadow .2s;color:var(--ink)}
+  .field:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(212,175,55,.2)}
+  textarea.field{height:auto;padding:.7rem .9rem;resize:vertical}
+  .stars i{color:#d9cfc8;font-style:normal}.stars i.on{color:var(--gold2)}
+  .navb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:.5rem 0 .4rem;color:#c9a86a;font-size:9.5px;font-weight:800;transition:color .2s}
+  .navb.on{color:var(--gold3)}.navb svg{width:22px;height:22px}
+  .stepline{height:2px;background:var(--line);flex:1}.stepline.done{background:var(--gold2)}
+  .stepdot{width:2rem;height:2rem;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;border:2px solid var(--line);color:var(--mut);background:#fff;transition:all .3s}
+  .stepdot.on{border-color:var(--gold2);background:var(--gold2);color:var(--plum2)}
+  .stepdot.done{border-color:var(--gold2);background:rgba(212,175,55,.15);color:var(--gold1)}
+  @keyframes checkPop{0%{transform:scale(0) rotate(-30deg)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .checkpop{animation:checkPop .5s cubic-bezier(.2,.9,.3,1.4)}
+  header{padding-top:var(--sat)}
+  main{padding-top:calc(9.3rem + var(--sat))}
+  #toasts{padding-bottom:calc(4.6rem + var(--sab))}
+  @media(min-width:1024px){#toasts{padding-bottom:1.25rem}}
+  #bottomNav{padding-bottom:var(--sab)}
+  @media (hover:none),(pointer:coarse){button{-webkit-tap-highlight-color:transparent}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}html{scroll-behavior:auto}.gold-shine{animation:none!important}}
+  .wishslot{border:2px dashed var(--line);border-radius:1rem;min-height:74px;display:flex;align-items:center;gap:.5rem;padding:.5rem;transition:all .2s}
+  .wishslot.filled{border-style:solid;border-color:var(--gold2);background:rgba(212,175,55,.08)}
+  .offerpick{transition:all .2s;cursor:pointer}
+  .offerpick.sel{outline:3px solid var(--gold2);outline-offset:2px}
+  body.svc-mode .home-only{display:none!important}
+</style>
+</head>
+<body class="antialiased">
+<!-- شعار المتجر الرسمي (مدمج داخل الصفحة ليعمل في كل المعاينات بدون ملفات خارجية) -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <!-- عند رفع ملف الشعار الأصلي باسم logo.png في مجلد المشروع سيظهر تلقائيًا كما هو بدون أي تعديل -->
+  <symbol id="logoBadge" viewBox="0 0 512 512" font-family="Tahoma, 'Segoe UI', Arial, sans-serif">
+    <defs>
+      <linearGradient id="lg-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8a6a1c"/><stop offset=".25" stop-color="#d4af37"/><stop offset=".5" stop-color="#f6e27a"/><stop offset=".75" stop-color="#d4af37"/><stop offset="1" stop-color="#8a6a1c"/>
+      </linearGradient>
+      <radialGradient id="lg-silver" cx=".5" cy=".42" r=".78">
+        <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dcdce2"/><stop offset="1" stop-color="#b7b7c1"/>
+      </radialGradient>
+      <linearGradient id="lg-pur" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6b2a6e"/><stop offset=".5" stop-color="#4a154b"/><stop offset="1" stop-color="#2e0b2f"/>
+      </linearGradient>
+      <radialGradient id="lg-gem" cx=".4" cy=".35" r=".85">
+        <stop offset="0" stop-color="#f6ecfb"/><stop offset=".6" stop-color="#c9a6e8"/><stop offset="1" stop-color="#8a4fb0"/>
+      </radialGradient>
+      <pattern id="lg-spek" width="14" height="14" patternUnits="userSpaceOnUse">
+        <circle cx="3" cy="4" r="1" fill="#ffffff" opacity=".55"/>
+        <circle cx="10" cy="9" r=".8" fill="#9a9aa5" opacity=".5"/>
+        <circle cx="7" cy="12" r=".6" fill="#ffffff" opacity=".4"/>
+      </pattern>
+      <pattern id="lg-gtex" width="10" height="10" patternUnits="userSpaceOnUse">
+        <path d="M0 5h10M5 0v10" stroke="#8a6a1c" stroke-width=".6" opacity=".35"/>
+      </pattern>
+    </defs>
+    <filter id="lg-emb" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#1a0518" flood-opacity=".5"/>
+    </filter>
+    <ellipse cx="256" cy="256" rx="232" ry="250" fill="url(#lg-gold)"/>
+    <ellipse cx="256" cy="256" rx="232" ry="250" fill="url(#lg-gtex)" opacity=".55"/>
+    <ellipse cx="256" cy="256" rx="196" ry="214" fill="url(#lg-silver)"/>
+    <ellipse cx="256" cy="256" rx="196" ry="214" fill="url(#lg-spek)"/>
+    <ellipse cx="256" cy="256" rx="196" ry="214" fill="none" stroke="#8a6a1c" stroke-width="3" opacity=".55"/>
+    <g filter="url(#lg-emb)" stroke="#ffffff" stroke-width="1.6" paint-order="stroke" fill="url(#lg-pur)">
+      <!-- متجر + خط بمعيّنتين في الوسط -->
+      <text x="256" y="112" text-anchor="middle" font-size="60" font-weight="bold">متجر</text>
+      <path d="M168 134h72M272 134h72" fill="none" stroke="url(#lg-pur)" stroke-width="4"/>
+      <path d="M250 128l8 8-8 8-8-8z" stroke="none"/><path d="M268 128l8 8-8 8-8-8z" stroke="none"/>
+      <!-- الشامل / المتعاهد + معيّن -->
+      <text x="104" y="286" text-anchor="middle" font-size="37" font-weight="bold">الشامل</text>
+      <path d="M62 302h84" fill="none" stroke="url(#lg-pur)" stroke-width="3"/>
+      <path d="M104 294l9 9-9 9-9-9z" stroke="none"/>
+      <text x="408" y="286" text-anchor="middle" font-size="37" font-weight="bold">المتعاهد</text>
+      <path d="M366 302h84" fill="none" stroke="url(#lg-pur)" stroke-width="3"/>
+      <path d="M408 294l9 9-9 9-9-9z" stroke="none"/>
+      <!-- يجمعنا + نقطتان وقوس ومعيّن -->
+      <circle cx="140" cy="382" r="7" stroke="none"/><circle cx="372" cy="382" r="7" stroke="none"/>
+      <path d="M154 382h30M328 382h30" fill="none" stroke="url(#lg-pur)" stroke-width="4"/>
+      <text x="256" y="402" text-anchor="middle" font-size="58" font-weight="bold">يجمعنا</text>
+      <path d="M180 420q38 26 76 0q38 26 76 0" fill="none" stroke="url(#lg-pur)" stroke-width="4"/>
+      <path d="M256 414l11 13-11 13-11-13z" stroke="none"/>
+      <!-- خط «هلا» الكاليغرافي: لهبة يسار + ألف + لام بسلطانية + حلقة الهاء Jewel -->
+      <path d="M130 204 C 112 252 116 294 140 324 C 148 334 148 344 142 354 C 160 342 164 318 154 296 C 144 272 138 238 142 208 Z" stroke="none"/>
+      <path d="M176 158 C 171 210 171 262 176 304 L 189 304 C 184 262 184 210 189 158 Z" stroke="none"/>
+      <path d="M215 146 C 208 200 206 254 213 298 C 216 320 210 334 197 344 C 221 342 236 326 236 300 C 236 250 231 196 227 146 Z" stroke="none"/>
+      <path d="M206 332 C 196 358 166 358 156 332 C 152 322 152 310 156 300 L 166 306 C 163 314 163 322 167 329 C 174 341 190 341 197 328 Z" stroke="none"/>
+      <path d="M262 208 C 257 182 268 160 290 148 C 285 176 278 196 272 212 Z" stroke="none"/>
+      <!-- الشخصية: رأس، ذراعان مرفوعتان، جذع -->
+      <circle cx="352" cy="204" r="13" stroke="none"/>
+      <path d="M341 238 C 332 226 328 214 328 202 L 336 200 C 337 210 341 220 348 230 Z" stroke="none"/>
+      <path d="M363 238 C 372 226 376 214 376 202 L 368 200 C 367 210 363 220 356 230 Z" stroke="none"/>
+      <path d="M352 224 C 344 252 342 274 348 298 L 352 282 L 356 298 C 362 274 360 252 352 224 Z" stroke="none"/>
+    </g>
+    <!-- قوسا الإشارة فوق الشخصية -->
+    <g filter="url(#lg-emb)" fill="none" stroke="url(#lg-pur)" stroke-linecap="round">
+      <path d="M316 178 C 336 138 396 130 430 158" stroke-width="12"/>
+      <path d="M328 198 C 344 168 390 162 414 182" stroke-width="12"/>
+    </g>
+    <!-- جوهرة H داخل حلقة الهاء -->
+    <circle cx="270" cy="258" r="54" fill="url(#lg-gem)" stroke="url(#lg-pur)" stroke-width="9" filter="url(#lg-emb)"/>
+    <text x="270" y="279" text-anchor="middle" font-size="56" font-style="italic" font-weight="bold" fill="url(#lg-pur)" font-family="Tahoma, Arial, sans-serif" filter="url(#lg-emb)">H</text>
+  </symbol>
+</svg>
+
+<header class="fixed top-0 inset-x-0 z-40 bg-[#331039] shadow-[0_10px_30px_-14px_rgba(36,11,40,.7)]">
+  <div class="h-16 flex items-center gap-2 px-3 sm:px-5 lg:px-8">
+    <a href="#" id="logoBtn" class="flex items-center gap-2 shrink-0" aria-label="سوق هلا للمناسبات ">
+      <span class="relative block w-14 h-14 sm:w-16 sm:h-16 shrink-0 drop-shadow-[0_6px_18px_rgba(212,175,55,.5)]" title="سوق هلا للمناسبات ">
+        <svg class="w-full h-full" viewBox="0 0 512 512" role="img" aria-label="شعار سوق هلا للمناسبات "><use href="#logoBadge"/></svg>
+        <img src="logo.png" alt="" class="absolute inset-0 w-full h-full object-contain" onerror="this.dataset.i=(+this.dataset.i||0)+1;var L=['logo.png','logo.jpg','logo.jpeg','logo.webp','logo.svg','شعار.png','الشعار.png','logo'];if((+this.dataset.i)<L.length)this.src=L[+this.dataset.i];else this.remove();">
+      </span>
+      <span class="leading-none">
+        <span class="font-display font-extrabold text-[13px] sm:text-lg text-[#f6e27a] block whitespace-nowrap">سوق هلا للمناسبات </span>
+        <span class="text-[8px] sm:text-[9px] tracking-[.12em] text-[#c9a86a] font-bold">للتأجير والبيع — صنعاء وضواحيها 🇾🇪</span>
+      </span>
+    </a>
+    <div class="flex-1 max-w-xl mx-auto flex items-stretch h-10 rounded-full overflow-hidden bg-white/10 ring-1 ring-white/15 focus-within:ring-[#f6e27a] transition">
+      <input id="q" type="search" placeholder="ابحث: مكسر، خيمة، ثريا، فستان، سيارة زفاف…" class="flex-1 px-4 text-sm outline-none bg-transparent text-white placeholder:text-[#c9a86a]">
+      <button id="qBtn" class="px-4 text-[#f6e27a] hover:bg-white/10 transition" aria-label="بحث"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </div>
+    <button id="installBtn" style="display:none" class="w-10 h-10 rounded-full ring-1 ring-white/20 text-[#f6e27a] hover:bg-white/10 items-center justify-center transition" title="تثبيت التطبيق" aria-label="تثبيت التطبيق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg></button>
+    <button id="cartBtn" class="relative w-10 h-10 rounded-full ring-1 ring-white/20 text-[#f6e27a] hover:bg-white/10 flex items-center justify-center transition" aria-label="سلة الحجز">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 4h2.2l2.5 11.5h11.3L21 8H6"/></svg>
+      <span id="cartCount" class="absolute -top-1 -end-1 min-w-5 h-5 px-1 rounded-full gold text-[#240b28] text-[10px] font-extrabold flex items-center justify-center hidden">0</span>
+    </button>
+    <button id="userBtn" class="w-10 h-10 rounded-full gold text-[#240b28] font-display font-extrabold flex items-center justify-center" aria-label="حسابي">ز</button>
+  </div>
+  <div class="px-3 sm:px-5 lg:px-8 pb-2.5 flex items-center gap-1.5 overflow-x-auto no-sb">
+    <div id="catPills" class="flex items-center gap-1.5"></div>
+    <span class="shrink-0 w-2"></span>
+    <select id="sortSel" class="h-8 rounded-full bg-white/10 ring-1 ring-white/15 text-[11px] font-bold text-[#f6e27a] px-2 outline-none shrink-0">
+      <option value="pop" class="text-[#241026]">الأكثر حجزًا</option>
+      <option value="rating" class="text-[#241026]">الأعلى تقييمًا</option>
+      <option value="asc" class="text-[#241026]">سعر التأجير: من الأقل</option>
+      <option value="desc" class="text-[#241026]">سعر التأجير: من الأعلى</option>
+    </select>
+  </div>
+  <!-- الشريط الثاني: المناسبات العائلية -->
+  <div class="px-3 sm:px-5 lg:px-8 pb-2.5 flex items-center gap-1.5 overflow-x-auto no-sb bg-[#240b28]/60">
+    <span class="shrink-0 text-[10px] font-extrabold text-[#f6e27a] bg-[#47194e] ring-1 ring-[#d4af37]/50 rounded-full px-3 py-2 flex items-center gap-1.5">👨‍👩‍👧👦 المناسبات العائلية</span>
+    <div id="famPills" class="flex items-center gap-1.5"></div>
+  </div>
+</header>
+
+<main class="relative z-10 pb-16 lg:pb-0">
+  <!-- ملف الخدمة الرئيسي (متصفح الأقسام والعروض) -->
+  <section id="serviceView" class="hidden max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-5 pb-10">
+    <div id="svCrumb" class="flex flex-wrap items-center gap-1.5 mb-4 text-[11px] font-extrabold"></div>
+    <div id="svBody"></div>
+  </section>
+  <!-- 1) المساحة الإعلانية الحصرية -->
+  <section class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+      <h1 class="font-display font-extrabold text-lg sm:text-2xl text-[#331039]">كل ما تحتاجه مناسبتك… <span class="gold-txt">إيجارًا أو بيعًا</span></h1>
+      <span class="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] font-extrabold text-[#240b28] gold rounded-full px-3 py-1.5">★ 4.8 · <b id="svcCount">96</b> عرضًا موثقًا · 🇾 صنعاء وضواحيها</span>
+    </div>
+    <div class="relative rounded-3xl overflow-hidden h-[280px] sm:h-[360px] plum-pat ring-1 ring-[#d4af37]/40 shadow-[0_24px_60px_-24px_rgba(36,11,40,.55)]">
+      <div id="adSlides" class="absolute inset-0"></div>
+      <span class="absolute top-3 start-3 z-20 text-[9.5px] font-extrabold bg-[#240b28]/85 text-[#f6e27a] rounded-full px-2.5 py-1 backdrop-blur ring-1 ring-[#d4af37]/40">📢 مساحة إعلانية حصرية — قطع جديدة وصلت</span>
+      <button id="adPrev" class="absolute top-1/2 -translate-y-1/2 start-2 z-20 w-9 h-9 rounded-full bg-black/35 text-[#f6e27a] backdrop-blur hover:bg-black/60 flex items-center justify-center transition" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m10 6 6 6-6 6"/></svg></button>
+      <button id="adNext" class="absolute top-1/2 -translate-y-1/2 end-2 z-20 w-9 h-9 rounded-full bg-black/35 text-[#f6e27a] backdrop-blur hover:bg-black/60 flex items-center justify-center transition" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m14 6-6 6 6 6"/></svg></button>
+      <div id="adDots" class="absolute bottom-3 inset-x-0 z-20 flex justify-center gap-1.5"></div>
+    </div>
+    <div class="flex flex-wrap gap-2.5 mt-3">
+      <button id="heroCta" class="h-11 px-6 rounded-full btn-gold gold-shine text-sm">احجز تجهيز مناسبتك الآن</button>
+      <button id="heroPkg" class="h-11 px-5 rounded-full bg-[#331039] text-[#f6e27a] text-xs font-extrabold hover:bg-[#47194e] transition">👑 باقات زفاف كاملة</button>
+    </div>
+    <p class="mt-3 inline-flex items-center gap-2 text-[10.5px] font-extrabold text-[#7a6b7c] bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-full px-4 py-2">🇾🇪 نطاق الخدمة (المرحلة الأولى): العاصمة اليمنية صنعاء وضواحيها فقط — داخل اليمن حصراً، ولسنا في السعودية أو أي دولة أخرى.</p>
+  </section>
+
+  <!-- 2) عرض الأسبوع -->
+  <section class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-8 rv"><div id="weekDeal"></div></section>
+
+  <!-- 3) الأقسام الرئيسية — شريط سحب -->
+  <section class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-8 rv">
+    <div class="flex items-center justify-between mb-4 gap-3">
+      <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>الأقسام الرئيسية — كل خدماتنا</h2>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="hidden md:inline text-[10px] font-extrabold text-[#9a8f9b]">↔ اسحب الشريط</span>
+        <button id="catPrev" class="w-9 h-9 rounded-full btn-ghost flex items-center justify-center" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m10 6 6 6-6 6"/></svg></button>
+        <button id="catNext" class="w-9 h-9 rounded-full btn-ghost flex items-center justify-center" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m14 6-6 6 6 6"/></svg></button>
+      </div>
+    </div>
+    <div id="catCards" class="flex gap-3 overflow-x-auto no-sb scroll-smooth pb-2 snap-x snap-mandatory cursor-grab active:cursor-grabbing"></div>
+  </section>
+
+  <!-- 4) جديد كل خدمة -->
+  <section class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-10">
+    <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] mb-5 flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>جديد خدماتنا — مساحة عرض لكل خدمة</h2>
+    <div id="catRails" class="space-y-9"></div>
+  </section>
+
+  <!-- قوائم الضيافة والمطاعم -->
+  <section id="menuSec" class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-12 rv">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>🍽 قوائم الضيافة والمطاعم والبوفيهات والكافيهات</h2>
+      <input id="menuQ" class="field h-10 w-full sm:w-64 text-xs" placeholder="ابحث باسم الصنف أو المكوّن…">
+    </div>
+    <p class="text-[10.5px] font-extrabold text-[#7a6b7c] bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-full px-4 py-2 inline-flex mb-4"> كل صنف بمكوناته ومميزاته وأنواعه · السعر حسب الاسم والنوع والكمية · قوائم موثقة بضمان الجودة</p>
+    <div id="menuKinds" class="flex gap-1.5 overflow-x-auto no-sb mb-4"></div>
+    <div id="menuBox" class="space-y-5"></div>
+  </section>
+
+  <!-- الكتالوج -->
+  <div class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-10">
+    <div id="resBar" class="hidden flex-wrap items-center justify-between gap-3 bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl px-4 py-3">
+      <p id="resText" class="text-xs sm:text-sm font-bold text-[#7a6b7c]"></p>
+      <button id="clearBtn" class="text-xs font-extrabold text-[#c03434] bg-[#c03434]/10 hover:bg-[#c03434] hover:text-white rounded-full px-3 py-1.5 transition">✕ مسح التصفية</button>
+    </div>
+  </div>
+  <div class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-4">
+    <div id="subBar" class="hidden bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl px-3 py-2.5 space-y-2"></div>
+  </div>
+  <section id="gridSec" class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>كل القطع والخدمات <span id="gridCount" class="text-[10px] font-extrabold gold text-[#240b28] rounded-full px-2.5 py-1">32</span></h2>
+      <button id="favOnlyBtn" class="flex items-center gap-1.5 text-[11px] font-extrabold text-[#7a6b7c] hover:text-[#c03434] transition"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 11c-1.8 4.4-9.3 9-9.3 9Z"/></svg> المفضلة</button>
+    </div>
+    <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5 sm:gap-4"></div>
+    <div id="emptyState" class="hidden text-center py-16">
+      <div class="mx-auto w-20 h-20 rounded-3xl bg-[#fffdf9] ring-1 ring-[#eadfd9] flex items-center justify-center text-3xl mb-4">🔎</div>
+      <h3 class="font-display font-extrabold text-lg mb-1">لا توجد نتائج مطابقة</h3>
+      <p class="text-xs text-[#7a6b7c] mb-5">جرّب كلمة أخرى أو أعد تعيين التصفية.</p>
+      <button id="emptyClear" class="h-10 px-6 rounded-full btn-plum text-xs font-extrabold">إعادة التعيين</button>
+    </div>
+  </section>
+
+  <!-- كيف يعمل -->
+  <section class="home-only max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-12 rv">
+    <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] mb-5 flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>كيف يعمل الحجز بالرغبات الثلاث؟</h2>
+    <div class="grid sm:grid-cols-3 gap-3.5">
+      <div class="relative rounded-2xl bg-[#fffdf9] ring-1 ring-[#eadfd9] p-5 overflow-hidden"><span class="absolute -top-3 -end-2 font-display font-extrabold text-7xl text-[#331039]/6">1</span><span class="text-2xl">🔍</span><h3 class="font-display font-extrabold text-base mt-2 mb-1">افتح القطعة وقارن العروض</h3><p class="text-[11.5px] text-[#7a6b7c] font-bold leading-6">لكل قطعة عدة عروض موثقة: صورة وفيديو ومواصفات وسعر تأجير ومبلغ تأمين — رتّب وقارن واختر الأنسب لك سعرًا وأداءً.</p></div>
+      <div class="relative rounded-2xl bg-[#fffdf9] ring-1 ring-[#eadfd9] p-5 overflow-hidden"><span class="absolute -top-3 -end-2 font-display font-extrabold text-7xl text-[#331039]/6">2</span><span class="text-2xl">🎯</span><h3 class="font-display font-extrabold text-base mt-2 mb-1">رتّب ثلاث رغبات بالاولوية</h3><p class="text-[11.5px] text-[#7a6b7c] font-bold leading-6">اختر الرغبة الاولى والثانية والثالثة من نفس القطعة — شرط اساسي لإتمام أي حجز لحماية موعد مناسبتك.</p></div>
+      <div class="relative rounded-2xl bg-[#fffdf9] ring-1 ring-[#eadfd9] p-5 overflow-hidden"><span class="absolute -top-3 -end-2 font-display font-extrabold text-7xl text-[#331039]/6">3</span><span class="text-2xl">🤝</span><h3 class="font-display font-extrabold text-base mt-2 mb-1">النظام يرشّح البديل تلقائيًا</h3><p class="text-[11.5px] text-[#7a6b7c] font-bold leading-6">اذا تعذرت الرغبة الاولى يُفعّل الثاني ثم الثالث فورًا، ونوصل ونركّب قبل الحفل بـ 4 ساعات ونستلم بعده.</p></div>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-1.5">
+      <span class="pill cursor-default">🛡 تأمين مسترجع بالكامل</span><span class="pill cursor-default">🧼 تعقيم قبل كل تسليم</span><span class="pill cursor-default">🔧 تركيب وتفكيك شامل</span><span class="pill cursor-default">⚡ استبدال فوري عند أي عطل</span><span class="pill cursor-default">🌙 توصيل ليلي حتى 2 صباحًا</span><span class="pill cursor-default">🇾 المرحلة الأولى: صنعاء وضواحيها فقط</span><span class="pill cursor-default">🗓 كل القطع: تأجير أو بيع</span>
+    </div>
+  </section>
+
+  <!-- PWA -->
+  <section class="max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-10 rv">
+    <div class="rounded-3xl plum-pat text-white p-6 sm:p-8 grid lg:grid-cols-[1.2fr_1fr] gap-7 items-center">
+      <div>
+        <p class="text-[10px] tracking-[.3em] font-extrabold text-[#f6e27a] mb-2">تطبيق ويب تقدّمي PWA</p>
+        <h2 class="font-display font-extrabold text-xl sm:text-2xl mb-2">متجرك يعمل على جميع أنظمتك وأجهزتك</h2>
+        <p class="text-white/75 text-xs sm:text-sm font-bold leading-6 mb-4">ثبّت «هلا المتعاهد الشامل» كتطبيق مستقل على جوالك أو حاسوبك، واحتفظ بكتالوج الحجوزات والمفضلة حتى بدون إنترنت — أو ضمّن المتجر داخل موقعك بكود واحد.</p>
+        <div class="flex flex-wrap gap-1.5 text-[10.5px] font-extrabold">
+          <span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">📱 أندرويد</span><span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">🍎 iOS</span><span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">🪟 ويندوز</span><span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">💻 macOS</span><span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">📺 تلفاز ذكي</span><span class="bg-white/10 ring-1 ring-white/15 rounded-full px-3 py-1.5">🌐 كل المتصفحات</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <button id="installBtn2" class="h-12 rounded-xl btn-gold gold-shine text-sm font-display font-extrabold">⬇️ تثبيت التطبيق الآن</button>
+        <button id="iosGuideBtn" class="h-11 rounded-xl bg-white/10 ring-1 ring-white/20 text-xs font-extrabold hover:bg-white/20 transition">🍎 دليل التثبيت على آيفون وآيباد</button>
+        <button id="embedBtn" class="h-11 rounded-xl bg-white/10 ring-1 ring-white/20 text-xs font-extrabold hover:bg-white/20 transition">&lt;/&gt; انسخ كود التضمين لموقعك</button>
+        <p id="pwaState" class="text-[10.5px] text-white/60 text-center">جارٍ فحص دعم التطبيق على متصفحك…</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-12 bg-[#240b28] text-white px-4 sm:px-6 lg:px-10 py-10">
+    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-3">
+          <span class="relative block w-14 h-14 shrink-0 drop-shadow-[0_6px_18px_rgba(212,175,55,.5)]">
+            <svg class="w-full h-full" viewBox="0 0 512 512" role="img" aria-label="شعار سوق هلا للمناسبات "><use href="#logoBadge"/></svg>
+            <img src="logo.png" alt="" class="absolute inset-0 w-full h-full object-contain" onerror="this.dataset.i=(+this.dataset.i||0)+1;var L=['logo.png','logo.jpg','logo.jpeg','logo.webp','logo.svg','شعار.png','الشعار.png','logo'];if((+this.dataset.i)<L.length)this.src=L[+this.dataset.i];else this.remove();">
+          </span>
+          <span class="font-display font-extrabold text-lg text-[#f6e27a]">سوق هلا للمناسبات </span>
+        </div>
+        <p class="text-[11.5px] text-white/65 font-bold leading-6">تأجير وبيع مستلزمات الأفراح والأعراس والحفلات والمناسبات والفعاليات في العاصمة اليمنية صنعاء وضواحيها (المرحلة الأولى): لكل قطعة عروض موثقة متعددة بمواصفات وأسعار تأجير وتأمين، بنظام الرغبات الثلاث لحماية موعد مناسبتك.</p>
+      </div>
+      <div><p class="font-display font-bold text-sm text-[#f6e27a] mb-3">الأقسام</p><div id="footCats" class="space-y-1.5"></div></div>
+      <div><p class="font-display font-bold text-sm text-[#f6e27a] mb-3">خدمات العميل</p>
+        <div class="space-y-1.5 text-[11.5px] font-bold text-white/65">
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="chat">💬 الدعم الفوري 24/7</button>
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:التأمين يُعاد خلال 48 ساعة من الاستلام 🛡"> سياسة التأمين المسترجع</button>
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:الإلغاء مجاني حتى 72 ساعة قبل المناسبة">↩️ إلغاء وتعديل الحجوزات</button>
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:المرحلة الأولى: العاصمة صنعاء وضواحيها فقط 🇾 — توصيل ليلي حتى 2 صباحًا">🚚 مناطق التغطية والتوصيل</button>
+        </div>
+      </div>
+      <div><p class="font-display font-bold text-sm text-[#f6e27a] mb-3">للمحلات والموردين</p>
+        <div class="space-y-1.5 text-[11.5px] font-bold text-white/65">
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:انضم كمحل موثق: ارفع صور وفيديو وموصفات وأسعار قطعك — بدون ظهور اسمك">🏪 انضم كمحل موثق</button>
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:بوابة المزود تُفتح بعد توثيق السجل التجاري">🛡 بوابة رفع القطع والأسعار</button>
+          <button class="flink block hover:text-[#f6e27a] transition" data-act="toast:تسوية أرباح أسبوعية تلقائية لحساب المنشأة">💳 تسوية الأرباح</button>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10.5px] text-white/50 font-bold">
+      <span>© 2026 سوق هلا للمناسبات  — أمانة العاصمة صنعاء · الأسعار بالريال اليمني</span>
+      <span>صُنع بحب لكل مناسباتكم ♥</span>
+    </div>
+  </footer>
+</main>
+
+<nav id="bottomNav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#331039] border-t border-white/10 flex">
+  <button class="navb on" data-nav="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>الرئيسية</button>
+  <button class="navb" data-nav="cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 4h2.2l2.5 11.5h11.3L21 8H6"/></svg>سلة الحجز</button>
+  <button class="navb" data-nav="fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 11c-1.8 4.4-9.3 9-9.3 9Z"/></svg>المفضلة</button>
+  <button class="navb" data-nav="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/></svg>الدعم</button>
+  <button class="navb" data-nav="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>حسابي</button>
+</nav>
+
+<div id="cartBackdrop" class="fixed inset-0 bg-black/55 backdrop-blur-sm z-40 hidden"></div>
+<aside id="cartDrawer" class="fixed inset-y-0 end-0 w-[min(430px,94vw)] z-50 bg-[#f6f2ec] shadow-2xl transition-transform duration-300 flex flex-col" style="transform:translateX(-102%)">
+  <div class="h-16 shrink-0 flex items-center justify-between px-5 bg-[#331039] text-white">
+    <h3 class="font-display font-extrabold text-lg flex items-center gap-2 text-[#f6e27a]">سلة الحجز <span id="cartLines" class="text-[11px] gold text-[#240b28] rounded-full px-2 py-0.5 font-extrabold">0</span></h3>
+    <button id="cartClose" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div id="cartBody" class="flex-1 overflow-y-auto px-4 py-4 space-y-3"></div>
+  <div id="cartFoot" class="shrink-0 bg-[#fffdf9] border-t border-[#eadfd9] p-4 space-y-2"></div>
+</aside>
+
+<div id="modal" class="fixed inset-0 z-[60] hidden">
+  <div id="modalBackdrop" class="absolute inset-0 bg-black/65 backdrop-blur-sm"></div>
+  <div class="relative h-full overflow-y-auto no-sb flex items-start justify-center p-3 sm:p-8">
+    <div id="modalPanel" class="relative w-[min(880px,96vw)] rounded-3xl bg-[#fffdf9] ring-1 ring-[#eadfd9] shadow-2xl overflow-hidden"></div>
+  </div>
+</div>
+
+<button id="chatFab" class="fixed bottom-20 lg:bottom-6 start-4 z-40 w-14 h-14 rounded-2xl btn-plum shadow-[0_18px_40px_-12px_rgba(51,16,57,.7)] flex items-center justify-center text-2xl" aria-label="الدعم الفوري">💬</button>
+<div id="chatPanel" class="fixed bottom-36 lg:bottom-24 start-4 z-40 w-[min(350px,92vw)] h-[420px] bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl shadow-2xl flex-col overflow-hidden hidden">
+  <div class="p-3 bg-[#331039] text-white flex items-center gap-2 shrink-0">
+    <span class="w-9 h-9 rounded-full gold flex items-center justify-center text-base">🎧</span>
+    <div class="flex-1"><p class="font-display font-extrabold text-sm text-[#f6e27a]">دعم متجر هلا المتعاهد</p><p class="text-[10px] text-[#7ee2b8] font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#7ee2b8] animate-pulse"></span> متصل — يرد فورًا</p></div>
+    <button id="chatClose" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div id="chatBody" class="flex-1 overflow-y-auto no-sb p-3 space-y-2 bg-[#f6f2ec]"></div>
+  <div id="chatQuick" class="p-2 flex gap-1.5 overflow-x-auto no-sb bg-[#fffdf9] border-t border-[#eadfd9] shrink-0"></div>
+  <div class="p-2 flex gap-2 bg-[#fffdf9] border-t border-[#eadfd9] shrink-0">
+    <input id="chatIn" class="field h-10 text-xs" placeholder="اكتب رسالتك…">
+    <button id="chatSend" class="w-10 h-10 rounded-xl btn-plum flex items-center justify-center shrink-0" aria-label="إرسال"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 rotate-180"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+
+<div id="toasts" class="fixed bottom-16 lg:bottom-5 inset-x-0 z-[70] flex flex-col items-center gap-2 pointer-events-none px-4"></div>
+
+<script>
+/* ============ DATA: قطع × عروض موثقة (بدون أسماء محلات) ============ */
+const P=id=>`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200`;
+const S=id=>`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`;
+const CATS=["الكل","قاعات ومنصات","كوش وتجهيزات زفاف","ملبوسات وأزياء","خيام وفعاليات خارجية","إضاءة وثريات","صوتيات وDJ","طاولات وكراسي","ضيافة وبوفيه","ديكور وزهور","سيارات الزفاف","مؤتمرات وفعاليات"];
+/* الشريط الثاني: خدمات المناسبات العائلية والنسائية الخاصة والعامة */
+const FAM=["شاليهات ومزارع","فنانات","مصورات","وجبات","جاتوهات","مشروبات","حارسات","مضيفات","اجهزة المناسبات","عربة البخور والعطور","توزيعات","ميكاب ارتست","مسكات ورد","فساتين افراح"];
+/* كل عرض: [صورة, سعر التأجير/يوم, التأمين, الحالة, المواصفات والمميزات, متاح 1/0, التقييم, فيديو 1/0] */
+const PIECES=[
+{id:"h1",cat:"قاعات ومنصات",n:"قاعة أعراس ملكية — 400 ضيف",d:"2026-02-14",of:[[P(30311728),450000,200000,"ممتازة","ثريات كريستال · مواقف خاصة · تكييف مركزي",1,4.9,1],[P(14646749),390000,150000,"ممتازة","مسرح زفة مدمج · إنارة ذكية · غرفة عرسين",1,4.7,0],[P(4717550),330000,120000,"جيدة جدًا","استقبال خارجي · جلسات عربية · مطبخ مجهز",0,4.6,1]]},
+{id:"h2",cat:"قاعات ومنصات",n:"مسرح زفة بدرج ومرايا",of:[[P(12688995),120000,40000,"جديدة","درج مرايا 6 درجات · إنارة أرضية LED",1,4.8,1],[P(14646749),95000,35000,"ممتازة","مقاس 3×6 م · LED جانبي · دخان خفيف",1,4.7,0],[P(30311728),85000,30000,"جيدة جدًا","مع جهاز دخان · تركيب شامل",1,4.5,0]]},
+{id:"k1",cat:"كوش وتجهيزات زفاف",n:"كوشة زفاف معلقة بالزهور",d:"2026-02-12",of:[[P(12024178),260000,80000,"جديدة","ورد طبيعي · ثريات معلقة · قاعدة ذهبية",1,4.9,1],[P(30270802),220000,70000,"ممتازة","جلسة عرسين · طاولة توقيع دفتر",1,4.8,0],[P(30709483),180000,60000,"جيدة جدًا","أحزمة ذهبية · إضاءة دافئة",1,4.6,0]]},
+{id:"k2",cat:"كوش وتجهيزات زفاف",n:"كوشة خطوبة وجلس أرضي",of:[[P(30709483),90000,30000,"جديدة","جلس أرضي مطرز · مسند ظهر · طاولة جانبية",1,4.8,0],[P(4451667),75000,25000,"ممتازة","5 مقاعد · قماش مخمل",1,4.7,1],[P(33388550),65000,20000,"جيدة جدًا","قابل للغسل · ألوان متعددة",1,4.5,0]]},
+{id:"k3",cat:"كوش وتجهيزات زفاف",n:"كوشة عيد ميلاد وطاولة كيكة",d:"2026-02-16",of:[[P(32191351),60000,20000,"جديدة","طاولة مضيئة · قوس بالونات · حروف اسم",1,4.7,1],[P(18004471),50000,15000,"ممتازة","حروف قابلة للتخصيص · إضاءة نجوم",1,4.6,0],[P(14399952),40000,12000,"جيدة جدًا","جلسة أطفال · ألوان مرحة",1,4.5,0]]},
+{id:"w1",cat:"ملبوسات وأزياء",n:"فستان زفاف ملكي بذيل",d:"2026-02-15",of:[[S(12498665),180000,60000,"جديد","ذيل طويل · طرحة وتاج · تعديل مقاس مجاني",1,4.9,1],[S(12498664),150000,50000,"ممتاز","ساتان فاخر · مقاسات 38-44",1,4.8,0],[S(35590374),120000,40000,"جيد جدًا","مع تنظيف قبل التسليم",1,4.6,0]]},
+{id:"w2",cat:"ملبوسات وأزياء",n:"بدلة عريس فاخرة",of:[[S(18695458),60000,25000,"جديدة","قص تركي · قميص وربطة وجيب",1,4.8,1],[S(15866461),50000,20000,"ممتازة","مقاسات 48-56 · كي بالبخار",1,4.7,0],[S(3613388),42000,15000,"جيدة جدًا","مع حزام وحذاء مطابق",1,4.5,0]]},
+{id:"w3",cat:"ملبوسات وأزياء",n:"فستان سهرة مطرز",of:[[S(18149119),55000,20000,"جديد","تطريز يدوي · مقاسات متعددة",1,4.8,0],[S(19198604),45000,15000,"ممتاز","مع شال مطابق",1,4.7,1],[S(38652623),38000,12000,"جيد جدًا","حزام خصر قابل للتعديل",1,4.5,0]]},
+{id:"x1",cat:"خيام وفعاليات خارجية",n:"خيمة أفراح 10×15 م",of:[[P(28937190),320000,120000,"جديدة","أرضيات + إنارة + تكييف · 200 ضيف",1,4.8,1],[P(29093819),280000,100000,"ممتازة","سجاد + كراسي معلقة · 170 ضيف",1,4.7,0],[P(19024675),240000,90000,"جيدة جدًا","150 ضيف · ستائر جانبية",1,4.6,0]]},
+{id:"x2",cat:"خيام وفعاليات خارجية",n:"خيمة مجلس رجال مطرزة",d:"2026-02-06",of:[[S(4451667),150000,50000,"جديدة","تطريز تراثي · سجاد ووسائد",1,4.8,0],[S(33388550),130000,45000,"ممتازة","8×12 م · مدخل مزدوج",1,4.7,1],[P(28937190),110000,40000,"جيدة جدًا","إنارة جانبية دافئة",1,4.5,0]]},
+{id:"x3",cat:"خيام وفعاليات خارجية",n:"مظلات وسواتر مواقف",of:[[P(34357888),35000,15000,"جديدة","10 وحدات · قماش مقاوم للحريق",1,4.6,0],[P(37958066),30000,12000,"ممتازة","8 وحدات · تثبيت بالأوزان",1,4.5,0],[P(29093819),26000,10000,"جيدة جدًا","6 وحدات · فك وتركيب شامل",1,4.4,0]]},
+{id:"l1",cat:"إضاءة وثريات",n:"ثريا كريستال معلقة",of:[[P(12688995),90000,40000,"جديدة","طقم 3 · تحكم عن بعد · تركيب بالسقالة",1,4.9,1],[P(30311728),75000,35000,"ممتازة","طقم 2 · كريستال مصري",1,4.7,0],[P(14646749),60000,30000,"جيدة جدًا","فردة كبيرة · قاعدة أمان",1,4.6,0]]},
+{id:"l2",cat:"إضاءة وثريات",n:"إنارة سقف نجوم LED",d:"2026-02-04",of:[[P(426976),120000,50000,"جديدة","تغطية 200 م² · إنارة معمارية",1,4.8,1],[S(12379594),100000,40000,"ممتازة","تغطية 150 م² · ألوان RGB",1,4.7,0],[S(12579758),80000,35000,"جيدة جدًا","تغطية 100 م² · أبيض دافئ",1,4.5,0]]},
+{id:"l3",cat:"إضاءة وثريات",n:"عقود إنارة ممرات وحدائق",of:[[S(12579758),45000,20000,"جديدة","50 م · لون دافئ · مقاومة للمطر",1,4.7,0],[S(18751037),38000,15000,"ممتازة","40 م · مع أوتاد تثبيت",1,4.6,0],[S(33180700),30000,12000,"جيدة جدًا","30 م · بطارية احتياطية",1,4.4,0]]},
+{id:"s1",cat:"صوتيات وDJ",n:"مكسر دي جي",d:"2026-02-11",of:[[S(14517352),110000,40000,"جديد","4 قنوات · مؤثرات مدمجة · شاشة لمس",1,4.8,1],[S(14745818),95000,35000,"ممتاز","3 قنوات + حامل معدني",1,4.7,1],[S(12379594),80000,30000,"جيد جدًا","مع فني مرافق طوال الحفل",0,4.5,0]]},
+{id:"s2",cat:"صوتيات وDJ",n:"نظام صوتي حفلات 4000 واط",of:[[S(14517351),140000,60000,"جديد","4000 واط · 4 مايكات لاسلكية · صب ووفر",1,4.8,1],[S(34237444),120000,50000,"ممتاز","3000 واط · تغطية 300 ضيف",1,4.7,0],[P(426976),100000,40000,"جيد جدًا","2500 واط · تغطية خارجية",1,4.6,0]]},
+{id:"s3",cat:"صوتيات وDJ",n:"دي جي محترف مع إضاءة ليزر",of:[[S(34237444),190000,0,"مع مشغل","ليزر + دخان ثقيل · مكتبة زفة يمنية",1,4.9,1],[S(14517352),160000,0,"مع مشغل","طلبات أغاني مسبقة · إضاءة مسرح",1,4.8,0],[S(12379594),140000,0,"مع مشغل","ثنائي دي جي + منسق أجواء",1,4.7,0]]},
+{id:"s4",cat:"صوتيات وDJ",n:"ميكروفونات لاسلكية للمنشدين",of:[[S(14517351),15000,6000,"جديد","طقم 4 · مدى 60 م · بطاريات 8 ساعات",1,4.7,0],[S(14745818),12000,5000,"ممتاز","طقم 2 · مضاد للتشويش",1,4.6,0],[S(12379594),10000,4000,"جيد جدًا","فردة + حامل أرضي",1,4.4,0]]},
+{id:"c1",cat:"طاولات وكراسي",n:"كراسي كيافاري ذهبية",of:[[S(30137571),80000,30000,"جديدة","100 كرسي · فيونكة ساتان · وسادة",1,4.8,0],[S(28937080),70000,25000,"ممتازة","80 كرسي · ذهب مطفي",1,4.7,0],[P(34357888),60000,20000,"جيدة جدًا","60 كرسي · فضي لامع",1,4.5,0]]},
+{id:"c2",cat:"طاولات وكراسي",n:"طاولات مستديرة بمفارش فاخرة",of:[[S(28937080),70000,30000,"جديدة","10 طاولات · مفرش ساتان + رانر",1,4.7,0],[S(30137571),60000,25000,"ممتازة","8 طاولات · مفارش بيضاء وذهبية",1,4.6,0],[S(22696775),50000,20000,"جيدة جدًا","6 طاولات · كي ونظافة شاملة",1,4.4,0]]},
+{id:"c3",cat:"طاولات وكراسي",n:"جلسات عربية أرضية مريحة",d:"2026-02-09",of:[[S(33388550),40000,15000,"جديدة","20 مقعد · طاولات منخفضة · سجاد",1,4.8,1],[S(4451667),35000,12000,"ممتازة","15 مقعد · مساند ظهر",1,4.6,0],[P(34357888),30000,10000,"جيدة جدًا","10 مقاعد · ألوان تراثية",1,4.4,0]]},
+{id:"b1",cat:"ضيافة وبوفيه",n:"بوفيه ستانلس بمحطات ساخنة",of:[[S(8696465),160000,60000,"جديد","6 محطات · شوافات + عصارات",1,4.8,1],[S(37106473),140000,50000,"ممتاز","4 محطات · أطقم تقديم",1,4.7,0],[P(14646752),120000,45000,"جيد جدًا","3 محطات + ركن مشروبات",1,4.5,0]]},
+{id:"b2",cat:"ضيافة وبوفيه",n:"دلال قهوة وعدة مجلس ضيافة",of:[[S(10899594),25000,10000,"جديدة","30 ضيف · صواني نحاس · مباخر",1,4.8,0],[S(30709483),22000,8000,"ممتازة","طقم شاي ذهبي · كؤوس كريستال",1,4.7,1],[S(24206903),18000,6000,"جيدة جدًا","20 ضيف · مع مناديل ومفارش",1,4.5,0]]},
+{id:"b3",cat:"ضيافة وبوفيه",n:"عربة مشروبات مع مقدم",d:"2026-02-13",of:[[S(34270746),35000,0,"مع مقدم","مشروبات ساخنة · خدمة مسائية 6 ساعات",1,4.7,0],[S(8696465),30000,0,"مع مقدم","عصائر وغازيات · ثلج وأكواب",1,4.6,0],[S(10899594),26000,0,"خدمة ذاتية","قهوة وشاي · محطات ذاتية",1,4.4,0]]},
+{id:"d1",cat:"ديكور وزهور",n:"تنسيقات زهور طاولات",of:[[S(6288222),130000,0,"طازجة","20 تنسيق · ورد طبيعي مستورد",1,4.9,1],[S(30593531),110000,0,"طازجة","15 تنسيق · ألوان حسب الطلب",1,4.7,0],[S(30270802),90000,0,"صناعي فاخر","20 تنسيق · قابل للإبقاء هدية",1,4.5,0]]},
+{id:"d2",cat:"ديكور وزهور",n:"بوابة ورود مدخل القاعة",of:[[S(30593531),110000,0,"جديدة","3×3 م · إضاءة مخفية · ممر أحمر",1,4.8,0],[S(6288222),95000,0,"ممتازة","2.5×3 م · ورد موسمي",1,4.7,0],[S(30270802),80000,0,"جيدة جدًا","مع أعمدة إنارة جانبية",1,4.5,0]]},
+{id:"d3",cat:"ديكور وزهور",n:"قوس بالونات احتفالي",d:"2026-02-07",of:[[S(18004471),30000,0,"جديد","ألوان مخصصة · ارتفاع 2.5 م",1,4.6,0],[S(18526276),26000,0,"ممتاز","مع حروف مضيئة",1,4.5,1],[S(14399952),22000,0,"جيد جدًا","مقاس قياسي · تركيب سريع",1,4.4,0]]},
+{id:"a1",cat:"سيارات الزفاف",n:"سيارة زفاف مع سائق وتزيين",of:[[P(29061778),240000,0,"جديدة","مرسيدس S · تزيين ورد طبيعي",1,4.9,1],[P(37380414),200000,0,"ممتازة","كلاسيك فاخرة · سائق بزي رسمي",1,4.8,0],[P(20297470),180000,0,"جيدة جدًا","زفة ليلية · إضاءة داخلية",1,4.6,0]]},
+{id:"a2",cat:"سيارات الزفاف",n:"موكب زفة 3 سيارات فارهة",of:[[P(20297470),540000,0,"جديدة","3 فارهات منسقة · اتصال لاسلكي",1,4.8,0],[P(29061778),480000,0,"ممتازة","سيارتان + دراجة تصوير",1,4.7,1],[P(17614050),420000,0,"جيدة جدًا","سيارتان · سائقان",1,4.5,0]]},
+{id:"a3",cat:"سيارات الزفاف",n:"باص VIP لنقل الضيوف",d:"2026-01-27",of:[[P(20297470),80000,0,"جديد","30 مقعد · تكييف · ستائر",1,4.7,0],[P(37380424),70000,0,"ممتاز","25 مقعد · مضيف مرافق",1,4.6,0],[P(17614050),60000,0,"جيد جدًا","20 مقعد · نقطتا تحميل",1,4.4,0]]},
+{id:"m1",cat:"مؤتمرات وفعاليات",n:"طقم مؤتمرات: كراسي وتسجيل",of:[[S(6602623),45000,15000,"جديد","50 مقعد · منضدة تسجيل · لوح",1,4.6,0],[S(22696775),40000,12000,"ممتاز","30 مقعد · طاولات صفوف",1,4.5,0],[S(8967722),35000,10000,"جيدة جدًا","20 مقعد · ألوان شركات",1,4.4,0]]},
+{id:"m2",cat:"مؤتمرات وفعاليات",n:"أجنحة معرض بهوية وإنارة",d:"2026-02-14",of:[[S(8967722),90000,30000,"جديدة","4 أجنحة · إنارة وهوية مطبوعة",1,4.7,1],[S(22696775),75000,25000,"ممتازة","3 أجنحة · كاونتر استقبال",1,4.6,0],[S(6602623),60000,20000,"جيدة جدًا","جناحان · تخزين عينات",1,4.4,0]]},
+{id:"w4",cat:"ملبوسات وأزياء",n:"فستان أطفال مناسبات",of:[[S(14399952),25000,10000,"جديد","فستان أميرة · إكسسوار شعر",1,4.7,0],[S(18526276),20000,8000,"ممتاز","مقاسات 4-10 سنوات",1,4.6,0],[S(32191351),16000,6000,"جيد جدًا","مع حذاء مطابق",1,4.4,0]]},
+{id:"x4",cat:"خيام وفعاليات خارجية",n:"جلسات ومفروشات أرضية تحت الخيام",of:[[S(33388550),45000,15000,"جديدة","20 مقعد مفروش · سجاد وفاخر",1,4.7,0],[S(4451667),38000,12000,"ممتازة","15 مقعد · مساند ظهر",1,4.6,0],[P(19024675),32000,10000,"جيدة جدًا","10 مقاعد · طاولات منخفضة",1,4.4,0]]},
+{id:"x5",cat:"خيام وفعاليات خارجية",n:"إنارة خيام خارجية وزينة",of:[[P(426976),40000,15000,"جديدة","عقود نجوم لسقف الخيمة",1,4.7,1],[S(12579758),32000,12000,"ممتازة","عقود جانبية دافئة",1,4.6,0],[S(18751037),26000,10000,"جيدة جدًا","فوانيس أرضية",1,4.4,0]]},
+{id:"x6",cat:"خيام وفعاليات خارجية",n:"منصة أعراس خارجية تحت الخيام",of:[[P(12688995),95000,35000,"جديدة","منصة 4×6 م بدرج ذهبي",1,4.7,0],[P(14646749),80000,30000,"ممتازة","منصة 3×5 م",1,4.6,0],[P(30311728),70000,25000,"جيدة جدًا","منصة مع درابزين ذهبي",1,4.4,0]]},
+/* خدمات خاصة لجميع المناسبات النسائية الخاصة والعامة */
+{id:"sha1",w:1,cat:"شاليهات ومزارع",n:"شاليه ومزرعة للاحتفالات العائلية",of:[[P(29093819),150000,50000,"ممتازة","مسبح وجلسة خارجية · 60 ضيف",1,4.7,0],[P(34357888),120000,40000,"جيدة جدًا","حديقة وملاعب أطفال",1,4.6,0],[P(37958066),95000,30000,"جيدة","جلسات تراثية",1,4.4,0]]},
+{id:"fan1",w:1,cat:"فنانات",n:"طقم فنانات زفة ودوزان",of:[[S(34237444),180000,0,"مع فرقة","زفة كاملة 3 ساعات",1,4.8,1],[S(18149119),150000,0,"ثنائي","دوزان وعدة زفة",1,4.7,0],[S(19198604),120000,0,"فنانة واحدة","ساعتان",1,4.5,0]]},
+{id:"mus1",w:1,cat:"مصورات",n:"مصورة مناسبات نسائية محترفة",of:[[S(11478423),90000,0,"ممتازة","تغطية 4 ساعات + 80 لقطة معدلة",1,4.8,1],[S(31325258),75000,0,"جيدة جدًا","3 ساعات + فيديو ريلز",1,4.7,0],[S(28859304),60000,0,"جيدة","ساعتان",1,4.5,0]]},
+{id:"waj1",w:1,cat:"وجبات",n:"وجبات مناسبات (مندي وكبسة وبوفيه)",of:[[S(8696465),12000,0,"طازجة","وجبة كاملة لكل ضيف",1,4.8,0],[S(37106473),9000,0,"طازجة","نصف وجبة + مقبلات",1,4.7,0],[S(19824910),7000,0,"طازجة","وجبة اقتصادية",1,4.5,0]]},
+{id:"gat1",w:1,cat:"جاتوهات",n:"جاتوه مناسبات مطبوع بالاسم",of:[[S(32191351),35000,0,"طازج","3 طبقات · طباعة صورة",1,4.8,0],[S(24206903),25000,0,"طازج","طبقتان",1,4.7,0],[S(33180700),18000,0,"طازج","طبقة واحدة",1,4.6,0]]},
+{id:"shr1",w:1,cat:"مشروبات",n:"مشروبات وعصائر باردة وساخنة",of:[[S(34270746),6000,0,"طازجة","لتر عصير طبيعي",1,4.7,0],[S(10899594),1200,0,"طازجة","قهوة/شاي لكل ضيف",1,4.6,0],[S(30709483),25000,0,"محطة","ركن مشروبات لـ50 ضيف",1,4.7,0]]},
+{id:"har1",w:1,cat:"حارسات",n:"حارسات أمن للمناسبات النسائية",of:[[S(10187239),45000,0,"مدربة","حارسة 6 ساعات",1,4.7,0],[S(14010095),40000,0,"مدربة","حارسة 4 ساعات",1,4.6,0],[S(36668710),80000,0,"طاقم","طاقم 3 حارسات",1,4.8,0]]},
+{id:"day1",w:1,cat:"مضيفات",n:"مضيفات استقبال وضيافة",of:[[S(14010095),35000,0,"بزي موحد","مضيفة 6 ساعات",1,4.7,0],[S(10187239),30000,0,"بزي موحد","مضيفة 4 ساعات",1,4.6,0],[S(30695962),60000,0,"طاقم","مضيفتان + مشرفة",1,4.8,0]]},
+{id:"dev1",w:1,cat:"اجهزة المناسبات",n:"أجهزة مناسبات: شاشات وإضاءة ودخان",of:[[S(14517352),55000,20000,"جديدة","شاشة LED + ستاند",1,4.7,0],[S(12379594),35000,15000,"ممتازة","إضاءة مؤثرات",1,4.6,0],[S(426976),25000,10000,"ممتازة","جهاز دخان ثقيل",1,4.7,0]]},
+{id:"buk1",w:1,cat:"عربة البخور والعطور",n:"عربة بخور وعطور للضيوف",of:[[S(35976902),30000,0,"فاخرة","عود ومعطرات لكل ضيفة",1,4.8,0],[S(19117855),25000,0,"فاخرة","بخور ملكي",1,4.7,0],[S(18751037),18000,0,"جيدة","تشكيلة معطرات",1,4.6,0]]},
+{id:"taw1",w:1,cat:"توزيعات",n:"توزيعات مناسبات لهدايا الضيوف",of:[[S(19117855),1500,0,"مغلفة","قطعة فاخرة بالاسم",1,4.7,0],[S(33180700),1000,0,"مغلفة","قطعة وسط",1,4.6,0],[S(14211426),700,0,"مغلفة","قطعة اقتصادية",1,4.5,0]]},
+{id:"mak1",w:1,cat:"ميكاب ارتست",n:"ميكاب ارتست للعروس والضيوف",of:[[S(35976902),80000,0,"محترفة","مكياج عروس كامل",1,4.9,1],[S(14010095),45000,0,"محترفة","مكياج سهرة",1,4.7,0],[S(18149119),30000,0,"جيدة جدًا","مكياج ضيفة",1,4.6,0]]},
+{id:"mas1",w:1,cat:"مسكات ورد",n:"مسكات ورد للعروس والوصيفات",of:[[S(6288222),25000,0,"طازج","مسك عروس طبيعي",1,4.8,0],[S(30593531),15000,0,"طازج","مسك وصيفة",1,4.7,0],[S(30270802),35000,0,"فاخر","مسك + تاج ورد",1,4.8,0]]},
+{id:"fas1",w:1,cat:"فساتين افراح",n:"فساتين افراح للعروس والضيوف",of:[[S(12498665),180000,60000,"جديد","فستان عروس ملكي",1,4.9,0],[S(12498664),120000,40000,"ممتاز","فستان خطوبة",1,4.7,0],[S(35590374),60000,20000,"ممتاز","فستان ضيفة",1,4.6,0]]}
+];
+/* التسلسل الشجري: خدمة رئيسية › قسم فرعي › قسم ثانوي */
+const PATH={
+h1:["قاعات أعراس مغلقة","قاعات 400+ ضيف"],h2:["منصات ومسارح الزفة","مسارح بدرج ومرايا"],
+k1:["كوش الزفاف","كوش معلقة"],k2:["كوش المناسبات الأخرى","كوش خطوبة"],k3:["كوش المناسبات الأخرى","كوش أعياد ميلاد"],
+w1:["أزياء العرسين","فساتين زفاف"],w2:["أزياء العرسين","بدلات عرسان"],w3:["أزياء الضيوف والأطفال","فساتين سهرة"],w4:["أزياء الضيوف والأطفال","أزياء أطفال"],
+x1:["خيام الأفراح الكبيرة","خيام 200 ضيف"],x2:["تأجير المجالس والمفروشات","خيام مجالس رجال"],x3:["الزينة والديكور","سواتر ومظلات"],x4:["تأجير المجالس والمفروشات","جلسات ومفروشات أرضية"],x5:["الإضاءة والزينة","إنارة خيام خارجية"],x6:["الكوش ومنصات الأعراس","منصات أعراس خارجية"],
+l1:["ثريات معلقات","ثريات كريستال"],l2:["إضاءة معمارية وسقوف","سقوف نجوم LED"],l3:["إضاءة ممرات وزينة","عقود إنارة"],
+s1:["معدات الصوت","مكسرات دي جي"],s2:["معدات الصوت","أنظمة صوتية"],s3:["مشغلات ودي جي","دي جي مع مشغل"],s4:["مشغلات ودي جي","ميكروفونات"],
+c1:["كراسي المناسبات","كراسي كيافاري"],c2:["طاولات ومفارش","طاولات مستديرة"],c3:["جلسات أرضية","جلسات عربية"],
+b1:["معدات البوفيه","محطات ساخنة"],b2:["أطقم الضيافة","دلال وقهوة"],b3:["معدات البوفيه","عربات تقديم"],
+d1:["زهور طبيعية وصناعية","تنسيقات طاولات"],d2:["زهور طبيعية وصناعية","بوابات ورود"],d3:["بالونات والزينة","أقواس بالونات"],
+a1:["سيارات العرسين","سيارات فاخرة"],a2:["نقل الضيوف والمواكب","مواكب زفة"],a3:["نقل الضيوف والمواكب","باصات VIP"],
+m1:["تجهيزات المؤتمرات","كراسي وطاولات"],m2:["أجنحة المعارض","أجنحة بهوية"],
+sha1:["شاليهات ومزارع","شاليهات احتفالات"],fan1:["زفة ودوزان","طقوم فنانات"],mus1:["تصوير نسائي","تغطية حفلات"],waj1:["وجبات ولائم","وجبات فردية"],gat1:["جاتوهات مطبوعة","جاتوهات طبقات"],shr1:["عصائر باردة","مشروبات ساخنة"],har1:["أمن نسائي","طاقم حارسات"],day1:["استقبال","ضيافة"],dev1:["شاشات وإضاءة","مؤثرات"],buk1:["بخور","عطور"],taw1:["توزيعات فاخرة","توزيعات اقتصادية"],mak1:["مكياج عروس","مكياج سهرة"],mas1:["مسك عروس","مسكات وصيفات"],fas1:["فساتين عروس","فساتين ضيوف"]
+};
+PIECES.forEach(p=>{const t=PATH[p.id]||["خدمات عامة","عام"];p.sub=t[0];p.sec=t[1];});
+/* قوائم الضيافة والمطاعم والبوفيهات والكافيهات — أصناف بمكونات ومميزات وأسعار حسب الاسم والنوع والكمية */
+const MENUS=[
+{id:"mn1",kind:"مطاعم وبوفيهات",t:"قائمة بوفيه مفتوح — مطعم موثق #1",img:S(8696465)},
+{id:"mn2",kind:"كافيهات ومشروبات",t:"قائمة كافيه ومشروبات — كافيه موثق #2",img:S(34270746)},
+{id:"mn3",kind:"حلويات ومعجنات",t:"قائمة حلويات ومعجنات — مخبز موثق #3",img:S(32191351)},
+{id:"mn4",kind:"محطات ضيافة",t:"قائمة محطات ضيافة واستقبال — تموين موثق #4",img:S(10899594)}
+];
+const MITEMS=[
+{id:"f1",m:"mn1",t:"أطباق رئيسية",n:"مندي لحم بلدي",ing:["أرز مندي بالبهارات","لحم بلدي","زبيب ومكسرات"],feat:["طبخ تنور أرضي","يكفي 3-4 أشخاص"],unit:"صحن",price:28000,vars:[["لحم بلدي",0],["دجاج",-8000],["لحم جمل",6000]]},
+{id:"f2",m:"mn1",t:"أطباق رئيسية",n:"كبسة ملكية",ing:["أرز بسمتي","دجاج أو لحم","بهارات كبسة أصلية"],feat:["مع مقبلات جانبية","تغليف حافظ للحرارة"],unit:"صحن",price:12000,vars:[["دجاج",0],["لحم",6000]]},
+{id:"f3",m:"mn1",t:"أطباق رئيسية",n:"سلتة وفحسة بلدية",ing:["حلبة مخفوقة","مرق لحم","خضار طازجة"],feat:["تُقدَّم بحجر ساخن","وصفة صنعانية أصلية"],unit:"قدر",price:6000,vars:[]},
+{id:"f4",m:"mn1",t:"مقبلات وسلطات",n:"صحن مقبلات وسلطات",ing:["خمسة أصناف موسمية","سلطة خضراء","بقول متبلة"],feat:["طازج يوميًا"],unit:"صحن",price:4000,vars:[]},
+{id:"f5",m:"mn2",t:"قهوة وشاي",n:"قهوة يمنية (مocha وقشر)",ing:["بن يمني فاخر","زنجبيل وهيل"],feat:["تحويص أصلي أمام الضيف"],unit:"فنجان",price:1200,vars:[["موكا",0],["قشر",0],["عدنية",300]]},
+{id:"f6",m:"mn2",t:"قهوة وشاي",n:"شاي عدني بالحليب",ing:["شاي أحمر","حليب طازج","بهارات عدنية"],feat:["مغلي على النار"],unit:"كوب",price:800,vars:[]},
+{id:"f7",m:"mn2",t:"عصائر",n:"عصائر طازجة",ing:["فواكه موسمية","بدون سكر مضاف"],feat:["عصر أمام الضيف"],unit:"لتر",price:6000,vars:[["مانجو",0],["برتقال",0],["أفوكادو",1500]]},
+{id:"f8",m:"mn2",t:"محطات مشروبات",n:"ركن مشروبات ساخنة وباردة",ing:["محطة كاملة لـ50 ضيف","أكواب ومستلزمات"],feat:["مع مقدّم طوال الحفل"],unit:"محطة",price:25000,vars:[]},
+{id:"f9",m:"mn3",t:"حلويات",n:"بسبوسة بالعسل والسمن",ing:["سميد بلدي","عسل دوعني","سمن بلدي"],feat:["تُخبز يوم المناسبة"],unit:"كيلو",price:9000,vars:[]},
+{id:"f10",m:"mn3",t:"حلويات",n:"كنافة بالقشطة والمكسرات",ing:["كنافة طازجة","قشطة بلدية","فستق ولوز"],feat:["تُقدَّم دافئة"],unit:"صينية",price:12000,vars:[]},
+{id:"f11",m:"mn3",t:"معجنات",n:"بنت الصحن اليمنية",ing:["عجين مورّق","سمن بلدي","عسل للتقديم"],feat:["خبز تنور فوري"],unit:"صحن",price:8000,vars:[]},
+{id:"f12",m:"mn3",t:"حلويات",n:"صحن حلويات مشكلة",ing:["50 قطعة متنوعة"],feat:["تنسيق تقديم فاخر"],unit:"صحن",price:10000,vars:[]},
+{id:"f13",m:"mn4",t:"محطات استقبال",n:"محطة قهوة ودلال ضيافة",ing:["دلال نحاس","بن وتمور","أكواب تراثية"],feat:["مقدمان بزي تراثي","100 ضيف"],unit:"محطة",price:35000,vars:[]},
+{id:"f14",m:"mn4",t:"محطات استقبال",n:"محطة حلويات وتمور",ing:["تمور فاخرة","حلويات مصغرة"],feat:["تنسيق ذهبي"],unit:"محطة",price:30000,vars:[]},
+{id:"f15",m:"mn4",t:"محطات مباشرة",n:"محطة شواء مباشر",ing:["مشاوي مشكلة","خبز تنور"],feat:["شيف أمام الضيوف"],unit:"محطة",price:45000,vars:[]},
+{id:"f16",m:"mn4",t:"محطات مباشرة",n:"بار عصائر وكوكتيل",ing:["12 نوع عصير وكوكتيل","فواكه تزيين"],feat:["بارمان محترف"],unit:"بار",price:28000,vars:[]}
+];
+let mqty={},mvar={},MK="الكل",MQ="";
+const mitem=id=>MITEMS.find(i=>i.id===id);
+const mprice=i=>i.price+(i.vars[mvar[i.id]||0]?.[1]||0);
+/* بناء العروض: معرف + سعر بيع + فهرس */
+const OFFERS={};
+PIECES.forEach(p=>{p.of=p.of.map((o,i)=>{const off={id:`${p.id}-${i}`,piece:p.id,img:o[0],price:o[1],dep:o[2],cond:o[3],specs:o[4],avail:o[5]===1,r:o[6],vid:o[7]===1,sale:Math.max(5000,Math.round(o[1]*10/1000)*1000)};OFFERS[off.id]=off;return off;});});
+const piece=id=>PIECES.find(p=>p.id===id);
+const minPrice=p=>Math.min(...p.of.map(o=>o.price));
+const minDep=p=>Math.min(...p.of.map(o=>o.dep));
+const avgR=p=>(p.of.reduce((s,o)=>s+o.r,0)/p.of.length);
+const money=n=>n.toLocaleString("en-US")+" ر.ي";
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const fmtDate=d=>{try{return new Date(d+"T00:00:00").toLocaleDateString("ar-SA",{weekday:"long",day:"numeric",month:"long"});}catch(e){return d;}};
+const discOf=days=>days>=14?25:days>=7?15:days>=3?10:0;
+
+/* ============ STATE ============ */
+let F={q:"",cat:"الكل",sub:null,sec:null,sort:"pop",favOnly:false};
+const subsOf=c=>[...new Set(PIECES.filter(p=>p.cat===c).map(p=>p.sub))];
+const secsOf=(c,s)=>[...new Set(PIECES.filter(p=>p.cat===c&&p.sub===s).map(p=>p.sec))];
+let cart={};let favs=new Set();let orders=[];
+try{cart=JSON.parse(localStorage.getItem("la_cart2")||"{}");}catch(e){}
+try{favs=new Set(JSON.parse(localStorage.getItem("la_favs2")||"[]"));}catch(e){}
+try{orders=JSON.parse(localStorage.getItem("la_orders2")||"[]");}catch(e){}
+const save=()=>{try{localStorage.setItem("la_cart2",JSON.stringify(cart));localStorage.setItem("la_favs2",JSON.stringify([...favs]));localStorage.setItem("la_orders2",JSON.stringify(orders));}catch(e){}};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(msg){const el=document.createElement("div");el.className="toast pointer-events-auto flex items-center gap-2 bg-[#240b28] text-[#f6e27a] rounded-full px-4 py-2.5 text-xs sm:text-sm font-extrabold shadow-2xl ring-1 ring-[#d4af37]/40";el.innerHTML=`<span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] shrink-0"></span><span>${msg}</span>`;$("#toasts").appendChild(el);setTimeout(()=>{el.classList.add("bye");setTimeout(()=>el.remove(),320);},2600);}
+const IC={heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 11c-1.8 4.4-9.3 9-9.3 9Z"/></svg>',heartF:'<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-[#c03434]"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 11c-1.8 4.4-9.3 9-9.3 9Z"/></svg>'};
+const stars=r=>`<span class="stars text-[12px] tracking-[1px]">${[1,2,3,4,5].map(i=>`<i class="${i<=Math.round(r)?"on":""}">★</i>`).join("")}</span>`;
+
+/* ============ RENDER ============ */
+function match(p){
+  if(F.cat!=="الكل"&&p.cat!==F.cat)return false;
+  if(F.sub&&p.sub!==F.sub)return false;
+  if(F.sec&&p.sec!==F.sec)return false;
+  if(F.favOnly&&!favs.has(p.id))return false;
+  if(F.q&&!(p.n+" "+p.cat+" "+p.of.map(o=>o.specs).join(" ")).includes(F.q))return false;
+  return true;
+}
+const sorted=l=>{const a=[...l];
+  if(F.sort==="rating")a.sort((x,y)=>avgR(y)-avgR(x));
+  if(F.sort==="asc")a.sort((x,y)=>minPrice(x)-minPrice(y));
+  if(F.sort==="desc")a.sort((x,y)=>minPrice(y)-minPrice(x));
+  return a;};
+function card(p){
+  const fav=favs.has(p.id);
+  return `<article class="pcard rv bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl overflow-hidden flex flex-col" data-card="${p.id}">
+    <div class="relative aspect-[4/3] overflow-hidden bg-[#efe7df]">
+      <img loading="lazy" src="${p.of[0].img}" alt="${esc(p.n)}" class="pimg absolute inset-0 w-full h-full object-cover">
+      ${p.d?`<span class="absolute top-2 start-2 text-[9.5px] font-extrabold gold text-[#240b28] rounded-md px-2 py-1">جديد ${new Date(p.d+"T00:00:00").toLocaleDateString("ar-SA",{month:"long"})}</span>`:""}
+      <button class="favbtn absolute top-2 end-2 w-8 h-8 rounded-full bg-white/95 shadow flex items-center justify-center text-[#b3a6b4] hover:text-[#c03434] transition" data-fav="${p.id}" aria-label="مفضلة">${fav?IC.heartF:IC.heart}</button>
+      <span class="absolute bottom-2 start-2 text-[9.5px] font-extrabold bg-[#240b28]/80 text-[#f6e27a] backdrop-blur rounded-md px-2 py-1">${p.cat}</span>
+      <span class="absolute bottom-2 end-2 text-[9.5px] font-extrabold bg-[#d4af37] text-[#240b28] rounded-md px-2 py-1">${p.of.length} عروض موثقة</span>
+    </div>
+    <div class="p-3 flex flex-col gap-1.5 flex-1">
+      <h3 class="text-[12.5px] font-extrabold leading-5 line-clamp-2 min-h-10">${esc(p.n)}</h3>
+      <p class="text-[9px] font-extrabold text-[#8a6a1c] leading-4 line-clamp-1">${p.sub} › ${p.sec}</p>
+      ${p.w?`<span class="inline-block text-[8.5px] font-extrabold bg-[#8a2c4a]/10 text-[#8a2c4a] rounded-full px-2 py-0.5">👑 مناسبات نسائية خاصة وعامة</span>`:""}
+      <p class="flex items-center gap-1.5 text-[10.5px] font-bold text-[#7a6b7c]">${stars(avgR(p))} ${avgR(p).toFixed(1)} · ${p.of.filter(o=>o.avail).length} متاحة الآن</p>
+      <div class="mt-auto pt-1">
+        <div class="flex items-end justify-between gap-2">
+          <p class="leading-tight"><span class="font-display font-extrabold text-lg text-[#331039]">${money(minPrice(p))}</span><span class="text-[9.5px] font-extrabold text-[#7a6b7c]"> /يوم تأجير</span><br><span class="text-[9.5px] font-extrabold text-[#8a6a1c]">🛡 تأمين من ${money(minDep(p))} · 🛒 بيع متاح</span></p>
+          <button class="bookbtn h-9 px-3 rounded-full btn-plum text-[10.5px] font-extrabold" data-book="${p.id}">عرض العروض والحجز</button>
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+function railCard(p){
+  return `<button class="pcard shrink-0 w-40 sm:w-44 bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl overflow-hidden text-start" data-book="${p.id}">
+    <div class="relative aspect-square overflow-hidden">
+      <img loading="lazy" src="${p.of[0].img}" class="pimg absolute inset-0 w-full h-full object-cover">
+      ${p.d?`<span class="absolute top-1.5 start-1.5 text-[9px] font-extrabold gold text-[#240b28] rounded-md px-1.5 py-0.5">جديد</span>`:""}
+      <span class="absolute bottom-1.5 end-1.5 text-[8.5px] font-extrabold bg-[#240b28]/80 text-[#f6e27a] rounded px-1.5 py-0.5">${p.of.length} عروض</span>
+    </div>
+    <div class="p-2.5">
+      <p class="text-[11px] font-extrabold leading-4 line-clamp-2 min-h-8">${esc(p.n)}</p>
+      <div class="flex items-center justify-between mt-1"><span class="stars text-[11px]">${[1,2,3,4,5].map(i=>`<i class="${i<=Math.round(avgR(p))?"on":""}">★</i>`).join("")}</span><span class="font-display font-extrabold text-[11.5px] text-[#331039]">${money(minPrice(p))}<span class="text-[8px] text-[#7a6b7c]">/يوم</span></span></div>
+      <p class="text-[8.5px] font-extrabold text-[#8a6a1c] mt-0.5 line-clamp-1">${p.sec} · 🛡 من ${money(minDep(p))}</p>
+    </div>
+  </button>`;
+}
+let io;
+const observe=()=>{io?.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.08});$$(".rv").forEach(el=>io.observe(el));};
+function render(){
+  const list=sorted(PIECES.filter(match));
+  $("#grid").innerHTML=list.map(card).join("");
+  $("#emptyState").classList.toggle("hidden",list.length>0);
+  const gc=$("#gridCount");if(gc)gc.textContent=list.length+" قطعة";
+  const active=F.q||F.cat!=="الكل"||F.favOnly;
+  $("#resBar").classList.toggle("hidden",!active);$("#resBar").classList.toggle("flex",active);
+  if(active)$("#resText").innerHTML=`<b class="text-[#8a6a1c]">${list.length}</b> نتيجة — ${[F.cat!=="الكل"?F.cat:"",F.sub,F.sec,F.favOnly?"المفضلة":"",F.q?`«${F.q}»`:""].filter(Boolean).join(" › ")}`;
+  const sb=$("#subBar");
+  if(F.cat!=="الكل"){
+    sb.classList.remove("hidden");
+    sb.innerHTML=`
+      <div class="flex flex-wrap items-center gap-1.5 text-[10.5px] font-extrabold text-[#7a6b7c]">
+        <button class="text-[#8a6a1c] hover:underline" data-cat="الكل">كل الخدمات</button> › <span class="text-[#331039]">${F.cat}</span>${F.sub?` › <span class="text-[#331039]">${F.sub}</span>`:""}${F.sec?` › <span class="text-[#331039]">${F.sec}</span>`:""}
+      </div>
+      <div class="flex gap-1.5 overflow-x-auto no-sb">${subsOf(F.cat).map(s=>`<button class="pill shrink-0 text-[10px] ${F.sub===s?"active":""}" data-sub="${s}">${s} (${PIECES.filter(p=>p.cat===F.cat&&p.sub===s).length})</button>`).join("")}</div>
+      ${F.sub?`<div class="flex gap-1.5 overflow-x-auto no-sb">${secsOf(F.cat,F.sub).map(s=>`<button class="pill shrink-0 text-[10px] ${F.sec===s?"active":""}" data-sec="${s}">${s} (${PIECES.filter(p=>p.cat===F.cat&&p.sub===F.sub&&p.sec===s).length})</button>`).join("")}</div>`:""}`;
+  } else sb.classList.add("hidden");
+  observe();
+}
+
+/* ============ 1) إعلانات ============ */
+let adI=0,adTimer=null;
+function renderAds(){
+  const ads=PIECES.filter(p=>p.d).sort((a,b)=>b.d.localeCompare(a.d)).slice(0,5);
+  $("#adSlides").innerHTML=ads.map((p,i)=>`
+    <div class="adslide absolute inset-0 transition-opacity duration-700 ${i===0?"opacity-100":"opacity-0 pointer-events-none"}" data-ad="${i}">
+      <img src="${p.of[0].img}" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#240b28] via-[#240b28]/40 to-transparent"></div>
+      <span class="ribbon">قطعة جديدة</span>
+      <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+        <p class="text-[10px] font-extrabold text-[#f6e27a] mb-1">إعلان حصري · وصلت ${fmtDate(p.d)} · ${p.of.length} عروض من محلات موثقة</p>
+        <h3 class="font-display font-extrabold text-xl sm:text-3xl text-white leading-snug mb-1.5">${esc(p.n)}</h3>
+        <p class="text-white/75 text-[11px] sm:text-xs font-bold mb-3">🗓 تأجير من <span class="text-[#f6e27a]">${money(minPrice(p))}/يوم</span> · 🛡 تأمين من <span class="text-[#f6e27a]">${money(minDep(p))}</span> · 🛒 بيع متاح</p>
+        <div class="flex flex-wrap gap-2">
+          <button class="h-10 px-5 rounded-full btn-gold gold-shine text-xs" data-book="${p.id}">🎯 احجز بالرغبات الثلاث</button>
+          <button class="h-10 px-4 rounded-full bg-white/12 ring-1 ring-white/25 text-white text-[11px] font-extrabold backdrop-blur hover:bg-white/20 transition" data-showcat="${p.cat}">كل جديد ${p.cat}</button>
+        </div>
+      </div>
+    </div>`).join("");
+  $("#adDots").innerHTML=ads.map((_,i)=>`<button class="h-2.5 rounded-full transition ${i===0?"gold w-6":"bg-white/40 w-2.5"}" data-ado="${i}" aria-label="إعلان ${i+1}"></button>`).join("");
+  $$("#adDots [data-ado]").forEach(d=>d.onclick=()=>goAd(+d.dataset.ado));
+  clearInterval(adTimer);adTimer=setInterval(()=>goAd((adI+1)%ads.length),4800);
+}
+function goAd(i){adI=i;$$(".adslide").forEach(s=>{const on=+s.dataset.ad===i;s.classList.toggle("opacity-100",on);s.classList.toggle("opacity-0",!on);s.classList.toggle("pointer-events-none",!on);});$$("#adDots [data-ado]").forEach(d=>{const on=+d.dataset.ado===i;d.className="h-2.5 rounded-full transition "+(on?"gold w-6":"bg-white/40 w-2.5");});}
+
+/* ============ 2) عرض الأسبوع ============ */
+function weekTarget(){const d=new Date(),diff=(4-d.getDay()+7)%7||7,t=new Date(d);t.setDate(d.getDate()+diff);t.setHours(23,59,59,0);return t;}
+function renderWeek(){
+  /* لكل خدمة مساحة إعلانية حصرية أسبوعية بسعر تنافسي */
+  const WEEK=[["h1",0,20],["k1",0,25],["w1",0,30],["x1",0,30],["l1",0,20],["s1",1,25],["c1",0,15],["b1",0,20],["d1",0,25],["a1",0,20],["m1",0,15],["mak1",0,20],["gat1",0,15],["fas1",0,25]];
+  const cards=WEEK.map(([pid,oi,disc])=>{
+    const p=piece(pid),o=p.of[oi],oldP=o.price,newP=Math.round(o.price*(100-disc)/100/1000)*1000;
+    return `<button class="pcard shrink-0 w-64 sm:w-72 bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl overflow-hidden text-start relative" data-book="${p.id}">
+      <span class="absolute top-2 start-2 z-10 text-[9px] font-extrabold bg-[#c03434] text-white rounded-full px-2 py-1">−${disc}% عرض الأسبوع الحصري</span>
+      <span class="absolute top-2 end-2 z-10 text-[8.5px] font-extrabold gold text-[#240b28] rounded px-2 py-1">${p.cat}</span>
+      <div class="relative h-36 overflow-hidden">
+        <img loading="lazy" src="${o.img}" class="pimg absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#240b28]/60 to-transparent"></div>
+        <span class="absolute bottom-2 start-2 text-[9px] font-extrabold text-white bg-black/45 backdrop-blur rounded px-1.5 py-0.5">عرض #${oi+1} · ${o.cond}</span>
+      </div>
+      <div class="p-3 space-y-1.5">
+        <p class="font-display font-extrabold text-[12.5px] text-[#331039] leading-5 line-clamp-1">${esc(p.n)}</p>
+        <p class="text-[9.5px] font-bold text-[#7a6b7c] leading-4 line-clamp-2">✨ المواصفات: ${o.specs}</p>
+        <p class="flex items-center gap-1.5 text-[9.5px] font-bold text-[#7a6b7c]">${stars(o.r)} ${o.r} · ${o.avail?"متاحة الآن":"تُستبدل بالرغبات"}</p>
+        <div class="flex items-end gap-2">
+          <span class="font-display font-extrabold text-xl text-[#8a6a1c] leading-none">${money(newP)}</span>
+          <s class="text-[10px] font-bold text-[#b3a6b4]">${money(oldP)}</s>
+          <span class="text-[8.5px] font-extrabold text-[#7a6b7c]">/ يوم</span>
+        </div>
+        <p class="text-[9.5px] font-extrabold text-[#0d6b4f]">🛡 مبلغ التأمين: ${o.dep?money(o.dep):"بدون تأمين"} · 🛒 بيع ${money(o.sale)}</p>
+        <span class="block h-9 rounded-xl btn-gold gold-shine text-[10.5px] font-extrabold text-center leading-9">احجز العرض الحصري 🎯</span>
+      </div>
+    </button>`;}).join("");
+  $("#weekDeal").innerHTML=`
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <h2 class="font-display font-extrabold text-lg sm:text-xl text-[#331039] flex items-center gap-2"><span class="w-1.5 h-6 rounded-full gold"></span>🔥 عروض الأسبوع الحصرية — لكل خدمة مساحة إعلانية</h2>
+      <span class="bg-[#331039] text-[#f6e27a] rounded-full px-3.5 py-2 text-[10px] font-extrabold flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#c03434] animate-pulse"></span>ينتهي العرض بعد: <b id="wdT">--</b></span>
+    </div>
+    <p class="text-[10.5px] font-extrabold text-[#7a6b7c] bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-full px-4 py-2 inline-flex mb-4">أسعار تنافسية من مقدمي الخدمات: اسم العرض ومواصفاته الكاملة، السعر السابق والسعر الحصري المخفض، ومبلغ تأمين القطعة — تُحدَّث كل خميس 11:59 مساءً</p>
+    <div class="railtrack flex gap-3 overflow-x-auto no-sb scroll-smooth pb-2 cursor-grab active:cursor-grabbing">${cards}</div>`;
+  const tick=()=>{let ms=weekTarget()-new Date();if(ms<0)ms=0;const s=Math.floor(ms/1000);
+    const el=$("#wdT");if(el)el.textContent=`${Math.floor(s/86400)} يوم و ${String(Math.floor(s/3600)%24).padStart(2,"0")}:${String(Math.floor(s/60)%60).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;};
+  tick();setInterval(tick,1000);
+}
+
+/* ============ 3) الأقسام + 4) الجديد ============ */
+const CAT_ICONS={"قاعات ومنصات":"🏛️","كوش وتجهيزات زفاف":"👑","ملبوسات وأزياء":"👗","خيام وفعاليات خارجية":"⛺","إضاءة وثريات":"💡","صوتيات وDJ":"🎧","طاولات وكراسي":"🪑","ضيافة وبوفيه":"☕","ديكور وزهور":"🌸","سيارات الزفاف":"🚗","مؤتمرات وفعاليات":"🎪","شاليهات ومزارع":"🏡","فنانات":"🎤","مصورات":"📸","وجبات":"🍛","جاتوهات":"🎂","مشروبات":"🧃","حارسات":"💂‍♀️","مضيفات":"👩‍","اجهزة المناسبات":"🎛️","عربة البخور والعطور":"🕯️","توزيعات":"🎁","ميكاب ارتست":"💄","مسكات ورد":"💐","فساتين افراح":"👰"};
+function renderCats(){
+  $("#catCards").innerHTML=CATS.filter(c=>c!=="الكل").map(c=>{
+    const n=PIECES.filter(p=>p.cat===c).length,ofs=PIECES.filter(p=>p.cat===c).reduce((s,p)=>s+p.of.length,0);
+    return `<button class="pcard rv snap-start shrink-0 w-36 sm:w-40 bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl p-4 text-center hover:ring-[#d4af37] transition" data-showcat="${c}">
+      <span class="mx-auto w-12 h-12 rounded-2xl bg-[#331039] text-[#f6e27a] flex items-center justify-center text-2xl">${CAT_ICONS[c]||"🎁"}</span>
+      <p class="font-display font-extrabold text-[12.5px] text-[#331039] mt-2.5 leading-5 min-h-10 line-clamp-2">${c}</p>
+      <span class="inline-block mt-1.5 text-[9.5px] font-extrabold text-[#8a6a1c] bg-[#d4af37]/15 rounded-full px-2.5 py-0.5">${subsOf(c).length} أقسام فرعية · ${n} قطعة</span>
+    </button>`;}).join("");
+}
+function renderRails(){
+  $("#catRails").innerHTML=CATS.filter(c=>c!=="الكل").map(c=>{
+    const list=PIECES.filter(p=>p.cat===c).sort((a,b)=>(b.d||"").localeCompare(a.d||""));
+    return `<div class="rv">
+      <div class="flex items-center justify-between mb-3 gap-3">
+        <h3 class="font-display font-extrabold text-base sm:text-lg text-[#331039] flex items-center gap-2"><span class="text-lg">${CAT_ICONS[c]}</span> جديد ${c}</h3>
+        <button class="text-[11px] font-extrabold text-[#8a6a1c] hover:underline shrink-0" data-showcat="${c}">عرض الكل ←</button>
+      </div>
+      <div class="flex gap-1.5 overflow-x-auto no-sb mb-2.5">${subsOf(c).map(s=>`<button class="pill shrink-0 text-[10px] ${F.cat===c&&F.sub===s?"active":""}" data-gosub="${c}|${s}">${s} (${PIECES.filter(p=>p.cat===c&&p.sub===s).length})</button>`).join("")}</div>
+      <div class="railtrack flex gap-3 overflow-x-auto no-sb scroll-smooth pb-2 cursor-grab active:cursor-grabbing">${list.map(railCard).join("")}</div>
+    </div>`;}).join("");
+}
+
+/* ============ نافذة القطعة: العروض + الرغبات الثلاث ============ */
+function openPiece(id){
+  const p=piece(id);if(!p)return;
+  let wishes=[null,null,null],mode="rent",days=1,qty=1;
+  const defDate=new Date(Date.now()+7*864e5).toISOString().slice(0,10);
+  openModal(`<div>
+    <div class="relative h-44 sm:h-56">
+      <img src="${p.of[0].img}" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#240b28] to-transparent"></div>
+      <button data-close class="absolute top-3 end-3 w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur flex items-center justify-center hover:bg-black/60 transition" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="absolute bottom-3 start-4 end-4">
+        <p class="text-[10px] font-extrabold gold text-[#240b28] inline-block rounded-md px-2 py-0.5 mb-1.5">${p.cat} · ${p.of.length} عروض من محلات موثقة</p>
+        <h3 class="font-display font-extrabold text-xl sm:text-2xl text-white leading-snug">${esc(p.n)}</h3>
+      </div>
+    </div>
+    <div class="p-4 sm:p-6">
+      <div class="rounded-2xl bg-[#331039] text-white p-3.5 mb-4 text-[11px] font-bold leading-6">
+        🎯 <b class="text-[#f6e27a]">نظام الرغبات الثلاث (إلزامي لكل حجز):</b> رتّب ثلاثة عروض من نفس القطعة كأولويات — إذا تعذرت رغبتك الأولى يرشّح النظام الثانية فورًا ثم الثالثة، حتى لا تُؤجَّل مناسبتك أبدًا.
+      </div>
+      <div class="flex flex-wrap items-center gap-2 mb-3 bg-[#f6f2ec] ring-1 ring-[#eadfd9] rounded-2xl p-2.5">
+        <span class="text-[10px] font-extrabold text-[#7a6b7c] shrink-0">رتّب واختر ما يناسبك:</span>
+        <select id="oSort" class="h-9 rounded-lg border border-[#eadfd9] bg-white text-[10.5px] font-extrabold px-2 outline-none text-[#331039]">
+          <option value="rec">الأنسب (توفر + أداء + سعر)</option>
+          <option value="asc">الأرخص تأجيرًا</option>
+          <option value="desc">الأعلى تأجيرًا</option>
+          <option value="rating">الأعلى تقييمًا</option>
+          <option value="dep">الأقل تأمينًا</option>
+          <option value="perf">الأعلى أداءً ومواصفات</option>
+        </select>
+        <button id="fAvail" class="pill text-[10px]">متاحة فقط</button>
+        <button id="fNoDep" class="pill text-[10px]">بدون تأمين</button>
+        <button id="fVid" class="pill text-[10px]">🎥 بفيديو</button>
+        <button id="fNew" class="pill text-[10px]">حالة جديدة</button>
+        <label class="flex items-center gap-1.5 text-[10px] font-extrabold text-[#7a6b7c]">سقف سعر/يوم:
+          <input id="fMax" type="range" min="0" value="0" class="accent-[#8a6a1c] w-24">
+          <span id="fMaxV" class="text-[#8a6a1c]">الكل</span>
+        </label>
+        <button id="cmpBtn" class="ms-auto h-9 px-3 rounded-lg btn-plum text-[10px] font-extrabold hidden">⚖️ قارن (0)</button>
+      </div>
+      <div class="flex gap-2 mb-3">
+        <button id="mRent" class="modebtn flex-1 h-10 rounded-xl btn-plum text-xs font-extrabold transition">🗓 تأجير يومي</button>
+        <button id="mBuy" class="modebtn flex-1 h-10 rounded-xl btn-ghost text-xs font-extrabold transition">🛒 شراء جديد</button>
+      </div>
+      <p class="font-display font-bold text-sm mb-2">اختر رغباتك الثلاث بالترتيب:</p>
+      <div id="offersBox" class="grid sm:grid-cols-3 gap-3 mb-4"></div>
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        ${[1,2,3].map(i=>`<div class="wishslot" id="ws${i}"><span class="text-[10px] font-extrabold text-[#9a8f9b]">الرغبة ${["الأولى","الثانية","الثالثة"][i-1]}:<br>لم تُحدد بعد</span></div>`).join("")}
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3 mb-4">
+        <div id="dateBox"><label class="text-[10.5px] font-extrabold text-[#7a6b7c] block mb-1">📅 تاريخ التسليم/المناسبة</label><input id="bkDate" type="date" min="${todayISO()}" value="${defDate}" class="field h-11 text-xs font-extrabold"></div>
+        <div id="daysBox"><label class="text-[10.5px] font-extrabold text-[#7a6b7c] block mb-1">⏳ مدة الإيجار (أيام)</label>
+          <div class="flex items-center gap-1 bg-[#f6f2ec] rounded-xl p-1 h-11">
+            <button id="dMinus" class="w-9 h-9 rounded-lg bg-white ring-1 ring-[#eadfd9] font-extrabold">−</button>
+            <span id="dVal" class="flex-1 text-center font-display font-extrabold">1</span>
+            <button id="dPlus" class="w-9 h-9 rounded-lg bg-white ring-1 ring-[#eadfd9] font-extrabold">+</button>
+          </div></div>
+        <div><label class="text-[10.5px] font-extrabold text-[#7a6b7c] block mb-1">🔢 الكمية</label>
+          <div class="flex items-center gap-1 bg-[#f6f2ec] rounded-xl p-1 h-11">
+            <button id="qMinus" class="w-9 h-9 rounded-lg bg-white ring-1 ring-[#eadfd9] font-extrabold">−</button>
+            <span id="qVal" class="flex-1 text-center font-display font-extrabold">1</span>
+            <button id="qPlus" class="w-9 h-9 rounded-lg bg-white ring-1 ring-[#eadfd9] font-extrabold">+</button>
+          </div></div>
+      </div>
+      <div id="bkSum" class="rounded-2xl bg-[#f6f2ec] p-4 text-[11.5px] font-extrabold space-y-1.5 mb-4"></div>
+      <div class="flex gap-2">
+        <button id="bkFav" class="w-12 h-12 rounded-xl btn-ghost flex items-center justify-center shrink-0" aria-label="مفضلة">${favs.has(id)?IC.heartF:IC.heart}</button>
+        <button id="bkAdd" class="flex-1 h-12 rounded-xl btn-gold gold-shine font-display font-extrabold text-sm">أضف للسلة بالرغبات الثلاث 🎯</button>
+      </div>
+      <p class="text-[10px] text-[#b3a6b4] font-bold text-center mt-3">خصومات المدة تلقائية: 3 أيام −10% · 7 أيام −15% · 14 يوم −25% · الأسعار بالريال اليمني داخل صنعاء وضواحيها</p>
+    </div>
+  </div>`);
+  const offersBox=$("#offersBox");
+  /* أدوات اختيار العرض: أداء، ترتيب، تصفية، مقارنة */
+  const COND={"جديدة":15,"جديد":15,"ممتازة":10,"ممتاز":10,"جيدة جدًا":5,"مع مشغل":8,"مع مشغّل":8,"مع مقدم":8,"طازجة":8};
+  const perf=o=>Math.min(100,Math.round(o.r*16+(COND[o.cond]??5)+(o.avail?8:0)+(o.vid?3:0)));
+  let OF={sort:"rec",avail:false,noDep:false,vid:false,condNew:false,max:0};
+  let cmp=new Set();
+  const maxP=Math.max(...p.of.map(o=>o.price));
+  $("#fMax").max=maxP;$("#fMax").step=Math.max(1000,Math.round(maxP/20/1000)*1000);
+  const listOf=()=>{
+    let l=p.of.filter(o=>(!OF.avail||o.avail)&&(!OF.noDep||!o.dep)&&(!OF.vid||o.vid)&&(!OF.condNew||/جديد/.test(o.cond))&&(!OF.max||o.price<=OF.max));
+    if(!l.length)l=[...p.of];
+    const s=OF.sort;
+    if(s==="asc")l.sort((a,b)=>a.price-b.price);
+    else if(s==="desc")l.sort((a,b)=>b.price-a.price);
+    else if(s==="rating")l.sort((a,b)=>b.r-a.r);
+    else if(s==="dep")l.sort((a,b)=>a.dep-b.dep);
+    else if(s==="perf")l.sort((a,b)=>perf(b)-perf(a));
+    else l.sort((a,b)=>(b.avail-a.avail)||(perf(b)-perf(a))||(a.price-b.price));
+    return l;
+  };
+  const bestId=(()=>{const av=p.of.filter(o=>o.avail);if(!av.length)return null;return av.slice().sort((a,b)=>(a.price-b.price)||(perf(b)-perf(a)))[0].id;})();
+  const openCompare=ids=>{
+    const os=ids.map(i=>OFFERS[i]).filter(Boolean);
+    if(os.length<2){toast("اختر عرضين على الأقل للمقارنة");return;}
+    const bp=Math.min(...os.map(o=>o.price)),br=Math.max(...os.map(o=>o.r)),bd=Math.min(...os.map(o=>o.dep)),bpf=Math.max(...os.map(o=>perf(o)));
+    const hi=(v,best,inv)=>`class="p-2 text-center ${v===best?(inv?"bg-[#0d6b4f]/10 text-[#0d6b4f]":"bg-[#0d6b4f]/10 text-[#0d6b4f]"):""} font-extrabold"`;
+    let host=$("#cmpHost");
+    if(!host){host=document.createElement("div");host.id="cmpHost";host.className="mt-2";$("#bkSum").before(host);}
+    host.innerHTML=`<div class="rounded-2xl ring-1 ring-[#eadfd9] bg-white overflow-hidden">
+      <div class="flex items-center justify-between px-3 py-2 bg-[#331039] text-[#f6e27a]"><span class="font-display font-extrabold text-sm">⚖️ مقارنة العروض — ${esc(p.n)}</span><button id="cmpClose" class="text-[10px] font-extrabold bg-white/10 hover:bg-white/20 rounded-full px-2.5 py-1 transition">إغلاق المقارنة</button></div>
+      <div class="overflow-x-auto no-sb"><table class="w-full min-w-[560px] text-[11px]">
+        <thead><tr><th class="p-2 text-start text-[#7a6b7c]">وجه المقارنة</th>${os.map(o=>`<th class="p-2"><img src="${o.img}" class="w-20 h-20 rounded-xl object-cover mx-auto mb-1 ring-1 ring-[#eadfd9]"><span class="text-[10px] font-extrabold text-[#331039]">عرض #${p.of.indexOf(o)+1} · ${o.cond}</span></th>`).join("")}</tr></thead>
+        <tbody class="font-bold text-[#7a6b7c]">
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">✨ المواصفات والمميزات</td>${os.map(o=>`<td class="p-2 text-center leading-4">${o.specs}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">⚡ مؤشر الأداء</td>${os.map(o=>`<td ${hi(perf(o),bpf)}>${perf(o)}%</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">🗓 سعر التأجير / يوم</td>${os.map(o=>`<td ${hi(o.price,bp)}>${money(o.price)}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">🛡 مبلغ التأمين</td>${os.map(o=>`<td ${hi(o.dep,bd)}>${o.dep?money(o.dep):"بدون"}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">★ تقييم العملاء</td>${os.map(o=>`<td ${hi(o.r,br)}>${o.r}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">📦 التوفر</td>${os.map(o=>`<td class="p-2 text-center ${o.avail?"text-[#0d6b4f]":"text-[#c03434]"} font-extrabold">${o.avail?"متاحة":"غير متاحة"}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">🛒 سعر الشراء</td>${os.map(o=>`<td class="p-2 text-center font-extrabold">${money(o.sale)}</td>`).join("")}</tr>
+          <tr class="border-t border-[#eadfd9]"><td class="p-2">🎯 الاختيار</td>${os.map(o=>`<td class="p-2 text-center"><button class="h-8 px-3 rounded-lg btn-plum text-[10px] font-extrabold text-white" data-cpick="${o.id}">كرغبة تالية</button></td>`).join("")}</tr>
+        </tbody>
+      </table></div>
+      <p class="text-[10px] font-bold text-[#0d6b4f] px-3 py-2">الخانات الخضراء = الأفضل في وجه المقارنة (أرخص تأجير · أقل تأمين · أعلى تقييم وأداء).</p>
+    </div>`;
+    host.scrollIntoView({behavior:"smooth",block:"nearest"});
+    $("#cmpClose").onclick=()=>host.remove();
+    host.querySelectorAll("[data-cpick]").forEach(b=>b.onclick=()=>{
+      const oid=b.dataset.cpick,free=wishes.indexOf(null);
+      if(wishes.includes(oid)){toast("هذا العرض ضمن رغباتك بالفعل");return;}
+      if(free===-1){toast("حدّد 3 رغبات فقط — أزل واحدة أولًا");return;}
+      wishes[free]=oid;paint();toast(`أُضيف عرض #${p.of.indexOf(OFFERS[oid])+1} كرغبة ${["أولى","ثانية","ثالثة"][free]} 🎯`);
+    });
+  };
+  const renderOffers=()=>{
+    const l=listOf();
+    offersBox.innerHTML=l.map(o=>{
+      const slot=wishes.indexOf(o.id),num=p.of.indexOf(o)+1;
+      return `<div class="offerpick ${slot>-1?"sel":""} rounded-2xl ring-1 ring-[#eadfd9] overflow-hidden bg-white relative" data-off="${o.id}">
+        ${o.id===bestId?`<span class="absolute top-0 end-0 z-10 text-[8.5px] font-extrabold gold text-[#240b28] rounded-bl-lg px-2 py-1">⭐ الأنسب سعرًا وأداءً</span>`:""}
+        <div class="relative h-28">
+          <img src="${o.img}" class="absolute inset-0 w-full h-full object-cover">
+          <span class="absolute top-1.5 start-1.5 text-[9px] font-extrabold ${o.avail?"bg-[#0d6b4f]":"bg-[#c03434]"} text-white rounded px-1.5 py-0.5">${o.avail?"متاحة الآن":"غير متاحة حاليًا"}</span>
+          ${o.vid?`<button class="vidbtn absolute bottom-1.5 end-1.5 text-[9px] font-extrabold bg-black/60 text-white rounded px-1.5 py-0.5 backdrop-blur" data-vid="${o.id}">🎥 فيديو</button>`:""}
+          ${slot>-1?`<span class="absolute bottom-1.5 start-1.5 text-[9px] font-extrabold gold text-[#240b28] rounded px-1.5 py-0.5">الرغبة ${["الأولى","الثانية","الثالثة"][slot]}</span>`:""}
+        </div>
+        <div class="p-2.5 space-y-1">
+          <p class="flex items-center justify-between text-[10px] font-extrabold text-[#331039]"><span>عرض #${num} · ${o.cond}</span><span class="text-[#8a6a1c] bg-[#d4af37]/15 rounded px-1.5 py-0.5">⚡ أداء ${perf(o)}%</span></p>
+          <p class="text-[9.5px] font-bold text-[#7a6b7c] leading-4 line-clamp-2">✨ ${o.specs}</p>
+          <p class="text-[10px] font-extrabold text-[#8a6a1c]">🗓 ${money(o.price)}/يوم · 🛡 ${o.dep?money(o.dep):"بدون تأمين"}</p>
+          <p class="flex items-center justify-between text-[9.5px] font-bold text-[#7a6b7c]">${stars(o.r)} ${o.r} <span class="text-[#0d6b4f]">🛒 بيع ${money(o.sale)}</span></p>
+          <div class="flex gap-1">
+            <button class="pickbtn flex-1 h-8 rounded-lg ${slot>-1?"bg-[#eadfd9] text-[#7a6b7c]":"btn-plum"} text-[10px] font-extrabold" data-pick="${o.id}">${slot>-1?"إزالة من الرغبات":"كرغبة تالية"}</button>
+            <button class="cmpbtn w-9 h-8 rounded-lg ring-1 ring-[#eadfd9] text-[11px] font-extrabold ${cmp.has(o.id)?"bg-[#331039] text-[#f6e27a]":"text-[#7a6b7c]"}" data-cmp="${o.id}" title="أضف للمقارنة">⚖️</button>
+          </div>
+        </div>
+      </div>`;}).join("");
+    offersBox.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{
+      const oid=b.dataset.pick,at=wishes.indexOf(oid);
+      if(at>-1){wishes[at]=null;}
+      else{const free=wishes.indexOf(null);if(free===-1){toast("حدّد 3 رغبات فقط — أزل واحدة أولًا");return;}wishes[free]=oid;}
+      paint();
+    });
+    offersBox.querySelectorAll("[data-vid]").forEach(b=>b.onclick=e=>{e.stopPropagation();toast("🎥 معاينة الفيديو تُجهَّز لهذا العرض — ستتوفر خلال دقائق");});
+    offersBox.querySelectorAll("[data-cmp]").forEach(b=>b.onclick=()=>{
+      const id=b.dataset.cmp;cmp.has(id)?cmp.delete(id):cmp.add(id);
+      b.classList.toggle("bg-[#331039]",cmp.has(id));b.classList.toggle("text-[#f6e27a]",cmp.has(id));
+      const cb=$("#cmpBtn");cb.classList.toggle("hidden",cmp.size<2);cb.textContent=`⚖️ قارن (${cmp.size})`;
+    });
+  };
+  $("#oSort").onchange=e=>{OF.sort=e.target.value;renderOffers();};
+  [["#fAvail","avail"],["#fNoDep","noDep"],["#fVid","vid"],["#fNew","condNew"]].forEach(([id,k])=>{
+    $(id).onclick=()=>{OF[k]=!OF[k];$(id).classList.toggle("active",OF[k]);renderOffers();};
+  });
+  $("#fMax").oninput=e=>{OF.max=+e.target.value;$("#fMaxV").textContent=OF.max?money(OF.max):"الكل";renderOffers();};
+  $("#cmpBtn").onclick=()=>openCompare([...cmp]);
+  const paint=()=>{
+    renderOffers();
+    [1,2,3].forEach(i=>{
+      const el=$("#ws"+i),oid=wishes[i-1];
+      if(oid){const o=OFFERS[oid];el.className="wishslot filled";el.innerHTML=`<img src="${o.img}" class="w-12 h-12 rounded-lg object-cover"><span class="text-[9.5px] font-extrabold leading-4">الرغبة ${["الأولى","الثانية","الثالثة"][i-1]}<br><span class="text-[#8a6a1c]">${money(mode==="buy"?o.sale:o.price)}${mode==="buy"?"":" /يوم"}</span>${o.avail?"":"<br><span class='text-[#c03434]'>غير متاحة — ستُستبدل تلقائيًا</span>"}</span>`;}
+      else{el.className="wishslot";el.innerHTML=`<span class="text-[10px] font-extrabold text-[#9a8f9b]">الرغبة ${["الأولى","الثانية","الثالثة"][i-1]}:<br>لم تُحدد بعد</span>`;}
+    });
+    sum();
+  };
+  const activeWish=()=>{for(const w of wishes){if(w&&OFFERS[w].avail)return w;}return wishes[0];};
+  const setMode=m=>{mode=m;
+    $("#mRent").className="modebtn flex-1 h-10 rounded-xl text-xs font-extrabold transition "+(m==="rent"?"btn-plum":"btn-ghost");
+    $("#mBuy").className="modebtn flex-1 h-10 rounded-xl text-xs font-extrabold transition "+(m==="buy"?"btn-plum":"btn-ghost");
+    $("#daysBox").classList.toggle("hidden",m==="buy");$("#dateBox").classList.toggle("hidden",m==="buy");
+    paint();};
+  const sum=()=>{
+    const aw=activeWish(),o=aw?OFFERS[aw]:null;
+    if(!o){$("#bkSum").innerHTML=`<p class="text-[#c03434]">⚠️ اختر ثلاث رغبات لإظهار السعر والإجمالي.</p>`;return;}
+    const idx=wishes.indexOf(aw);
+    if(mode==="buy"){const tt=o.sale*qty;
+      $("#bkSum").innerHTML=`
+        <div class="flex justify-between text-[#7a6b7c]"><span>سعر الشراء (الرغبة ${idx+1} المتاحة) × ${qty}</span><span>${money(tt)}</span></div>
+        <div class="flex justify-between text-[13px] text-[#331039] pt-1 border-t border-[#eadfd9]"><span>الإجمالي</span><span class="font-display font-extrabold">${money(tt)}</span></div>
+        <div class="text-[#0d6b4f]">✅ ملكية دائمة + ضمان سنة</div>`;return;}
+    const d=discOf(days),base=o.price*days*qty,tt=Math.round(base*(100-d)/100);
+    $("#bkSum").innerHTML=`
+      <div class="flex justify-between text-[#7a6b7c]"><span>تأجير الرغبة ${idx+1} المتاحة: ${money(o.price)} × ${days} يوم × ${qty}</span><span>${money(base)}</span></div>
+      ${d?`<div class="flex justify-between text-[#8a6a1c]"><span>خصم المدة (${d}%)</span><span>− ${money(base-tt)}</span></div>`:""}
+      <div class="flex justify-between text-[13px] text-[#331039] pt-1 border-t border-[#eadfd9]"><span>إجمالي الإيجار</span><span class="font-display font-extrabold">${money(tt)}</span></div>
+      <div class="flex justify-between text-[#8a6a1c]"><span>🛡 تأمين مسترجع عند الاستلام</span><span>${o.dep?money(o.dep*qty):"بدون"}</span></div>
+      ${idx>0?`<div class="text-[#c03434]">⚠️ رغبتك الأولى غير متاحة حاليًا — سيُحجز على الرغبة ${idx+1} تلقائيًا لحماية موعدك.</div>`:""}`;
+  };
+  $("#mRent").onclick=()=>setMode("rent");
+  $("#mBuy").onclick=()=>setMode("buy");
+  $("#dMinus").onclick=()=>{days=Math.max(1,days-1);$("#dVal").textContent=days;sum();};
+  $("#dPlus").onclick=()=>{days=Math.min(30,days+1);$("#dVal").textContent=days;sum();};
+  $("#qMinus").onclick=()=>{qty=Math.max(1,qty-1);$("#qVal").textContent=qty;sum();};
+  $("#qPlus").onclick=()=>{qty=Math.min(20,qty+1);$("#qVal").textContent=qty;sum();};
+  $("#bkFav").onclick=e=>{toggleFav(id);e.currentTarget.innerHTML=favs.has(id)?IC.heartF:IC.heart;};
+  $("#bkAdd").onclick=()=>{
+    if(wishes.some(w=>!w)){toast("🎯 النظام يطلب 3 رغبات لكل حجز — أكمل اختيار الرغبات");return;}
+    const date=$("#bkDate").value||defDate;
+    if(mode==="rent"&&date<todayISO()){toast("التاريخ في الماضي — اختر تاريخًا قادمًا");return;}
+    cart[id]={qty,days,date,mode,wishes:[...wishes]};save();syncCart(true);closeModal();
+    toast(mode==="buy"?`أُضيفت «${p.n}» للسلة كشراء بالرغبات الثلاث 🎯`:`حُجزت «${p.n}» بالرغبات الثلاث 🎯`);
+  };
+  paint();
+}
+
+/* ============ متصفح ملف الخدمة: رئيسي › فرعي › ثانوي › عروض ============ */
+let SB={cat:null,sub:null,sec:null};
+function openService(cat){
+  SB={cat,sub:null,sec:null};
+  document.body.classList.add("svc-mode");
+  $("#serviceView").classList.remove("hidden");
+  $$(".pill[data-cat]").forEach(x=>x.classList.toggle("active",x.dataset.cat===cat));
+  renderService();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function exitService(){
+  SB={cat:null,sub:null,sec:null};
+  document.body.classList.remove("svc-mode");
+  $("#serviceView").classList.add("hidden");
+  $$(".pill[data-cat]").forEach(x=>x.classList.toggle("active",x.dataset.cat==="الكل"));
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function renderService(){
+  const cat=SB.cat;if(!cat)return;
+  const pcs=PIECES.filter(p=>p.cat===cat);
+  const subs=subsOf(cat);
+  $("#svCrumb").innerHTML=`
+    <button class="pill text-[10px]" data-svexit>🏬 العودة للمتجر</button><span class="text-[#b3a6b4]">›</span>
+    <button class="pill text-[10px] ${!SB.sub?"active":""}" data-svcat>${CAT_ICONS[cat]||"🎁"} ${cat}</button>
+    ${SB.sub?`<span class="text-[#b3a6b4]">›</span><button class="pill text-[10px] ${!SB.sec?"active":""}" data-svsubback>📁 ${SB.sub}</button>`:""}
+    ${SB.sec?`<span class="text-[#b3a6b4]">›</span><span class="pill text-[10px] active">${SB.sec}</span>`:""}`;
+  if(!SB.sub){
+    const ofs=pcs.reduce((s,p)=>s+p.of.length,0);
+    $("#svBody").innerHTML=`
+      <div class="rounded-3xl plum-pat text-white p-5 sm:p-7 mb-5 flex flex-wrap items-center gap-4">
+        <span class="w-16 h-16 rounded-2xl gold flex items-center justify-center text-3xl shrink-0">${CAT_ICONS[cat]||"🎁"}</span>
+        <div class="flex-1 min-w-[200px]">
+          <h2 class="font-display font-extrabold text-xl sm:text-2xl text-[#f6e27a]">ملف الخدمة: ${cat}</h2>
+          <p class="text-[11px] text-white/75 font-bold mt-1">${subs.length} أقسام فرعية · ${pcs.length} قطعة · ${ofs} عرضًا — افتح أي قسم فرعي لتصفح كل عروضه${pcs.some(x=>x.w)?" · 👑 خدمات خاصة للمناسبات النسائية الخاصة والعامة":""}</p>
+        </div>
+        <button class="h-10 px-4 rounded-full bg-white/12 ring-1 ring-white/25 text-[11px] font-extrabold hover:bg-white/20 transition" data-svexit>كل الخدمات</button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        ${subs.map(s=>{
+          const sp=PIECES.filter(p=>p.cat===cat&&p.sub===s),so=sp.reduce((a,p)=>a+p.of.length,0),ss=secsOf(cat,s);
+          return `<button class="pcard bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl p-4 text-center hover:ring-[#d4af37] transition" data-svsub="${s}">
+            <span class="mx-auto w-12 h-12 rounded-2xl bg-[#331039] text-[#f6e27a] flex items-center justify-center text-xl">📁</span>
+            <p class="font-display font-extrabold text-[12.5px] text-[#331039] mt-2.5 leading-5 min-h-10 line-clamp-2">${s}</p>
+            <span class="inline-block mt-1.5 text-[9.5px] font-extrabold text-[#8a6a1c] bg-[#d4af37]/15 rounded-full px-2.5 py-1">${ss.length} أقسام ثانوية · ${sp.length} قطعة · ${so} عرض</span>
+            <span class="block mt-2 text-[10px] font-extrabold text-[#0d6b4f]">افتح القسم ←</span>
+          </button>`;}).join("")}
+      </div>`;
+    return;
+  }
+  const list=PIECES.filter(p=>p.cat===cat&&p.sub===SB.sub&&(!SB.sec||p.sec===SB.sec));
+  const offers=list.flatMap(p=>p.of.map((o,i)=>({p,o,i})));
+  $("#svBody").innerHTML=`
+    <div class="rounded-2xl bg-[#fffdf9] ring-1 ring-[#eadfd9] p-4 mb-4 flex flex-wrap items-center gap-3">
+      <span class="w-12 h-12 rounded-2xl bg-[#331039] text-[#f6e27a] flex items-center justify-center text-xl shrink-0">📁</span>
+      <div class="flex-1 min-w-[200px]">
+        <h2 class="font-display font-extrabold text-lg text-[#331039]">${SB.sub}</h2>
+        <p class="text-[10.5px] font-bold text-[#7a6b7c]">${offers.length} عرضًا متاحًا للتصفح — اختر العرض المناسب سعرًا ومواصفات</p>
+      </div>
+    </div>
+    <div class="flex gap-1.5 overflow-x-auto no-sb mb-4">
+      <button class="pill shrink-0 text-[10px] ${!SB.sec?"active":""}" data-svsec="">كل الأقسام الثانوية</button>
+      ${secsOf(cat,SB.sub).map(s=>`<button class="pill shrink-0 text-[10px] ${SB.sec===s?"active":""}" data-svsec="${s}">${s} (${PIECES.filter(p=>p.cat===cat&&p.sub===SB.sub&&p.sec===s).reduce((a,p)=>a+p.of.length,0)})</button>`).join("")}
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5">
+      ${offers.map(({p,o,i})=>`
+        <button class="pcard bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl overflow-hidden text-start relative" data-book="${p.id}">
+          <span class="absolute top-2 start-2 z-10 text-[9px] font-extrabold ${o.avail?"bg-[#0d6b4f]":"bg-[#c03434]"} text-white rounded px-1.5 py-0.5">${o.avail?"متاحة الآن":"غير متاحة"}</span>
+          <span class="absolute top-2 end-2 z-10 text-[8.5px] font-extrabold gold text-[#240b28] rounded px-1.5 py-0.5">عرض #${i+1}</span>
+          <div class="relative h-32 overflow-hidden"><img loading="lazy" src="${o.img}" class="pimg absolute inset-0 w-full h-full object-cover"></div>
+          <div class="p-2.5 space-y-1">
+            <p class="text-[11.5px] font-extrabold text-[#331039] leading-4 line-clamp-2 min-h-8">${esc(p.n)}</p>
+            <p class="text-[9px] font-extrabold text-[#8a6a1c] line-clamp-1">${p.sec} · ${o.cond}</p>
+            <p class="text-[9.5px] font-bold text-[#7a6b7c] leading-4 line-clamp-2">✨ ${o.specs}</p>
+            <div class="flex items-end gap-1.5"><span class="font-display font-extrabold text-[15px] text-[#8a6a1c] leading-none">${money(o.price)}</span><span class="text-[8.5px] font-extrabold text-[#7a6b7c]">/ يوم</span></div>
+            <p class="text-[9px] font-extrabold text-[#0d6b4f]">🛡 تأمين ${o.dep?money(o.dep):"بدون"} · ${stars(o.r)} ${o.r}</p>
+            <span class="block h-8 rounded-lg btn-plum text-[10px] font-extrabold text-center leading-8">عرض القطعة والرغبات 🎯</span>
+          </div>
+        </button>`).join("")}
+    </div>`;
+}
+
+/* ============ قوائم الضيافة: عرض ============ */
+function renderMenus(){
+  const kinds=["الكل",...new Set(MENUS.map(m=>m.kind))];
+  $("#menuKinds").innerHTML=kinds.map(k=>`<button class="pill shrink-0 ${MK===k?"active":""}" data-mkind="${k}">${k}</button>`).join("");
+  const q=MQ.trim();
+  $("#menuBox").innerHTML=MENUS.filter(m=>MK==="الكل"||m.kind===MK).map(m=>{
+    const items=MITEMS.filter(i=>i.m===m.id&&(!q||(i.n+i.ing.join(" ")+i.feat.join(" ")+i.t).includes(q)));
+    if(!items.length)return "";
+    return `<div class="rounded-2xl ring-1 ring-[#eadfd9] bg-[#fffdf9] overflow-hidden">
+      <div class="flex items-center gap-3 p-3 bg-[#331039]">
+        <img src="${m.img}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-white/20">
+        <div><p class="font-display font-extrabold text-sm text-[#f6e27a]">${m.t}</p><p class="text-[10px] text-white/70 font-bold">${m.kind} · ${items.length} صنف · أسعار حسب الاسم والنوع والكمية</p></div>
+      </div>
+      <div class="divide-y divide-[#eadfd9]">
+        ${items.map(i=>`<div class="p-3 grid md:grid-cols-[1fr_auto] gap-3">
+          <div>
+            <p class="flex flex-wrap items-center gap-2 text-[12.5px] font-extrabold text-[#331039]">${i.n}<span class="text-[9px] bg-[#d4af37]/15 text-[#8a6a1c] rounded-full px-2 py-0.5">${i.t}</span></p>
+            <p class="text-[10px] font-bold text-[#7a6b7c] mt-1 leading-4">🥘 المكونات: ${i.ing.join(" · ")}</p>
+            <p class="text-[10px] font-bold text-[#0d6b4f] mt-0.5 leading-4">✨ المميزات: ${i.feat.join(" · ")}</p>
+            ${i.vars.length?`<div class="flex flex-wrap items-center gap-1.5 mt-2"><span class="text-[9px] font-extrabold text-[#7a6b7c]">الأنواع:</span>${i.vars.map((v,vi)=>`<button class="pill text-[9.5px] varbtn ${(mvar[i.id]||0)===vi?"active":""}" data-var="${i.id}|${vi}">${v[0]}${v[1]?` (${v[1]>0?"+":"−"}${money(Math.abs(v[1]))})`:""}</button>`).join("")}</div>`:""}
+          </div>
+          <div class="flex md:flex-col items-center justify-between gap-2 md:w-48 md:items-end">
+            <p class="text-[11.5px] font-extrabold text-[#8a6a1c]">${money(mprice(i))} <span class="text-[9px] text-[#7a6b7c]">/ ${i.unit}</span></p>
+            <div class="flex items-center gap-1.5">
+              <span class="flex items-center gap-1 bg-[#f6f2ec] rounded-lg p-0.5">
+                <button class="w-7 h-7 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold text-xs" data-mq="${i.id}" data-d="-1">−</button>
+                <span class="w-6 text-center text-[11px] font-extrabold" id="mq-${i.id}">${mqty[i.id]||1}</span>
+                <button class="w-7 h-7 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold text-xs" data-mq="${i.id}" data-d="1">+</button>
+              </span>
+              <button class="h-9 px-3 rounded-lg btn-plum text-[10px] font-extrabold" data-madd="${i.id}">أضف للسلة</button>
+            </div>
+            <p class="text-[9.5px] font-extrabold text-[#7a6b7c]" id="mt-${i.id}">الإجمالي: ${money(mprice(i)*(mqty[i.id]||1))}</p>
+          </div>
+        </div>`).join("")}
+      </div>
+    </div>`;}).join("")||`<p class="text-xs font-extrabold text-[#c03434] bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl p-4">لا أصناف مطابقة لبحثك في القوائم.</p>`;
+}
+
+/* ============ السلة ============ */
+const activeWishOf=l=>{if(l.kind==="menu")return null;for(const w of l.wishes){if(w&&OFFERS[w]&&OFFERS[w].avail)return w;}return l.wishes[0];};
+const lineTotal=l=>{if(l.kind==="menu")return l.unitPrice*l.qty;const o=OFFERS[activeWishOf(l)];if(!o)return 0;if(l.mode==="buy")return o.sale*l.qty;const d=discOf(l.days);return Math.round(o.price*l.days*l.qty*(100-d)/100);};
+const cartTotals=()=>{
+  const lines=Object.values(cart);
+  const sub=lines.reduce((s,l)=>s+lineTotal(l),0);
+  const ship=sub===0||sub>=500000?0:15000;
+  const dep=lines.reduce((s,l)=>s+(l.kind==="menu"||l.mode==="buy"?0:(OFFERS[activeWishOf(l)]?.dep||0)*l.qty),0);
+  return {sub,ship,dep,total:sub+ship};
+};
+function syncCart(pop){
+  const n=Object.keys(cart).length;
+  const cc=$("#cartCount");cc.textContent=n;cc.classList.toggle("hidden",n===0);
+  if(pop){cc.classList.remove("pop");void cc.offsetWidth;cc.classList.add("pop");}
+  $("#cartLines").textContent=n;renderCart();
+}
+function renderCart(){
+  const body=$("#cartBody"),foot=$("#cartFoot");
+  const ids=Object.keys(cart);
+  if(!ids.length){
+    body.innerHTML=`<div class="text-center py-16"><div class="mx-auto w-20 h-20 rounded-3xl bg-[#eadfd9]/60 flex items-center justify-center text-3xl mb-4">🗓</div><p class="font-display font-extrabold mb-1">سلة الحجز فارغة</p><p class="text-xs text-[#7a6b7c] mb-5">اختر قطعك وحدد رغباتك الثلاث.</p><button id="goShop" class="h-10 px-5 rounded-full btn-plum text-xs font-extrabold">تصفّح القطع</button></div>`;
+    foot.innerHTML="";
+    $("#goShop")?.addEventListener("click",()=>{closeCart();window.scrollTo({top:0,behavior:"smooth"});});
+    return;
+  }
+  body.innerHTML=ids.map(id=>{const l=cart[id];
+    if(l.kind==="menu")return `
+    <div class="bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl p-3 flex gap-3">
+      <span class="w-20 h-20 rounded-xl bg-[#331039] text-[#f6e27a] flex items-center justify-center text-3xl shrink-0">🍽</span>
+      <div class="flex-1 min-w-0">
+        <p class="text-[12px] font-extrabold leading-4 line-clamp-2">${esc(l.name)}</p>
+        <p class="text-[10px] font-bold text-[#7a6b7c] mt-1">🍽 صنف قائمة ضيافة · ${money(l.unitPrice)} / ${l.unit}</p>
+        <div class="flex items-center justify-between gap-2 mt-2">
+          <span class="flex items-center gap-1 bg-[#f6f2ec] rounded-lg p-0.5">
+            <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold" data-k="qty" data-d="-1" data-id="${id}">−</button>
+            <span class="w-6 text-center text-[11px] font-extrabold">${l.qty}</span>
+            <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold" data-k="qty" data-d="1" data-id="${id}">+</button>
+          </span>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-extrabold text-[13px] text-[#331039]">${money(lineTotal(l))}</span>
+            <button class="qbtn w-7 h-7 rounded-lg text-[#c03434] hover:bg-[#c03434]/10" data-k="del" data-id="${id}" aria-label="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+    const p=piece(id),aw=activeWishOf(l),o=OFFERS[aw],d=discOf(l.days),replaced=l.wishes.indexOf(aw)>0;return `
+    <div class="bg-[#fffdf9] ring-1 ring-[#eadfd9] rounded-2xl p-3 flex gap-3">
+      <img src="${o.img}" class="w-20 h-20 rounded-xl object-cover ring-1 ring-[#eadfd9]">
+      <div class="flex-1 min-w-0">
+        <p class="text-[12px] font-extrabold leading-4 line-clamp-2">${esc(p.n)}</p>
+        <p class="text-[10px] font-bold text-[#7a6b7c] mt-1">${l.mode==="buy"?`🛒 شراء جديد · تسليم ${fmtDate(l.date)}`:`🗓 ${fmtDate(l.date)} · ${l.days} يوم ${d?`· <b class="text-[#8a6a1c]">خصم ${d}%</b>`:""}`}</p>
+        <p class="text-[9.5px] font-bold text-[#8a6a1c] mt-1">🎯 الرغبات: ${l.wishes.map((w,i)=>`${i+1}) ${money(l.mode==="buy"?OFFERS[w].sale:OFFERS[w].price)}${l.mode==="buy"?"":" /يوم"}`).join(" · ")}</p>
+        ${replaced?`<p class="text-[9.5px] font-extrabold text-[#c03434] mt-1">⚠️ الرغبة الأولى غير متاحة — النظام فعّل الرغبة ${l.wishes.indexOf(aw)+1} تلقائيًا لحماية موعدك</p>`:`<p class="text-[9.5px] font-bold text-[#0d6b4f] mt-1">✅ الرغبة الأولى متاحة ومؤكدة</p>`}
+        <div class="flex items-center justify-between gap-2 mt-2">
+          <div class="flex items-center gap-1.5">
+            <span class="flex items-center gap-1 bg-[#f6f2ec] rounded-lg p-0.5">
+              <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold" data-k="qty" data-d="-1" data-id="${id}">−</button>
+              <span class="w-5 text-center text-[11px] font-extrabold">${l.qty}</span>
+              <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold" data-k="qty" data-d="1" data-id="${id}">+</button>
+            </span>
+            ${l.mode==="buy"?"":`<span class="flex items-center gap-1 bg-[#f6f2ec] rounded-lg p-0.5">
+              <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold text-[10px]" data-k="days" data-d="-1" data-id="${id}">يوم−</button>
+              <span class="w-6 text-center text-[11px] font-extrabold">${l.days}</span>
+              <button class="qbtn w-6 h-6 rounded-md bg-white ring-1 ring-[#eadfd9] font-extrabold text-[10px]" data-k="days" data-d="1" data-id="${id}">يوم+</button>
+            </span>`}
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-extrabold text-[13px] text-[#331039]">${money(lineTotal(l))}</span>
+            <button class="qbtn w-7 h-7 rounded-lg text-[#c03434] hover:bg-[#c03434]/10" data-k="del" data-id="${id}" aria-label="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg></button>
+          </div>
+        </div>
+        ${l.mode!=="buy"&&o.dep?`<p class="text-[9.5px] font-bold text-[#7a6b7c] mt-1">🛡 تأمين مسترجع: ${money(o.dep*l.qty)}</p>`:""}
+      </div>
+    </div>`;}).join("");
+  const t=cartTotals();
+  foot.innerHTML=`
+    <div class="flex justify-between text-xs font-extrabold text-[#7a6b7c]"><span>إجمالي الإيجار/الشراء</span><span>${money(t.sub)}</span></div>
+    <div class="flex justify-between text-xs font-extrabold text-[#7a6b7c]"><span>توصيل وتركيب واستلام ${t.ship?"":"🎉"}</span><span>${t.ship?money(t.ship):"مجاني"}</span></div>
+    ${t.dep?`<div class="flex justify-between text-[10.5px] font-bold text-[#8a6a1c]"><span>🛡 تأمين مسترجع (يُدفع ويُعاد)</span><span>${money(t.dep)}</span></div>`:""}
+    <div class="flex justify-between items-center pt-2 border-t border-[#eadfd9]"><span class="font-display font-extrabold">الإجمالي المستحق الآن</span><span class="font-display font-extrabold text-xl text-[#8a6a1c]">${money(t.total)}</span></div>
+    <button id="checkoutBtn" class="w-full h-12 rounded-xl btn-gold gold-shine font-display font-extrabold text-sm">إتمام حجز المناسبة 🔒</button>`;
+  $("#checkoutBtn").onclick=openCheckout;
+}
+const openCart=()=>{$("#cartDrawer").style.transform="translateX(0)";$("#cartBackdrop").classList.remove("hidden");document.body.style.overflow="hidden";};
+const closeCart=()=>{$("#cartDrawer").style.transform="translateX(-102%)";$("#cartBackdrop").classList.add("hidden");document.body.style.overflow="";};
+
+/* ============ MODAL & CHECKOUT ============ */
+function openModal(html){$("#modalPanel").innerHTML=html;$("#modal").classList.remove("hidden");document.body.style.overflow="hidden";$("#modalPanel").querySelector("[data-close]")?.addEventListener("click",closeModal);}
+const closeModal=()=>{$("#modal").classList.add("hidden");document.body.style.overflow="";};
+let CO={step:1,data:{}};
+function openCheckout(){
+  if(!Object.keys(cart).length){toast("سلة الحجز فارغة");return;}
+  CO={step:1,data:{date:Object.values(cart)[0].date}};closeCart();renderCheckout();
+  $("#modal").classList.remove("hidden");document.body.style.overflow="hidden";
+}
+function renderCheckout(){
+  const t=cartTotals();
+  const stepHTML=`<div class="flex items-center gap-2 mb-5">${["تفاصيل المناسبة","الدفع والتأكيد"].map((n,i)=>{const s=i+1;return `<div class="flex items-center gap-2 ${i===0?"flex-1":""}"><span class="stepdot ${CO.step===s?"on":CO.step>s?"done":""}">${CO.step>s?"✓":s}</span><span class="text-[11px] font-extrabold ${CO.step>=s?"text-[#8a6a1c]":"text-[#b3a6b4]"}">${n}</span>${i===0?'<span class="stepline '+(CO.step>1?"done":"")+'"></span>':""}</div>`;}).join("")}</div>`;
+  let body="";
+  if(CO.step===1){
+    body=`<form id="coF" class="space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <input class="field" name="name" placeholder="اسم صاحب المناسبة *" required value="${esc(CO.data.name||"")}">
+        <input class="field" name="phone" placeholder="جوال 05xxxxxxxx *" required pattern="0[0-9]{8}" value="${esc(CO.data.phone||"")}">
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <select class="field" name="city" required><option value="">المديرية / المنطقة — صنعاء وضواحيها *</option>${["التحرير","الوحدة","السبعين","شعوب","الثورة","معين","الصافية","بني الحارث","حدة — الزبيري","بيت بوس","حزيز (ضواحي)","دار سلم (ضواحي)","سنحان (ضواحي)","جدر — الحصن (ضواحي)","الحتارش (ضواحي)"].map(c=>`<option ${CO.data.city===c?"selected":""}>${c}</option>`).join("")}</select>
+        <input class="field" name="date" type="date" min="${todayISO()}" required value="${CO.data.date||""}">
+      </div>
+      <select class="field" name="venue" required><option value="">نوع موقع المناسبة *</option>${["قاعة أفراح","استراحة","منزل / حي سكني","حديقة / موقع خارجي","فندق"].map(c=>`<option ${CO.data.venue===c?"selected":""}>${c}</option>`).join("")}</select>
+      <textarea class="field" rows="2" name="notes" placeholder="تفاصيل إضافية: المنطقة/الحي في صنعاء أو ضواحيها، وقت الدخول…">${esc(CO.data.notes||"")}</textarea>
+      <button class="w-full h-12 rounded-xl btn-gold gold-shine font-display font-extrabold text-sm" type="submit">متابعة إلى الدفع ←</button>
+    </form>`;
+  } else {
+    body=`<div class="space-y-2 mb-4">${[["mada","💳 مدى / بطاقة ائتمانية"],["apple"," Apple Pay"],["cod","💵 50% الآن والباقي عند التركيب"],["bank","🏦 تحويل بنكي"]].map(([k,l],i)=>`<label class="flex items-center gap-3 p-3.5 rounded-xl border cursor-pointer transition has-[:checked]:border-[#d4af37] has-[:checked]:bg-[#d4af37]/10 ${CO.data.pay===k||(i===0&&!CO.data.pay)?"border-[#d4af37] bg-[#d4af37]/10":"border-[#eadfd9]"}"><input type="radio" name="pay" value="${k}" class="accent-[#8a6a1c]" ${CO.data.pay===k||(i===0&&!CO.data.pay)?"checked":""}><span class="text-sm font-extrabold">${l}</span></label>`).join("")}</div>
+    <div class="rounded-2xl ring-1 ring-[#eadfd9] divide-y divide-[#eadfd9] mb-4">${Object.entries(cart).map(([id,l])=>{if(l.kind==="menu")return `<div class="flex items-center gap-3 p-2.5"><span class="w-10 h-10 rounded-lg bg-[#331039] text-[#f6e27a] flex items-center justify-center">🍽</span><span class="flex-1 text-[11px] font-extrabold line-clamp-1">${esc(l.name)}</span><span class="text-[10px] font-bold text-[#7a6b7c]">×${l.qty} ${l.unit}</span><span class="text-[11px] font-extrabold">${money(lineTotal(l))}</span></div>`;const p=piece(id),aw=activeWishOf(l);return `<div class="flex items-center gap-3 p-2.5"><img src="${OFFERS[aw].img}" class="w-10 h-10 rounded-lg object-cover"><span class="flex-1 text-[11px] font-extrabold line-clamp-1">${esc(p.n)}</span><span class="text-[10px] font-bold text-[#7a6b7c]">${l.mode==="buy"?"بيع ×"+l.qty:l.days+" يوم ×"+l.qty} · رغبة ${l.wishes.indexOf(aw)+1}</span><span class="text-[11px] font-extrabold">${money(lineTotal(l))}</span></div>`;}).join("")}</div>
+    <div class="flex justify-between items-center pb-3"><span class="font-display font-extrabold">الإجمالي المستحق</span><span class="font-display font-extrabold text-xl text-[#8a6a1c]">${money(t.total)}</span></div>
+    <div class="flex gap-2"><button id="coBack" class="h-12 px-5 rounded-xl btn-ghost font-extrabold text-sm">→ رجوع</button><button id="coConfirm" class="flex-1 h-12 rounded-xl btn-gold gold-shine font-display font-extrabold text-sm">تأكيد الحجز 🔒</button></div>`;
+  }
+  $("#modalPanel").innerHTML=`<div class="p-5 sm:p-7">
+    <div class="flex items-center justify-between mb-4"><h3 class="font-display font-extrabold text-xl text-[#331039]">إتمام حجز المناسبة</h3><button data-close class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    ${stepHTML}${body}
+    <p class="text-[10.5px] text-[#b3a6b4] font-bold text-center mt-4">🎯 رغباتك الثلاث محفوظة لكل قطعة — أي تعذر يُستبدل تلقائيًا · 🛡 التأمين مسترجع ${t.dep?money(t.dep):"غير مطلوب"}</p>
+  </div>`;
+  $("#modalPanel").querySelector("[data-close]").addEventListener("click",closeModal);
+  if(CO.step===1)$("#coF").onsubmit=e=>{e.preventDefault();const f=e.target;if(!f.checkValidity()){f.reportValidity();return;}CO.data={...CO.data,...Object.fromEntries(new FormData(f))};CO.step=2;renderCheckout();};
+  else{
+    $("#coBack").onclick=()=>{CO.step=1;renderCheckout();};
+    $("#coConfirm").onclick=()=>{
+      const p=$("#modalPanel").querySelector("input[name=pay]:checked");CO.data.pay=p?p.value:"mada";
+      const num="AF-"+Math.floor(100000+Math.random()*899999);
+      const lines=Object.entries(cart).map(([id,l])=>{if(l.kind==="menu")return {t:l.name,img:l.img,wish:0,mode:"buy",menu:1};const pc=piece(id),aw=activeWishOf(l);return {t:pc.n,img:OFFERS[aw].img,wish:l.wishes.indexOf(aw)+1,mode:l.mode};});
+      orders.unshift({num,date:new Date().toLocaleDateString("ar-SA"),type:"حجز تأجير/بيع",title:`مناسبة ${CO.data.date||"—"} — ${CO.data.city||""}`,total:t.total,status:"بانتظار تأكيد التوفر",lines});
+      save();cart={};save();syncCart();
+      openModal(`<div class="p-8 text-center">
+        <div class="checkpop mx-auto w-24 h-24 rounded-full gold flex items-center justify-center mb-5 text-[#240b28]"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-12 h-12"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+        <h3 class="font-display font-extrabold text-2xl text-[#331039] mb-2">تم حجز تجهيز مناسبتك 🎉</h3>
+        <p class="text-sm font-bold text-[#7a6b7c] mb-1">رقم الحجز: <b class="text-[#8a6a1c]">${num}</b></p>
+        <p class="text-xs font-bold text-[#7a6b7c] mb-5">رغباتك الثلاث محفوظة لكل قطعة — عند أي تعذر يرشّح النظام البديل فورًا ويصلك إشعار. التسليم قبل الحفل بـ 4 ساعات على الأقل.</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <button data-close class="h-11 px-6 rounded-full btn-plum font-extrabold text-sm">متابعة التصفح</button>
+          <button id="trackBtn" class="h-11 px-6 rounded-full btn-ghost font-extrabold text-sm">تتبع الحجز 📦</button>
+        </div>
+      </div>`);
+      $("#trackBtn").onclick=()=>toast(`الحجز ${num}: قيد تأكيد التوفر لرغباتك 🎯`);
+      toast(`تم إنشاء الحجز ${num} بنجاح ✅`);
+    };
+  }
+}
+
+/* ============ الحساب ============ */
+function openAccount(tab="orders"){
+  const list=tab==="orders"?(orders.length?orders.map(o=>`
+    <div class="p-3.5 rounded-2xl ring-1 ring-[#eadfd9] bg-[#f6f2ec]">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <p class="text-xs font-extrabold">${o.num} <span class="text-[#b3a6b4] font-normal">· ${o.date}</span></p>
+        <span class="text-[10px] font-extrabold text-white rounded-full px-2.5 py-1" style="background:#b7791f">${o.status}</span>
+      </div>
+      <p class="text-[11.5px] font-extrabold text-[#331039]">${o.type}: ${esc(o.title)}</p>
+      ${o.lines?.length?`<div class="flex gap-1.5 mt-2 flex-wrap">${o.lines.map(l=>`<span class="flex items-center gap-1 text-[9px] font-extrabold bg-white ring-1 ring-[#eadfd9] rounded-full px-2 py-1">${l.menu?"🍽":`<img src="${l.img}" class="w-6 h-6 rounded object-cover">`}${esc(l.t).slice(0,18)}…${l.menu?"":" · رغبة "+l.wish}</span>`).join("")}</div>`:""}
+      <div class="flex items-center justify-between mt-2">
+        <span class="font-display font-extrabold text-sm text-[#8a6a1c]">${money(o.total)}</span>
+        <button class="trk h-8 px-3 rounded-full btn-ghost text-[10.5px] font-extrabold" data-trk="${o.num}">تتبع / تفاصيل</button>
+      </div>
+    </div>`).join(""):`<div class="text-center py-10"><p class="text-3xl mb-3">🗓</p><p class="font-display font-extrabold mb-1">لا حجوزات بعد</p><p class="text-xs text-[#7a6b7c]">احجز قطعك بالرغبات الثلاث وستظهر هنا.</p></div>`)
+  :(favs.size?[...favs].map(id=>{const p=piece(id);return p?`<div class="flex items-center gap-3 p-2.5 rounded-2xl ring-1 ring-[#eadfd9]"><img src="${p.of[0].img}" class="w-12 h-12 rounded-xl object-cover"><span class="flex-1 text-xs font-extrabold line-clamp-1">${esc(p.n)}</span><button class="bookbtn h-8 px-3 rounded-full btn-plum text-[10.5px] font-extrabold" data-book="${id}">العروض</button></div>`:"";}).join(""):`<div class="text-center py-10"><p class="text-3xl mb-3">❤️</p><p class="text-xs text-[#7a6b7c] font-extrabold">المفضلة فارغة</p></div>`);
+  openModal(`<div class="p-5 sm:p-7">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-display font-extrabold text-xl text-[#331039] flex items-center gap-2"><span class="w-9 h-9 rounded-full gold text-[#240b28] flex items-center justify-center font-display font-extrabold">ز</span> حسابي</h3>
+      <button data-close class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="flex gap-2 mb-4">
+      <button class="acctab pill ${tab==="orders"?"active":""}" data-acc="orders">🗓 حجوزاتي (${orders.length})</button>
+      <button class="acctab pill ${tab==="favs"?"active":""}" data-acc="favs">❤️ المفضلة (${favs.size})</button>
+    </div>
+    <div class="space-y-3 max-h-[52vh] overflow-y-auto no-sb pe-1">${list}</div>
+  </div>`);
+  $$("#modalPanel .acctab").forEach(b=>b.onclick=()=>openAccount(b.dataset.acc));
+  $$("#modalPanel [data-trk]").forEach(b=>b.onclick=()=>toast(`الحجز ${b.dataset.trk}: نؤكد توفر رغبتك الأولى الآن 🎯`));
+}
+
+/* ============ المفضلة ============ */
+function toggleFav(id){favs.has(id)?favs.delete(id):favs.add(id);save();syncFav();render();toast(favs.has(id)?"أُضيف للمفضلة ❤️":"أُزيل من المفضلة");}
+function syncFav(){$$("[data-fav]").forEach(b=>b.innerHTML=favs.has(b.dataset.fav)?IC.heartF:IC.heart);}
+
+/* ============ الشات ============ */
+const openChat=()=>{const p=$("#chatPanel");p.classList.remove("hidden");p.classList.add("flex");if(!$("#chatBody").children.length)bot("أهلًا وسهلًا 🌙 مساعد سوق هلا للمناسبات  — لكل قطعة عدة عروض موثقة، والحجز يتم بنظام الرغبات الثلاث. كيف أخدمك؟");};
+const closeChat=()=>{const p=$("#chatPanel");p.classList.add("hidden");p.classList.remove("flex");};
+const push=(t,me)=>{const d=document.createElement("div");d.className="max-w-[85%] px-3 py-2 rounded-2xl text-[11.5px] font-bold leading-5 "+(me?"ms-auto bg-[#331039] text-[#f6e27a] rounded-bl-md":"bg-white ring-1 ring-[#eadfd9] rounded-br-md");d.textContent=t;$("#chatBody").appendChild(d);$("#chatBody").scrollTop=1e6;};
+const bot=t=>setTimeout(()=>push(t,false),420);
+const reply=m=>{
+  if(/رغب|بديل|احتياطي|ثلاث|تعذر/.test(m))bot("نظام الرغبات الثلاث 🎯: عند حجز أي قطعة ترتب 3 عروض كأولويات. إذا تعذرت الأولى يرشّح النظام الثانية فورًا ثم الثالثة — حتى لا تُؤجل مناسبتك أبدًا.");
+  else if(/ضمان|جودة|فحص/.test(m))bot("كل العروض والقوائم مفحوصة وموثقة الجودة 🛡 مع تأمين مسترجع خلال 48 ساعة واستبدال فوري عند أي عطل أثناء المناسبة.");
+  else if(/بيع|شراء|تملك/.test(m))bot("كل القطع متاحة للتأجير والبيع 🛒: من نافذة القطعة بدّل إلى «🛒 شراء جديد» ليظهر سعر التملك مع ضمان سنة.");
+  else if(/تاريخ|توفر|موعد/.test(m))bot("أرسل تاريخ مناسبتك وسأتحقق من توفر رغباتك 📅 — ننصح بالحجز قبل 10 أيام في مواسم الأعراس.");
+  else if(/توصيل|تركيب/.test(m))bot("التوصيل والتركيب والاستلام داخل صنعاء وضواحيها برسوم 15,000 ر.ي (مجانية فوق 500,000 ر.ي) 🚚 والفريق يصل قبل الحفل بـ 4 ساعات.");
+  else if(/تأمين/.test(m))bot("التأمين مسترجع بالكامل خلال 48 ساعة من الاستلام بحالة جيدة 🛡 وبعض القطع كالزهور بدون تأمين.");
+  else if(/تغطي|منطقة|ضواحي|يمن|سعود/.test(m))bot("نعمل داخل اليمن فقط 🇾: المرحلة الأولى العاصمة صنعاء وضواحيها (كل المديريات + حزيز، دار سلم، سنحان، جدر، الحتارش). لا خدمات في السعودية أو خارج اليمن.");
+  else if(/موظف|بشري/.test(m))bot("حوّلتك لمنسق بشري 🎧 متوسط الانتظار دقيقتان.");
+  else bot("وصلتني رسالتك ✅ أساعدك في: الرغبات الثلاث، توفر التواريخ، أسعار التأجير والتأمين والبيع، التوصيل والتركيب، أو مناطق التغطية.");
+};
+const send=()=>{const v=$("#chatIn").value.trim();if(!v)return;push(v,true);$("#chatIn").value="";reply(v);};
+
+/* ============ سحب أفقي ============ */
+function dragScroll(el){
+  if(!el)return;
+  let down=false,sx=0,sl=0,moved=0;
+  el.addEventListener("pointerdown",e=>{down=true;moved=0;sx=e.clientX;sl=el.scrollLeft;});
+  el.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;moved=Math.max(moved,Math.abs(dx));if(moved>6)el.scrollLeft=sl-dx;});
+  ["pointerup","pointercancel","pointerleave"].forEach(ev=>el.addEventListener(ev,()=>{down=false;}));
+  el.addEventListener("click",e=>{if(moved>6){e.preventDefault();e.stopPropagation();moved=0;}},true);
+}
+
+/* ============ INIT ============ */
+document.addEventListener("DOMContentLoaded",()=>{
+  $("#catPills").innerHTML=CATS.map(c=>`<button class="pill ${c==="الكل"?"active":""}" data-cat="${c}">${c}</button>`).join("");
+  $("#famPills").innerHTML=FAM.map(c=>`<button class="pill shrink-0" data-cat="${c}">${CAT_ICONS[c]||"🎁"} ${c}</button>`).join("");
+  $("#footCats").innerHTML=CATS.slice(1).map(c=>`<button class="block text-[11.5px] font-bold text-white/65 hover:text-[#f6e27a] transition" data-cat="${c}">${c}</button>`).join("");
+  document.addEventListener("click",e=>{
+    const bk=e.target.closest("[data-book]");if(bk){openPiece(bk.dataset.book);return;}
+    const fv=e.target.closest("[data-fav]");if(fv){toggleFav(fv.dataset.fav);return;}
+    const qb=e.target.closest(".qbtn");if(qb){const id=qb.dataset.id,l=cart[id];if(!l)return;
+      if(qb.dataset.k==="del")delete cart[id];
+      else if(qb.dataset.k==="qty")l.qty=Math.max(1,l.qty+ +qb.dataset.d);
+      else if(l.kind!=="menu")l.days=Math.min(30,Math.max(1,l.days+ +qb.dataset.d));
+      save();syncCart();return;}
+    const vb=e.target.closest("[data-var]");if(vb){const[iid,vi]=vb.dataset.var.split("|");mvar[iid]=+vi;const it=mitem(iid);
+      vb.parentElement.querySelectorAll(".varbtn").forEach(x=>x.classList.toggle("active",x===vb));
+      const pr=$( "#mt-"+iid);const pc=vb.closest(".grid").querySelector("p");
+      renderMenus();toast(`تم اختيار نوع: ${it.vars[mvar[iid]][0]}`);return;}
+    const mq=e.target.closest("[data-mq]");if(mq){const iid=mq.dataset.mq;mqty[iid]=Math.max(1,(mqty[iid]||1)+ +mq.dataset.d);
+      $("#mq-"+iid).textContent=mqty[iid];$("#mt-"+iid).textContent="الإجمالي: "+money(mprice(mitem(iid))*mqty[iid]);return;}
+    const ma=e.target.closest("[data-madd]");if(ma){const it=mitem(ma.dataset.madd),m=MENUS.find(x=>x.id===it.m),vi=mvar[it.id]||0,q=mqty[it.id]||1;
+      const key=`mu:${it.id}:${vi}`;
+      cart[key]=cart[key]||{kind:"menu",name:it.n+(it.vars.length?` (${it.vars[vi][0]})`:""),img:m.img,unitPrice:mprice(it),qty:0,unit:it.unit,mode:"buy"};
+      cart[key].qty+=q;cart[key].unitPrice=mprice(it);save();syncCart(true);
+      toast(`أُضيف «${it.n}» ×${q} لسلة الحجز 🍽`);return;}
+    const mk=e.target.closest("[data-mkind]");if(mk){MK=mk.dataset.mkind;renderMenus();return;}
+    const sve=e.target.closest("[data-svexit]");if(sve){exitService();return;}
+    const svc=e.target.closest("[data-svcat]");if(svc){SB.sub=null;SB.sec=null;renderService();return;}
+    const svb=e.target.closest("[data-svsubback]");if(svb){SB.sec=null;renderService();return;}
+    const svu=e.target.closest("[data-svsub]");if(svu){SB.sub=svu.dataset.svsub;SB.sec=null;renderService();window.scrollTo({top:0,behavior:"smooth"});return;}
+    const svsec=e.target.closest("[data-svsec]");if(svsec){SB.sec=svsec.dataset.svsec||null;renderService();return;}
+    const gs=e.target.closest("[data-gosub]");if(gs){const[c,s]=gs.dataset.gosub.split("|");openService(c);SB.sub=s;SB.sec=null;renderService();return;}
+    const sbu=e.target.closest("[data-sub]");if(sbu){F.sub=F.sub===sbu.dataset.sub?null:sbu.dataset.sub;F.sec=null;render();return;}
+    const sce=e.target.closest("[data-sec]");if(sce){F.sec=F.sec===sce.dataset.sec?null:sce.dataset.sec;render();return;}
+    const sc=e.target.closest("[data-showcat]");if(sc){openService(sc.dataset.showcat);return;}
+    const pl=e.target.closest("[data-cat]");if(pl){const c=pl.dataset.cat;if(c==="الكل"){exitService();}else openService(c);return;}
+    const fl=e.target.closest(".flink");if(fl){const a=fl.dataset.act;a==="chat"?openChat():toast(a.slice(6));return;}
+    const nv=e.target.closest("[data-nav]");if(nv){$$(".navb").forEach(b=>b.classList.toggle("on",b===nv));const k=nv.dataset.nav;
+      if(k==="home"){if(document.body.classList.contains("svc-mode"))exitService();else window.scrollTo({top:0,behavior:"smooth"});}
+      if(k==="cart")openCart();
+      if(k==="fav"){F.favOnly=true;render();$("#gridSec").scrollIntoView({behavior:"smooth"});}
+      if(k==="chat")openChat();
+      if(k==="account")openAccount("orders");
+      return;}
+  });
+  let tId;$("#q").addEventListener("input",e=>{clearTimeout(tId);tId=setTimeout(()=>{F.q=e.target.value.trim();render();},220);});
+  $("#qBtn").onclick=()=>{F.q=$("#q").value.trim();render();$("#gridSec").scrollIntoView({behavior:"smooth"});};
+  $("#sortSel").onchange=e=>{F.sort=e.target.value;render();};
+  $("#clearBtn").onclick=$("#emptyClear").onclick=()=>{F={q:"",cat:"الكل",sub:null,sec:null,sort:"pop",favOnly:false};$("#q").value="";$("#sortSel").value="pop";$$("[data-cat]").forEach(c=>c.classList.toggle("active",c.dataset.cat==="الكل"));render();toast("تمت إعادة التعيين");};
+  $("#favOnlyBtn").onclick=()=>{F.favOnly=!F.favOnly;$("#favOnlyBtn").classList.toggle("text-[#c03434]",F.favOnly);render();};
+  $("#cartBtn").onclick=openCart;$("#cartClose").onclick=closeCart;$("#cartBackdrop").onclick=closeCart;
+  $("#heroCta").onclick=()=>$("#gridSec").scrollIntoView({behavior:"smooth"});
+  $("#heroPkg").onclick=()=>openPackages();
+  $("#userBtn").onclick=()=>openAccount("orders");
+  $("#logoBtn").onclick=e=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});};
+  $("#modalBackdrop").onclick=closeModal;
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeCart();closeChat();}});
+  $("#chatFab").onclick=()=>$("#chatPanel").classList.contains("hidden")?openChat():closeChat();
+  $("#chatClose").onclick=closeChat;$("#chatSend").onclick=send;
+  $("#chatIn").addEventListener("keydown",e=>{if(e.key==="Enter")send();});
+  $("#chatQuick").innerHTML=["كيف الرغبات الثلاث؟","وش ضمان العروض؟","متوفرين الخميس؟","كم التأمين؟","أبي أشتري لا أستأجر"].map(q=>`<button class="pill shrink-0 text-[10px]" data-qk="${q}">${q}</button>`).join("");
+  $$("#chatQuick [data-qk]").forEach(b=>b.onclick=()=>{push(b.dataset.qk,true);reply(b.dataset.qk);});
+
+  /* PWA */
+  if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+  const pwaState=$("#pwaState");
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  let deferred=null;
+  const showInstall=on=>{$("#installBtn").style.display=on?"flex":"none";};
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;showInstall(true);});
+  window.addEventListener("appinstalled",()=>{showInstall(false);toast("تم تثبيت متجر هلا المتعاهد على جهازك 🎉");});
+  if(standalone)pwaState.textContent="✅ تعمل الآن كتطبيق مثبّت";
+  else if(isIOS){showInstall(true);pwaState.textContent="🍎 على iOS: المشاركة ثم «إضافة إلى الشاشة الرئيسية»";}
+  else if("serviceWorker" in navigator)pwaState.textContent="✅ متصفحك يدعم التثبيت والعمل دون اتصال";
+  else pwaState.textContent="⚠️ المتصفح لا يدعم Service Worker — المتجر يعمل طبيعيًا";
+  const install=async()=>{if(deferred){deferred.prompt();const c=await deferred.userChoice;toast(c.outcome==="accepted"?"جارٍ التثبيت… 📲":"تم التأجيل");deferred=null;}else openGuide();};
+  $("#installBtn").onclick=install;$("#installBtn2").onclick=install;
+  function openGuide(){openModal(`<div class="p-6 sm:p-8">
+    <div class="flex items-center justify-between mb-5"><h3 class="font-display font-extrabold text-2xl text-[#331039]">ثبّت المتجر على كل أجهزتك</h3><button data-close class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <ol class="space-y-4 text-sm font-bold text-[#7a6b7c] leading-6">
+      <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-lg bg-[#d4af37]/15 text-[#8a6a1c] font-display font-extrabold flex items-center justify-center">1</span><span><b class="text-[#331039]">أندرويد / Chrome:</b> القائمة ⋮ ثم «تثبيت التطبيق».</span></li>
+      <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-lg bg-[#d4af37]/15 text-[#8a6a1c] font-display font-extrabold flex items-center justify-center">2</span><span><b class="text-[#331039]">آيفون / آيباد:</b> المشاركة ⬆ ثم «إضافة إلى الشاشة الرئيسية».</span></li>
+      <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-lg bg-[#d4af37]/15 text-[#8a6a1c] font-display font-extrabold flex items-center justify-center">3</span><span><b class="text-[#331039]">حاسوب:</b> أيقونة ⊕ في شريط العنوان.</span></li>
+      <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-lg bg-[#d4af37]/15 text-[#8a6a1c] font-display font-extrabold flex items-center justify-center">4</span><span><b class="text-[#331039]">تلفاز ذكي:</b> افتح المتصفح وأضف اختصارًا.</span></li>
+    </ol></div>`);}
+  $("#iosGuideBtn").onclick=openGuide;
+  const copyText=(t,m)=>{const fb=()=>{const ta=document.createElement("textarea");ta.value=t;ta.style.cssText="position:fixed;opacity:0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(m);}catch(e){}ta.remove();};if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>toast(m),fb);else fb();};
+  $("#embedBtn").onclick=()=>copyText(`<iframe src="${location.href.split("#")[0]}" title="سوق هلا للمناسبات " style="width:100%;height:80vh;border:0;border-radius:16px;overflow:hidden" loading="lazy"></iframe>`,"تم نسخ كود التضمين ");
+  window.addEventListener("offline",()=>toast("بدون إنترنت — الكتالوج المحفوظ متاح 📴"));
+  window.addEventListener("online",()=>toast("عاد الاتصال بالمتجر ✅"));
+
+  /* باقات */
+  window.openPackages=()=>{openModal(`<div class="p-5 sm:p-7">
+    <div class="flex items-center justify-between mb-5"><h3 class="font-display font-extrabold text-xl text-[#331039]">👑 باقات المناسبات الكاملة</h3><button data-close class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      ${[["باقة الزفاف الملكية","قاعة + كوشة + ثريات + صوت وDJ + سيارة زفاف + زهور",12900000,P(30311728)],["باقة الخطوبة والملكة","كوشة خطوبة + إنارة دافئة + بوفيه ضيافة + بوابة ورود",4500000,P(30270802)],["باقة الفعاليات والمؤتمرات","خيمة فعاليات + مسرح وصوتيات + كراسي مؤتمرات",8000000,P(37958066)]].map(([t,inc,fr,img],i)=>`<div class="rounded-2xl ring-1 ring-[#eadfd9] overflow-hidden flex flex-col">
+        <div class="relative h-28"><img src="${img}" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-[#240b28]/85 to-transparent"></div><p class="absolute bottom-2 start-3 font-display font-extrabold text-sm text-[#f6e27a]">${t}</p></div>
+        <div class="p-3 flex flex-col flex-1"><p class="text-[10.5px] font-bold text-[#7a6b7c] leading-5 flex-1">${inc}</p><p class="font-display font-extrabold text-[#8a6a1c] mt-2">تبدأ من ${money(fr)}</p><button class="pkgq h-9 rounded-full btn-plum text-[11px] font-extrabold mt-2" data-pkg="${i}">اطلب عرض سعر مجاني</button></div>
+      </div>`).join("")}
+    </div>
+    <p class="text-[10.5px] text-[#b3a6b4] font-bold text-center mt-4">كل باقة تشمل: منسق مناسبات، توصيل وتركيب واستلام، وتعديل واحد مجاني قبل 72 ساعة — وتُحجز بالرغبات الثلاث لكل قطعة.</p>
+  </div>`);
+  $$("#modalPanel [data-pkg]").forEach(b=>b.onclick=()=>openQuote(+b.dataset.pkg));};
+  function openQuote(i){
+    const names=["باقة الزفاف الملكية","باقة الخطوبة والملكة","باقة الفعاليات والمؤتمرات"];
+    openModal(`<div class="p-5 sm:p-7">
+      <div class="flex items-start justify-between gap-3 mb-4"><div><h3 class="font-display font-extrabold text-xl text-[#331039]">طلب عرض سعر</h3><p class="text-xs font-bold text-[#7a6b7c] mt-1">${names[i]} — داخل صنعاء وضواحيها</p></div><button data-close class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center shrink-0" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <form id="qForm" class="space-y-3">
+        <div class="grid sm:grid-cols-2 gap-3"><input class="field" name="name" placeholder="الاسم الكريم *" required><input class="field" name="phone" placeholder="جوال 07xxxxxxxx *" required pattern="0[0-9]{8}"></div>
+        <div class="grid sm:grid-cols-2 gap-3"><input class="field" name="date" type="date" min="${todayISO()}" required><input class="field" name="guests" type="number" min="10" placeholder="عدد الضيوف *" required></div>
+        <textarea class="field" rows="3" name="notes" placeholder="تفاصيل: المنطقة في صنعاء أو ضواحيها، نوع المناسبة…"></textarea>
+        <button class="w-full h-12 rounded-xl btn-gold gold-shine font-display font-extrabold text-sm" type="submit">أرسل الطلب 📨</button>
+      </form>
+    </div>`);
+    $("#qForm").onsubmit=e=>{e.preventDefault();const f=e.target;if(!f.checkValidity()){f.reportValidity();return;}
+      const num="Q-"+Math.floor(10000+Math.random()*89999);
+      orders.unshift({num,date:new Date().toLocaleDateString("ar-SA"),type:"عرض سعر باقة",title:names[i],total:0,status:"بانتظار رد المنسق",lines:[]});save();
+      openModal(`<div class="p-8 text-center"><div class="checkpop mx-auto w-20 h-20 rounded-full gold flex items-center justify-center mb-5 text-[#240b28]"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-10 h-10"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><h3 class="font-display font-extrabold text-2xl text-[#331039] mb-2">وصل طلبك لمنسق المناسبات</h3><p class="text-sm font-bold text-[#7a6b7c] mb-6">رقم الطلب: <b class="text-[#8a6a1c]">${num}</b> — يتواصل المنسق خلال ساعتين عمل.</p><button data-close class="h-11 px-7 rounded-full btn-plum font-extrabold text-sm">تمام</button></div>`);
+      toast(`طلب عرض سعر ${num} أُرسل 📨`);};
+  }
+
+  $("#adPrev").onclick=()=>{const n=$$(".adslide").length;goAd((adI-1+n)%n);};
+  $("#adNext").onclick=()=>{const n=$$(".adslide").length;goAd((adI+1)%n);};
+  renderAds();renderWeek();renderCats();renderRails();renderMenus();
+  $("#menuQ").addEventListener("input",e=>{MQ=e.target.value;renderMenus();});
+  dragScroll($("#catCards"));dragScroll($("#catPills"));$$(".railtrack").forEach(dragScroll);
+  $("#catNext").onclick=()=>$("#catCards").scrollBy({left:-260,behavior:"smooth"});
+  $("#catPrev").onclick=()=>$("#catCards").scrollBy({left:260,behavior:"smooth"});
+  $("#svcCount").textContent=PIECES.reduce((s,p)=>s+p.of.length,0);
+  render();syncCart();observe();
+});
+</script>
+</body>
+</html>
