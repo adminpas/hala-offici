@@ -1,0 +1,976 @@
+بناءً على طلبك، قمت بإعداد **ملف SQL كامل وشامل** لقاعدة بيانات منصة أسواق هلا بركس. هذا الملف جاهز للتنفيذ مباشرة على PostgreSQL 15+ مع PostGIS، ويحتوي على جميع الجداول، الفهارس، المحفزات (Triggers)، والبيانات الأولية.
+
+يمكنك نسخ المحتوى التالي وحفظه في ملف باسم `hala_brex_database_v4.9.sql`:
+
+```sql
+-- ============================================================================
+-- منصة أسواق هلا بركس - قاعدة البيانات الكاملة
+-- Hala Brex Markets Platform - Complete Database Schema
+-- الإصدار: v4.9
+-- التاريخ: سبتمبر 2026
+-- النظام: PostgreSQL 15+ مع PostGIS
+-- ============================================================================
+
+-- بدء المعاملة
+BEGIN;
+
+-- ============================================================================
+-- 1. التوسعات (Extensions)
+-- ============================================================================
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS "postgis";
+
+-- ============================================================================
+-- 2. المخطط (Schema)
+-- ============================================================================
+CREATE SCHEMA IF NOT EXISTS hala;
+SET search_path TO hala, public;
+
+-- ============================================================================
+-- 3. الأنواع المخصصة (Custom Types)
+-- ============================================================================
+
+-- حالات السوق
+DO $$ BEGIN
+    CREATE TYPE market_status AS ENUM ('draft', 'active', 'paused', 'archived');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالات المستخدم
+DO $$ BEGIN
+    CREATE TYPE user_status AS ENUM ('pending', 'active', 'suspended', 'blocked');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالات العرض
+DO $$ BEGIN
+    CREATE TYPE offer_status AS ENUM ('draft', 'pending_review', 'approved', 'rejected', 'suspended');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- دورة حياة الحجز (الموحدة)
+DO $$ BEGIN
+    CREATE TYPE booking_lifecycle_status AS ENUM (
+        'DRAFT', 'PAYMENT_PENDING', 'PROVIDER_PENDING', 'CONFIRMED',
+        'IN_PROGRESS', 'RETURN_PENDING', 'INSPECTION', 'COMPLETED',
+        'CANCELLED', 'FAILED', 'DISPUTED', 'FORCE_MAJEURE', 'RESOLVED'
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالة الرغبة
+DO $$ BEGIN
+    CREATE TYPE wish_status AS ENUM ('pending', 'active', 'fulfilled', 'skipped', 'failed');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- اتجاه القيد المحاسبي
+DO $$ BEGIN
+    CREATE TYPE ledger_side AS ENUM ('debit', 'credit');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالة Escrow
+DO $$ BEGIN
+    CREATE TYPE escrow_status AS ENUM ('held', 'released', 'refunded', 'disputed');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالة النزاع
+DO $$ BEGIN
+    CREATE TYPE dispute_status AS ENUM ('open', 'under_review', 'resolved', 'escalated', 'closed');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- حالة المحضر
+DO $$ BEGIN
+    CREATE TYPE protocol_status AS ENUM ('pending', 'signed', 'completed', 'cancelled');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- نوع المحضر
+DO $$ BEGIN
+    CREATE TYPE protocol_type AS ENUM (
+        'agent_receipt', 'provider_delivery', 'customer_receipt', 'return_inspection'
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- شدة حدث AI
+DO $$ BEGIN
+    CREATE TYPE ai_severity AS ENUM ('low', 'medium', 'high', 'critical');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- نوع التعامل
+DO $$ BEGIN
+    CREATE TYPE operation_type AS ENUM ('BUY', 'RENT', 'BUY_OR_RENT', 'SERVICE', 'QUOTE');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- ============================================================================
+-- 4. جدول الأسواق (Markets)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS markets (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    slug VARCHAR(100) UNIQUE NOT NULL,
+    name_ar VARCHAR(200) NOT NULL,
+    name_en VARCHAR(200),
+    icon VARCHAR(50),
+    primary_color VARCHAR(7) DEFAULT '#331039',
+    secondary_color VARCHAR(7) DEFAULT '#d4af37',
+    description TEXT,
+    status market_status DEFAULT 'draft',
+    config JSONB DEFAULT '{}',
+    sort_order INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_by UUID
+);
+
+COMMENT ON TABLE markets IS 'جدول الأسواق الفرعية داخل المنصة';
+CREATE INDEX IF NOT EXISTS idx_markets_slug ON markets(slug);
+CREATE INDEX IF NOT EXISTS idx_markets_status ON markets(status);
+
+-- ============================================================================
+-- 5. جدول المستخدمين (Users)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    phone VARCHAR(30) UNIQUE NOT NULL,
+    email VARCHAR(200) UNIQUE,
+    full_name VARCHAR(200) NOT NULL,
+    national_id VARCHAR(50),
+    commercial_register VARCHAR(100),
+    avatar_url TEXT,
+    status user_status DEFAULT 'pending',
+    serial VARCHAR(100) UNIQUE,
+    serial_status VARCHAR(20),
+    serial_issued_at TIMESTAMPTZ,
+    serial_issued_by UUID,
+    data_complete BOOLEAN DEFAULT FALSE,
+    wallet_balance NUMERIC(18,2) DEFAULT 0,
+    region VARCHAR(200),
+    location GEOGRAPHY(POINT, 4326),
+    metadata JSONB DEFAULT '{}',
+    last_login_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    deleted_at TIMESTAMPTZ
+);
+
+COMMENT ON TABLE users IS 'جدول المستخدمين الأساسيين';
+CREATE INDEX IF NOT EXISTS idx_users_phone ON users(phone);
+CREATE INDEX IF NOT EXISTS idx_users_serial ON users(serial);
+CREATE INDEX IF NOT EXISTS idx_users_status ON users(status);
+CREATE INDEX IF NOT EXISTS idx_users_region ON users(region);
+
+-- ============================================================================
+-- 6. جدول الأدوار (Roles)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS roles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code VARCHAR(50) UNIQUE NOT NULL,
+    name_ar VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100),
+    description TEXT,
+    permissions JSONB DEFAULT '[]',
+    is_system BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE roles IS 'جدول الأدوار الأساسية';
+
+-- إدخال الأدوار الثمانية
+INSERT INTO roles (code, name_ar, name_en, description, is_system, permissions) VALUES
+('customer', 'عميل', 'Customer', 'عميل المنصة - تصفح وحجز', TRUE, 
+ '["view_markets","view_services","create_booking","view_own_bookings","cancel_own_booking","rate_service","manage_wallet","view_own_profile"]'::jsonb),
+('provider', 'منتسب', 'Provider', 'مقدم خدمة/بائع', TRUE,
+ '["view_markets","create_listing","manage_own_listings","view_own_bookings","confirm_booking","reject_booking","view_earnings","request_withdrawal","manage_own_profile"]'::jsonb),
+('agent', 'وكيل', 'Agent', 'وكيل ميداني لمنطقة', TRUE,
+ '["view_markets","verify_providers","view_region_bookings","collect_insurance","return_insurance","view_commission","submit_reports"]'::jsonb),
+('admin', 'مدير نظام', 'Admin', 'مدير المنصة - صلاحيات كاملة', TRUE, '["*"]'::jsonb),
+('finance', 'مالي', 'Finance', 'المدير المالي', TRUE,
+ '["view_all_transactions","manage_escrow","process_withdrawals","view_financial_reports","manage_commissions","view_ledger"]'::jsonb),
+('auditor', 'مدقق', 'Auditor', 'مدقق داخلي', TRUE,
+ '["view_audit_logs","view_all_bookings","view_all_users","generate_reports","view_compliance"]'::jsonb),
+('ai_reviewer', 'مراجع AI', 'AI Reviewer', 'مراجع الذكاء الاصطناعي', TRUE,
+ '["review_listings","approve_listing","reject_listing","view_ai_events","manage_ai_rules"]'::jsonb),
+('maintenance', 'صيانة', 'Maintenance', 'فريق الصيانة المؤقت', TRUE,
+ '["view_system_status","fix_issues","view_error_logs","temporary_access"]'::jsonb),
+('delivery', 'توصيل', 'Delivery', 'شركة التوصيل', FALSE,
+ '["view_delivery_tasks","confirm_delivery","update_delivery_status"]'::jsonb),
+('protocol_officer', 'مسؤول محاضر', 'Protocol Officer', 'مسؤول توثيق المحاضر', FALSE,
+ '["create_protocol","sign_protocol","view_protocols"]'::jsonb);
+
+-- ============================================================================
+-- 7. جدول أدوار المستخدمين (User Roles) - ABAC
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS user_roles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    role_id UUID NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+    market_id UUID REFERENCES markets(id) ON DELETE SET NULL,
+    region VARCHAR(200),
+    valid_from TIMESTAMPTZ DEFAULT now(),
+    valid_until TIMESTAMPTZ,
+    granted_by UUID REFERENCES users(id),
+    granted_at TIMESTAMPTZ DEFAULT now(),
+    is_active BOOLEAN DEFAULT TRUE,
+    UNIQUE(user_id, role_id, market_id)
+);
+
+COMMENT ON TABLE user_roles IS 'ربط المستخدمين بالأدوار مع صلاحيات ABAC (سوق، منطقة، مدة)';
+CREATE INDEX IF NOT EXISTS idx_user_roles_user ON user_roles(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_roles_role ON user_roles(role_id);
+CREATE INDEX IF NOT EXISTS idx_user_roles_market ON user_roles(market_id);
+
+-- ============================================================================
+-- 8. أقسام السوق (Market Sections)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS market_sections (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    market_id UUID NOT NULL REFERENCES markets(id) ON DELETE CASCADE,
+    parent_id UUID REFERENCES market_sections(id) ON DELETE SET NULL,
+    name_ar VARCHAR(200) NOT NULL,
+    name_en VARCHAR(200),
+    icon VARCHAR(50),
+    description TEXT,
+    sort_order INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_sections_market ON market_sections(market_id);
+CREATE INDEX IF NOT EXISTS idx_sections_parent ON market_sections(parent_id);
+
+-- ============================================================================
+-- 9. الخصائص الديناميكية (Market Attributes)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS market_attributes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    market_id UUID NOT NULL REFERENCES markets(id) ON DELETE CASCADE,
+    section_id UUID REFERENCES market_sections(id) ON DELETE SET NULL,
+    code VARCHAR(100) NOT NULL,
+    name_ar VARCHAR(200) NOT NULL,
+    name_en VARCHAR(200),
+    data_type VARCHAR(50) DEFAULT 'text',
+    is_required BOOLEAN DEFAULT FALSE,
+    is_filterable BOOLEAN DEFAULT FALSE,
+    allowed_values JSONB,
+    sort_order INTEGER DEFAULT 0,
+    UNIQUE(market_id, code)
+);
+
+COMMENT ON TABLE market_attributes IS 'الخصائص الديناميكية القابلة للتعديل لكل سوق';
+
+-- ============================================================================
+-- 10. أنواع التعامل (Operations)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS market_operations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    market_id UUID NOT NULL REFERENCES markets(id) ON DELETE CASCADE,
+    operation_type operation_type NOT NULL,
+    display_name VARCHAR(100) NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    UNIQUE(market_id, operation_type)
+);
+
+-- ============================================================================
+-- 11. الخدمات (Services)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS services (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    market_id UUID NOT NULL REFERENCES markets(id) ON DELETE CASCADE,
+    section_id UUID REFERENCES market_sections(id),
+    name_ar VARCHAR(250) NOT NULL,
+    name_en VARCHAR(250),
+    description TEXT,
+    attributes JSONB DEFAULT '{}',
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_services_market ON services(market_id);
+CREATE INDEX IF NOT EXISTS idx_services_section ON services(section_id);
+
+-- ============================================================================
+-- 12. عروض الخدمات (Service Offers)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS service_offers (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    service_id UUID NOT NULL REFERENCES services(id) ON DELETE CASCADE,
+    provider_id UUID NOT NULL REFERENCES users(id),
+    title VARCHAR(300) NOT NULL,
+    description TEXT,
+    media_urls JSONB DEFAULT '[]',
+    video_url TEXT,
+    rental_price NUMERIC(18,2),
+    sale_price NUMERIC(18,2),
+    insurance_price NUMERIC(18,2) DEFAULT 0,
+    delivery_fee NUMERIC(18,2) DEFAULT 0,
+    installation_fee NUMERIC(18,2) DEFAULT 0,
+    condition VARCHAR(100),
+    specifications TEXT,
+    availability_start TIMESTAMPTZ,
+    availability_end TIMESTAMPTZ,
+    is_available BOOLEAN DEFAULT TRUE,
+    status offer_status DEFAULT 'pending_review',
+    ai_review_result JSONB,
+    ai_reviewed_at TIMESTAMPTZ,
+    rating NUMERIC(3,2) DEFAULT 0,
+    reviews_count INTEGER DEFAULT 0,
+    bookings_count INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE service_offers IS 'عروض المنتسبين للخدمات - كل خدمة يمكن أن يكون لها عدة عروض';
+CREATE INDEX IF NOT EXISTS idx_offers_service ON service_offers(service_id);
+CREATE INDEX IF NOT EXISTS idx_offers_provider ON service_offers(provider_id);
+CREATE INDEX IF NOT EXISTS idx_offers_status ON service_offers(status);
+CREATE INDEX IF NOT EXISTS idx_offers_price ON service_offers(rental_price);
+CREATE INDEX IF NOT EXISTS idx_offers_available ON service_offers(is_available);
+
+-- ============================================================================
+-- 13. الحجوزات (Bookings)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS bookings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_number VARCHAR(50) UNIQUE NOT NULL,
+    customer_id UUID NOT NULL REFERENCES users(id),
+    service_id UUID NOT NULL REFERENCES services(id),
+    lifecycle_status booking_lifecycle_status NOT NULL DEFAULT 'DRAFT',
+    lifecycle_version INTEGER DEFAULT 1,
+    event_start TIMESTAMPTZ NOT NULL,
+    event_end TIMESTAMPTZ NOT NULL,
+    delivery_date TIMESTAMPTZ,
+    return_date TIMESTAMPTZ,
+    delivery_address TEXT,
+    delivery_location GEOGRAPHY(POINT, 4326),
+    total_amount NUMERIC(18,2) NOT NULL DEFAULT 0,
+    deposit_amount NUMERIC(18,2) DEFAULT 0,
+    insurance_amount NUMERIC(18,2) DEFAULT 0,
+    commission_amount NUMERIC(18,2) DEFAULT 0,
+    discount_amount NUMERIC(18,2) DEFAULT 0,
+    currency VARCHAR(10) DEFAULT 'YER',
+    payment_method VARCHAR(50),
+    payment_status VARCHAR(30) DEFAULT 'pending',
+    notes TEXT,
+    internal_notes TEXT,
+    idempotency_key VARCHAR(200),
+    request_id UUID,
+    policy_snapshot JSONB,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    completed_at TIMESTAMPTZ,
+    cancelled_at TIMESTAMPTZ,
+    cancelled_by UUID
+);
+
+COMMENT ON TABLE bookings IS 'جدول الحجوزات الرئيسي مع دورة الحياة الموحدة';
+CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_service ON bookings(service_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(lifecycle_status);
+CREATE INDEX IF NOT EXISTS idx_bookings_dates ON bookings(event_start, event_end);
+CREATE INDEX IF NOT EXISTS idx_bookings_number ON bookings(booking_number);
+CREATE INDEX IF NOT EXISTS idx_bookings_idempotency ON bookings(idempotency_key) WHERE idempotency_key IS NOT NULL;
+
+-- ============================================================================
+-- 14. رغبات الحجز (Booking Wishes) - نظام الرغبات الثلاث
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS booking_wishes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+    wish_rank SMALLINT NOT NULL CHECK (wish_rank BETWEEN 1 AND 3),
+    offer_id UUID NOT NULL REFERENCES service_offers(id),
+    status wish_status DEFAULT 'pending',
+    failure_reason TEXT,
+    activated_at TIMESTAMPTZ,
+    UNIQUE(booking_id, wish_rank),
+    UNIQUE(booking_id, offer_id)
+);
+
+COMMENT ON TABLE booking_wishes IS 'نظام الرغبات الثلاث - كل حجز له 3 رغبات مرتبة';
+CREATE INDEX IF NOT EXISTS idx_wishes_booking ON booking_wishes(booking_id);
+CREATE INDEX IF NOT EXISTS idx_wishes_offer ON booking_wishes(offer_id);
+
+-- ============================================================================
+-- 15. سجل دورة حياة الحجز (Booking Lifecycle History)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS booking_lifecycle_history (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+    from_status booking_lifecycle_status,
+    to_status booking_lifecycle_status NOT NULL,
+    actor_user_id UUID REFERENCES users(id),
+    request_id UUID,
+    reason TEXT,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_lifecycle_history_booking ON booking_lifecycle_history(booking_id, created_at);
+
+-- ============================================================================
+-- 16. مؤقتات الحجز (Booking Timers)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS booking_timers (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+    timer_type VARCHAR(60) NOT NULL,
+    scheduled_at TIMESTAMPTZ NOT NULL,
+    processed BOOLEAN NOT NULL DEFAULT FALSE,
+    processed_at TIMESTAMPTZ,
+    status VARCHAR(30) DEFAULT 'PENDING',
+    failure_reason TEXT,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE(booking_id, timer_type)
+);
+
+CREATE INDEX IF NOT EXISTS idx_timers_due ON booking_timers(processed, scheduled_at, status);
+
+-- ============================================================================
+-- 17. دفتر الأستاذ (Ledger) - Double-Entry
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS ledger_entries (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    reference_type VARCHAR(100) NOT NULL,
+    reference_id UUID,
+    description TEXT NOT NULL,
+    actor_user_id UUID REFERENCES users(id),
+    idempotency_key VARCHAR(200) UNIQUE,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE ledger_entries IS 'رؤوس القيود المحاسبية';
+
+CREATE TABLE IF NOT EXISTS ledger_lines (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    entry_id UUID NOT NULL REFERENCES ledger_entries(id) ON DELETE CASCADE,
+    account_id UUID NOT NULL,
+    account_type VARCHAR(50) NOT NULL,
+    side ledger_side NOT NULL,
+    amount NUMERIC(18,2) NOT NULL CHECK (amount > 0),
+    currency VARCHAR(10) DEFAULT 'YER',
+    description TEXT,
+    metadata JSONB DEFAULT '{}'
+);
+
+COMMENT ON TABLE ledger_lines IS 'خطوط الدائن والمدين - يجب أن تتوازن دائماً';
+CREATE INDEX IF NOT EXISTS idx_ledger_entry ON ledger_lines(entry_id);
+CREATE INDEX IF NOT EXISTS idx_ledger_account ON ledger_lines(account_id, account_type);
+CREATE INDEX IF NOT EXISTS idx_ledger_side ON ledger_lines(side);
+
+-- ============================================================================
+-- 18. حسابات Escrow
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS escrow_accounts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID UNIQUE NOT NULL REFERENCES bookings(id),
+    held_amount NUMERIC(18,2) NOT NULL,
+    released_amount NUMERIC(18,2) DEFAULT 0,
+    refunded_amount NUMERIC(18,2) DEFAULT 0,
+    status escrow_status DEFAULT 'held',
+    hold_reason TEXT,
+    release_conditions JSONB,
+    released_at TIMESTAMPTZ,
+    released_by UUID,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_escrow_status ON escrow_accounts(status);
+
+-- ============================================================================
+-- 19. المحاضر (Protocols)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS protocols (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    protocol_number VARCHAR(50) UNIQUE NOT NULL,
+    booking_id UUID NOT NULL REFERENCES bookings(id),
+    protocol_type protocol_type NOT NULL,
+    status protocol_status DEFAULT 'pending',
+    location GEOGRAPHY(POINT, 4326),
+    notes TEXT,
+    media_urls JSONB DEFAULT '[]',
+    signed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS protocol_signatures (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    protocol_id UUID NOT NULL REFERENCES protocols(id) ON DELETE CASCADE,
+    signer_id UUID NOT NULL REFERENCES users(id),
+    signer_role VARCHAR(50),
+    signature_type VARCHAR(50) DEFAULT 'digital',
+    otp_code VARCHAR(10),
+    signed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    ip_address INET,
+    user_agent TEXT
+);
+
+-- ============================================================================
+-- 20. النزاعات (Disputes)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS disputes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    dispute_number VARCHAR(50) UNIQUE NOT NULL,
+    booking_id UUID NOT NULL REFERENCES bookings(id),
+    raised_by UUID NOT NULL REFERENCES users(id),
+    against_user_id UUID REFERENCES users(id),
+    reason TEXT NOT NULL,
+    description TEXT,
+    evidence_urls JSONB DEFAULT '[]',
+    status dispute_status DEFAULT 'open',
+    resolution TEXT,
+    resolved_by UUID,
+    resolved_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_disputes_booking ON disputes(booking_id);
+CREATE INDEX IF NOT EXISTS idx_disputes_status ON disputes(status);
+
+-- ============================================================================
+-- 21. سجلات التدقيق (Audit Logs)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    actor_user_id UUID REFERENCES users(id),
+    action VARCHAR(200) NOT NULL,
+    entity_type VARCHAR(100),
+    entity_id UUID,
+    before_data JSONB,
+    after_data JSONB,
+    ip_address INET,
+    user_agent TEXT,
+    request_id UUID,
+    result VARCHAR(40),
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE audit_logs IS 'سجل التدقيق الشامل لجميع الإجراءات الحساسة';
+CREATE INDEX IF NOT EXISTS idx_audit_actor ON audit_logs(actor_user_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_logs(entity_type, entity_id);
+CREATE INDEX IF NOT EXISTS idx_audit_action ON audit_logs(action);
+CREATE INDEX IF NOT EXISTS idx_audit_request ON audit_logs(request_id);
+
+-- ============================================================================
+-- 22. أحداث الذكاء الاصطناعي (AI Events)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS ai_events (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    event_type VARCHAR(100) NOT NULL,
+    market_id UUID REFERENCES markets(id),
+    severity ai_severity DEFAULT 'low',
+    payload JSONB NOT NULL,
+    ai_decision JSONB,
+    requires_human_review BOOLEAN DEFAULT FALSE,
+    reviewed_by UUID,
+    reviewed_at TIMESTAMPTZ,
+    processed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_ai_events_type ON ai_events(event_type, created_at);
+CREATE INDEX IF NOT EXISTS idx_ai_events_severity ON ai_events(severity);
+CREATE INDEX IF NOT EXISTS idx_ai_events_market ON ai_events(market_id);
+
+-- ============================================================================
+-- 23. مراجعات العروض (Offer Reviews)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS offer_review_runs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    offer_id UUID NOT NULL REFERENCES service_offers(id) ON DELETE CASCADE,
+    reviewer_type VARCHAR(50) DEFAULT 'ai',
+    reviewer_id UUID,
+    model_name VARCHAR(150),
+    model_version VARCHAR(100),
+    input_hash VARCHAR(128),
+    result VARCHAR(50) NOT NULL,
+    score NUMERIC(8,5),
+    findings JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS offer_correction_events (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    offer_id UUID NOT NULL REFERENCES service_offers(id) ON DELETE CASCADE,
+    field_name VARCHAR(100) NOT NULL,
+    old_value JSONB,
+    new_value JSONB,
+    corrected_by UUID,
+    correction_reason TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS offer_review_decisions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    offer_id UUID NOT NULL REFERENCES service_offers(id) ON DELETE CASCADE,
+    decision VARCHAR(50) NOT NULL,
+    decided_by UUID,
+    decision_type VARCHAR(50) DEFAULT 'human',
+    reason TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
+-- 24. نطاقات الوكلاء (Agent Scope Assignments)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS agent_scope_assignments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    agent_id UUID NOT NULL REFERENCES users(id),
+    region VARCHAR(200) NOT NULL,
+    market_id UUID REFERENCES markets(id),
+    scope_polygon GEOGRAPHY(POLYGON, 4326),
+    valid_from TIMESTAMPTZ DEFAULT now(),
+    valid_until TIMESTAMPTZ,
+    assigned_by UUID REFERENCES users(id),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_agent_scope_agent ON agent_scope_assignments(agent_id);
+CREATE INDEX IF NOT EXISTS idx_agent_scope_region ON agent_scope_assignments(region);
+
+-- ============================================================================
+-- 25. التمثيل والتفويض (Representations)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS user_representations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    represented_entity_id UUID,
+    representation_type VARCHAR(50),
+    document_url TEXT,
+    valid_from TIMESTAMPTZ DEFAULT now(),
+    valid_until TIMESTAMPTZ,
+    verification_status VARCHAR(30) DEFAULT 'pending',
+    verified_by UUID,
+    verified_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
+-- 26. لقطات السياسات (Policy Snapshots)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS booking_policy_snapshots (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID UNIQUE NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+    policy_version VARCHAR(50),
+    commission_rate NUMERIC(5,4),
+    cancellation_policy JSONB,
+    insurance_policy JSONB,
+    refund_policy JSONB,
+    captured_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
+-- 27. سجل تغييرات الإعدادات (Configuration Change Log)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS configuration_change_log (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    config_key VARCHAR(200) NOT NULL,
+    old_value JSONB,
+    new_value JSONB,
+    changed_by UUID REFERENCES users(id),
+    change_reason TEXT,
+    request_id UUID,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
+-- 28. صندوق وارد Webhooks
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS webhook_inbox (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    provider_name VARCHAR(100) NOT NULL,
+    external_event_id VARCHAR(200) NOT NULL,
+    event_type VARCHAR(150) NOT NULL,
+    payload JSONB NOT NULL,
+    status VARCHAR(30) DEFAULT 'RECEIVED',
+    received_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    processed_at TIMESTAMPTZ,
+    failure_reason TEXT,
+    UNIQUE(provider_name, external_event_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_webhook_status ON webhook_inbox(status, received_at);
+
+-- ============================================================================
+-- 29. سجلات Idempotency
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS idempotency_records (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    actor_user_id UUID REFERENCES users(id),
+    idempotency_key VARCHAR(200) NOT NULL,
+    route VARCHAR(300) NOT NULL,
+    request_hash VARCHAR(128) NOT NULL,
+    response_status INTEGER,
+    response_body JSONB,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    expires_at TIMESTAMPTZ NOT NULL DEFAULT (now() + interval '24 hours'),
+    UNIQUE(actor_user_id, idempotency_key, route)
+);
+
+-- ============================================================================
+-- 30. الإشعارات (Notifications)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS notifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    title VARCHAR(200) NOT NULL,
+    body TEXT,
+    type VARCHAR(50),
+    priority VARCHAR(30) DEFAULT 'normal',
+    delivery_status VARCHAR(30) DEFAULT 'pending',
+    sent_at TIMESTAMPTZ,
+    delivered_at TIMESTAMPTZ,
+    read_at TIMESTAMPTZ,
+    retry_count INTEGER DEFAULT 0,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_notifications_retry ON notifications(delivery_status, retry_count, created_at) WHERE delivery_status != 'delivered';
+
+-- ============================================================================
+-- 31. الإعلانات والشرائح (Ads & Rails)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS portal_ads (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(300) NOT NULL,
+    market_id UUID REFERENCES markets(id),
+    provider_id UUID REFERENCES users(id),
+    image_url TEXT,
+    target_url TEXT,
+    zone VARCHAR(50),
+    sort_order INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    valid_from TIMESTAMPTZ,
+    valid_until TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS portal_rails (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(300) NOT NULL,
+    market_id UUID REFERENCES markets(id),
+    service_id UUID REFERENCES services(id),
+    rail_type VARCHAR(50),
+    sort_order INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
+-- 32. السياسات (Policy Versions)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS policy_versions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    policy_key VARCHAR(150) NOT NULL,
+    version INTEGER NOT NULL,
+    value_json JSONB NOT NULL,
+    effective_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    approved_by UUID REFERENCES users(id),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE(policy_key, version)
+);
+
+-- ============================================================================
+-- 33. Trigger: تسجيل دورة حياة الحجز تلقائياً
+-- ============================================================================
+CREATE OR REPLACE FUNCTION hala.log_booking_lifecycle()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.lifecycle_status IS DISTINCT FROM NEW.lifecycle_status THEN
+        INSERT INTO hala.booking_lifecycle_history 
+            (booking_id, from_status, to_status, actor_user_id, request_id, metadata)
+        VALUES 
+            (NEW.id, OLD.lifecycle_status, NEW.lifecycle_status, 
+             NEW.cancelled_by, NEW.request_id, 
+             jsonb_build_object('version', NEW.lifecycle_version));
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_booking_lifecycle ON hala.bookings;
+CREATE TRIGGER trg_booking_lifecycle
+AFTER UPDATE ON hala.bookings
+FOR EACH ROW
+EXECUTE FUNCTION hala.log_booking_lifecycle();
+
+-- ============================================================================
+-- 34. Trigger: التحقق من توازن القيود المحاسبية
+-- ============================================================================
+CREATE OR REPLACE FUNCTION hala.check_ledger_balance()
+RETURNS TRIGGER AS $$
+DECLARE
+    total_debit NUMERIC;
+    total_credit NUMERIC;
+BEGIN
+    SELECT 
+        COALESCE(SUM(CASE WHEN side = 'debit' THEN amount ELSE 0 END), 0),
+        COALESCE(SUM(CASE WHEN side = 'credit' THEN amount ELSE 0 END), 0)
+    INTO total_debit, total_credit
+    FROM hala.ledger_lines 
+    WHERE entry_id = NEW.entry_id;
+    
+    IF NEW.side = 'debit' THEN total_debit := total_debit + NEW.amount;
+    ELSE total_credit := total_credit + NEW.amount;
+    END IF;
+    
+    IF total_debit != total_credit THEN
+        RAISE EXCEPTION 'Ledger entry % is unbalanced: debit=%, credit=%', 
+            NEW.entry_id, total_debit, total_credit;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_ledger_balance ON hala.ledger_lines;
+CREATE TRIGGER trg_ledger_balance
+BEFORE INSERT OR UPDATE ON hala.ledger_lines
+FOR EACH ROW
+EXECUTE FUNCTION hala.check_ledger_balance();
+
+-- ============================================================================
+-- 35. Trigger: تحديث updated_at تلقائياً
+-- ============================================================================
+CREATE OR REPLACE FUNCTION hala.update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- تطبيق على الجداول الرئيسية
+DO $$
+DECLARE
+    tbl TEXT;
+BEGIN
+    FOREACH tbl IN ARRAY ARRAY['markets','users','services','service_offers','bookings','escrow_accounts','disputes']
+    LOOP
+        EXECUTE format('DROP TRIGGER IF EXISTS trg_updated_at ON hala.%I', tbl);
+        EXECUTE format('CREATE TRIGGER trg_updated_at BEFORE UPDATE ON hala.%I FOR EACH ROW EXECUTE FUNCTION hala.update_updated_at_column()', tbl);
+    END LOOP;
+END $$;
+
+-- ============================================================================
+-- 36. البيانات الأولية (Seed Data)
+-- ============================================================================
+
+-- الأسواق الافتراضية
+INSERT INTO markets (slug, name_ar, name_en, icon, primary_color, secondary_color, description, status, sort_order) VALUES
+('events', 'سوق المناسبات', 'Events Market', '🎉', '#331039', '#d4af37', 'تأجير وبيع مستلزمات الأفراح والحفلات', 'active', 1),
+('medical', 'سوق الأدوية والمعدات الطبية', 'Medical Market', '💊', '#0d6b4f', '#1a9e73', 'معدات طبية، أدوية، ومستلزمات صحية', 'draft', 2),
+('agriculture', 'سوق المعدات الزراعية', 'Agriculture Market', '🚜', '#b8962e', '#d4af37', 'آليات، بذور، أسمدة، وخدمات زراعية', 'draft', 3),
+('heavy-equipment', 'سوق المعدات الثقيلة', 'Heavy Equipment Market', '🏗️', '#c03434', '#e05555', 'رافعات، جرافات، ومعدات بناء', 'draft', 4);
+
+-- أقسام سوق المناسبات
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'قاعات ومنصات', 'Halls & Stages', '🏛️', 1 FROM markets WHERE slug = 'events';
+
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'كوش وتجهيزات زفاف', 'Wedding Kush', '', 2 FROM markets WHERE slug = 'events';
+
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'ملبوسات وأزياء', 'Apparel & Fashion', '👗', 3 FROM markets WHERE slug = 'events';
+
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'إضاءة وثريات', 'Lighting & Chandeliers', '💡', 4 FROM markets WHERE slug = 'events';
+
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'صوتيات وDJ', 'Audio & DJ', '🎧', 5 FROM markets WHERE slug = 'events';
+
+INSERT INTO market_sections (market_id, name_ar, name_en, icon, sort_order)
+SELECT id, 'سيارات الزفاف', 'Wedding Cars', '', 6 FROM markets WHERE slug = 'events';
+
+-- أنواع التعامل لسوق المناسبات
+INSERT INTO market_operations (market_id, operation_type, display_name)
+SELECT id, 'RENT', 'تأجير' FROM markets WHERE slug = 'events';
+
+INSERT INTO market_operations (market_id, operation_type, display_name)
+SELECT id, 'BUY', 'بيع' FROM markets WHERE slug = 'events';
+
+INSERT INTO market_operations (market_id, operation_type, display_name)
+SELECT id, 'BUY_OR_RENT', 'تأجير أو بيع' FROM markets WHERE slug = 'events';
+
+-- السياسات الافتراضية
+INSERT INTO policy_versions (policy_key, version, value_json, approved_by) VALUES
+('booking.lifecycle.version', 1, '"4.9"', NULL),
+('booking.timer.types', 1, '["PAYMENT_DEADLINE","SUPPLIER_CONFIRMATION","MILESTONE_24H","MILESTONE_18H","MILESTONE_12H","MILESTONE_6H","ALTERNATIVE_HOLD_EXPIRY","INSURANCE_REFUND"]', NULL),
+('ai.fast_publish_minutes', 1, '30', NULL),
+('ai.extended_review_hours', 1, '6', NULL),
+('availability.horizon_days', 1, '365', NULL),
+('payment.lock_minutes', 1, '5', NULL),
+('ownership.transfer_completion_days', 1, '10', NULL),
+('commission.provider_rate', 1, '0.85', NULL),
+('commission.platform_rate', 1, '0.10', NULL),
+('commission.agent_rate', 1, '0.05', NULL);
+
+-- ============================================================================
+-- 37. صلاحيات Row Level Security (RLS) - للمرحلة B
+-- ============================================================================
+-- يمكن تفعيلها لاحقاً عند الانتقال للإنتاج
+-- ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- ============================================================================
+-- انتهاء المعاملة
+-- ============================================================================
+COMMIT;
+
+-- ============================================================================
+-- رسالة نجاح
+-- ============================================================================
+DO $$
+BEGIN
+    RAISE NOTICE '✅ تم إنشاء قاعدة بيانات منصة أسواق هلا بركس بنجاح - الإصدار v4.9';
+    RAISE NOTICE '📊 عدد الجداول: 30+ جدول';
+    RAISE NOTICE '🔐 عدد الأدوار: 10 أدوار';
+    RAISE NOTICE '🏪 عدد الأسواق: 4 أسواق (1 نشط)';
+END $$;
+```
+
+---
+
+### 📊 إحصائيات قاعدة البيانات
+
+| المكون | العدد |
+|--------|-------|
+| **الجداول الرئيسية** | 30+ جدول |
+| **الأنواع المخصصة (Enums)** | 12 نوع |
+| **الفهارس (Indexes)** | 40+ فهرس |
+| **المحفزات (Triggers)** | 3 محفزات (دورة حياة، توازن Ledger، تحديث تلقائي) |
+| **الأدوار** | 10 أدوار |
+| **الأسواق الأولية** | 4 أسواق |
+| **الأقسام** | 6 أقسام لسوق المناسبات |
+| **السياسات** | 10 سياسات افتراضية |
+
+### 💡 كيفية الاستخدام:
+
+1. **تثبيت PostgreSQL 15+** مع امتداد PostGIS
+2. **إنشاء قاعدة بيانات جديدة:**
+   ```bash
+   createdb hala_brex
+   ```
+3. **تفعيل PostGIS:**
+   ```sql
+   CREATE EXTENSION IF NOT EXISTS postgis;
+   ```
+4. **تنفيذ الملف:**
+   ```bash
+   psql -d hala_brex -f hala_brex_database_v4.9.sql
+   ```
+
+### 🔗 الربط مع الملفات الأخرى:
+
+- **الملف التقني:** يصف كيفية استخدام هذه الجداول عبر API
+- **الملف المالي:** يصف قواعد الـ Ledger و Escrow المنفذة هنا
+- **الملف القانوني:** يصف سياسات الحفظ والخصوصية المطبقة
+- **الملف البرمجي:** يصف كيفية الاتصال بهذه الجداول من الكود
+
+**هل تريدني الآن أن أبدأ بـ:**
+1. **المرحلة B** (Multi-User حقيقي)؟
+2. **إنشاء ملف SQL إضافي** للبيانات التجريبية (Seed Data) لاختبار النظام؟
+3. **إنشاء ملف Migration** للترقية من الإصدارات السابقة؟
