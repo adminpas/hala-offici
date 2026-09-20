@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجر هلا المتعاهد الشامل - يجمعنا</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: #0a0318;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Header */
+.header {
+    background: rgba(10, 3, 24, 0.98);
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-svg {
+    width: 70px;
+    height: 70px;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+}
+
+.nav-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.nav-link:hover, .nav-link.active { color: #ffd700; }
+
+.header-actions { display: flex; gap: 12px; align-items: center; }
+
+.btn-main {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #ffd700, #d4a574);
+    border: none;
+    border-radius: 25px;
+    color: #0a0318;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s;
+}
+
+.btn-main:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+.btn-login {
+    padding: 8px 20px;
+    background: transparent;
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    color: #ffd700;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.btn-register {
+    padding: 8px 20px;
+    background: #ffd700;
+    border: none;
+    border-radius: 20px;
+    color: #0a0318;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* Main Navigation Modal */
+.main-nav-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.main-nav-modal.active { display: flex; }
+
+.main-nav-content {
+    background: linear-gradient(180deg, #1a0b3e 0%, #0a0318 100%);
+    border: 3px solid #ffd700;
+    border-radius: 25px;
+    padding: 40px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.main-nav-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.main-nav-close:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+}
+
+.main-nav-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.main-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.main-nav-item {
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(26, 11, 62, 0.6));
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.main-nav-item:hover {
+    transform: translateY(-5px);
+    border-color: #ffd700;
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.main-nav-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.main-nav-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffd700;
+}
+
+/* Main Layout - Sidebar on RIGHT */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    min-height: calc(100vh - 95px);
+}
+
+/* Sidebar - RIGHT side */
+.sidebar {
+    background: linear-gradient(180deg, #1a0b3e 0%, #0f0524 100%);
+    border-right: 2px solid rgba(212, 165, 116, 0.3);
+    padding: 20px 12px;
+    position: sticky;
+    top: 95px;
+    height: calc(100vh - 95px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ffd700 transparent;
+    grid-column: 2;
+}
+
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
+
+/* Sidebar Logo */
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+}
+
+.sidebar-logo-svg {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+/* Sidebar Sections */
+.sidebar-section { margin-bottom: 18px; }
+
+.sidebar-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd700;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Gender Cards */
+.gender-card {
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(26, 11, 62, 0.6));
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.gender-card:hover {
+    transform: translateY(-3px);
+    border-color: #ffd700;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+}
+
+.gender-card-icon { font-size: 30px; margin-bottom: 6px; }
+
+.gender-card-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 3px;
+}
+
+.gender-card-desc {
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Sidebar Nav Items */
+.sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 3px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+}
+
+.sidebar-nav-item:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+}
+
+.sidebar-nav-item.active {
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.sidebar-nav-icon { font-size: 18px; }
+
+/* Main Content */
+.main-content {
+    padding: 0;
+    overflow-y: auto;
+    grid-column: 1;
+}
+
+/* Hero Slider - Increased slides */
+.hero-slider {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: linear-gradient(180deg, #0a0318 0%, #1a0b3e 100%);
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.slide.active { opacity: 1; }
+
+.slide-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 22px;
+    background: linear-gradient(135deg, #ffd700, #d4a574);
+    color: #0a0318;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.slide-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 15px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    text-align: center;
+}
+
+.slide-desc {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.slide-btn {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #ffd700, #d4a574);
+    border: none;
+    border-radius: 30px;
+    color: #0a0318;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #ffd700;
+    width: 25px;
+    border-radius: 5px;
+}
+
+/* Section */
+.section { padding: 20px 0; margin-bottom: 10px; }
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title .divider {
+    width: 3px;
+    height: 28px;
+    background: #ffd700;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+
+.see-all {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.see-all:hover {
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+    border-color: #ffd700;
+}
+
+/* Scroll Container */
+.scroll-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 30px 20px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.scroll-container::-webkit-scrollbar { display: none; }
+
+/* Cards */
+.card {
+    min-width: 240px;
+    background: linear-gradient(180deg, #1a0b3e 0%, #0f0524 100%);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.15);
+}
+
+.card-image {
+    width: 100%;
+    height: 130px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-new { background: #22c55e; color: white; }
+.badge-exclusive { background: linear-gradient(135deg, #ffd700, #d4a574); color: #0a0318; }
+.badge-hot { background: #ef4444; color: white; }
+.badge-yemeni { background: #dc2626; color: white; }
+.badge-religious { background: #16a34a; color: white; }
+.badge-rental { background: #3b82f6; color: white; }
+
+.card-info { padding: 14px; }
+
+.card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.card-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-price {
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffd700;
+}
+
+.card-price span {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #ffd700;
+    font-weight: 700;
+}
+
+/* Package Cards */
+.package-card {
+    min-width: 300px;
+    background: linear-gradient(180deg, #1a0b3e 0%, #0f0524 100%);
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    border-radius: 20px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    border-color: #ffd700;
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+}
+
+.package-icon { font-size: 55px; margin-bottom: 12px; }
+
+.package-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 12px;
+}
+
+.package-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.package-price {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffd700;
+}
+
+.package-price span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Occasion Cards */
+.occasion-card {
+    min-width: 140px;
+    background: linear-gradient(180deg, #1a0b3e 0%, #0f0524 100%);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 16px;
+    padding: 22px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.occasion-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.occasion-icon { font-size: 42px; margin-bottom: 10px; }
+
+.occasion-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Categories Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0 30px;
+}
+
+.category-card {
+    background: linear-gradient(180deg, #1a0b3e 0%, #0f0524 100%);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.category-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 12px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.category-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+
+.category-count { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active { display: flex; }
+
+.modal-content {
+    background: linear-gradient(180deg, #1a0b3e 0%, #0a0318 100%);
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(212, 165, 116, 0.3);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-item-name { font-size: 15px; font-weight: 700; }
+
+.modal-item-price {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffd700;
+}
+
+.modal-total {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 165, 116, 0.1));
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-total-price {
+    font-size: 36px;
+    font-weight: 900;
+    color: #ffd700;
+    margin-top: 10px;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ffd700, #d4a574);
+    border: none;
+    border-radius: 12px;
+    color: #0a0318;
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* Footer */
+.footer {
+    background: rgba(10, 3, 24, 0.98);
+    border-top: 1px solid rgba(212, 165, 116, 0.2);
+    padding: 40px 30px 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    color: #ffd700;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.footer-section p, .footer-section a {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.footer-section a:hover { color: #ffd700; }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 25px;
+    border-top: 1px solid rgba(212, 165, 116, 0.15);
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-nav-grid { grid-template-columns: repeat(3, 1fr); }
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar {
+        position: relative;
+        top: 0;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+        grid-column: 1;
+    }
+    .main-content { grid-column: 1; }
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-content { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .header { padding: 10px 15px; flex-wrap: wrap; gap: 8px; }
+    .nav-menu { display: none; }
+    .hero-slider { height: 350px; }
+    .slide-title { font-size: 32px; }
+    .section-header { padding: 0 15px; }
+    .scroll-container { padding: 10px 15px 20px; }
+    .package-card { min-width: 260px; padding: 20px; }
+    .categories-grid { grid-template-columns: 1fr; padding: 0 15px; }
+    .footer-content { grid-template-columns: 1fr; }
+    .main-nav-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="logo-container">
+        <!-- Complete Logo SVG -->
+        <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff5b0"/>
+                    <stop offset="50%" stop-color="#ffd700"/>
+                    <stop offset="100%" stop-color="#d4a574"/>
+                </radialGradient>
+                <radialGradient id="silverGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="50%" stop-color="#e0e0e0"/>
+                    <stop offset="100%" stop-color="#a0a0a0"/>
+                </radialGradient>
+            </defs>
+            <!-- Gold outer ring -->
+            <circle cx="100" cy="100" r="95" fill="url(#goldGrad)" stroke="#b8860b" stroke-width="2"/>
+            <!-- Silver inner -->
+            <circle cx="100" cy="100" r="85" fill="url(#silverGrad)"/>
+            <!-- Purple text -->
+            <text x="100" y="65" text-anchor="middle" font-size="24" font-weight="900" fill="#4a148c" font-family="Tajawal">متجر</text>
+            <text x="100" y="115" text-anchor="middle" font-size="45" font-weight="900" fill="#4a148c" font-family="Tajawal">هلا</text>
+            <text x="100" y="150" text-anchor="middle" font-size="18" font-weight="900" fill="#4a148c" font-family="Tajawal">يجمعنا</text>
+        </svg>
+    </div>
+    <nav class="nav-menu">
+        <a class="nav-link active">الرئيسية</a>
+        <a class="nav-link">المناسبات</a>
+        <a class="nav-link">الخدمات</a>
+        <a class="nav-link">مقدمي الخدمات</a>
+        <a class="nav-link">العروض</a>
+        <a class="nav-link">من نحن</a>
+    </nav>
+    <div class="header-actions">
+        <button class="btn-main" onclick="showMainNav()">🏠 الرئيسية</button>
+        <button class="btn-login">تسجيل الدخول</button>
+        <button class="btn-register">حساب جديد</button>
+    </div>
+</header>
+
+<!-- Main Navigation Modal -->
+<div class="main-nav-modal" id="mainNavModal">
+    <div class="main-nav-content">
+        <button class="main-nav-close" onclick="closeMainNav()">✕</button>
+        <h2 class="main-nav-title">🎯 التنقل السريع</h2>
+        <div class="main-nav-grid" id="mainNavGrid"></div>
+    </div>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Slider - Multiple slides for services -->
+        <div class="hero-slider">
+            <div class="slide active">
+                <div class="slide-badge"> باقة المقيل</div>
+                <h1 class="slide-title">تجهيز كامل للمقايل</h1>
+                <p class="slide-desc">فرش، مجالس، قهوة، قشر، وصبابين بالزي التقليدي</p>
+                <button class="slide-btn" onclick="openPackageModal(0)">احجز الآن - 80,000 ريال</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">🌙 باقة ليلة الغمرة</div>
+                <h1 class="slide-title">حناء، أزياء تراثية، تجميل</h1>
+                <p class="slide-desc">ضيافة نسائية، بنت صحن، وحلويات يمنية</p>
+                <button class="slide-btn" onclick="openPackageModal(1)">احجز الآن - 120,000 ريال</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">💍 باقة الزفاف الكاملة</div>
+                <h1 class="slide-title">قاعة + ديكور + تصوير</h1>
+                <p class="slide-desc">ضيافة + ترفيه - كل شيء في باقة واحدة</p>
+                <button class="slide-btn" onclick="openPackageModal(2)">احجز الآن - 450,000 ريال</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">👔 تأجير الملابس الرجالية</div>
+                <h1 class="slide-title">أفخم الثياب اليمنية والرسمية</h1>
+                <p class="slide-desc">أثواب، بدلات، شال صوف، مصر، وجنابي</p>
+                <button class="slide-btn" onclick="scrollToSection('menClothing')">تصفح الأزياء</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge"> تأجير الملابس النسائية</div>
+                <h1 class="slide-title">أزياء تراثية وعصرية</h1>
+                <p class="slide-desc">ستارة صنعانية، لبس عدني، حضرمي، وفساتين</p>
+                <button class="slide-btn" onclick="scrollToSection('womenClothing')">تصفح الأزياء</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">💎 إكسسوارات رجالية</div>
+                <h1 class="slide-title">جنابي، ساعات، خواتم</h1>
+                <p class="slide-desc">عقال، غترة، أحزمة، وربطات عنق فاخرة</p>
+                <button class="slide-btn" onclick="scrollToSection('menAccessories')">شاهد الإكسسوارات</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">💍 إكسسوارات نسائية</div>
+                <h1 class="slide-title">ذهب، لؤلؤ، تيجان</h1>
+                <p class="slide-desc">أساور، خلخال، حقائب، وأحذية فاخرة</p>
+                <button class="slide-btn" onclick="scrollToSection('womenAccessories')">شاهد الإكسسوارات</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">🌙 مناسبات دينية</div>
+                <h1 class="slide-title">إحياء الاحتفالات الدينية</h1>
+                <p class="slide-desc">المولد النبوي، الإسراء والمعراج، رمضان، والحج</p>
+                <button class="slide-btn" onclick="scrollToSection('religiousEvents')">احجز الآن</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">👔 خدمات الرجال</div>
+                <h1 class="slide-title">تجهيز المقايل وفرق البرعة</h1>
+                <p class="slide-desc">منشدين، مغنيين عود، وصالونات العريس</p>
+                <button class="slide-btn" onclick="scrollToSection('menServices')">استكشف الخدمات</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">👰 خدمات النساء</div>
+                <h1 class="slide-title">نقاشات حناء وخبيرات تجميل</h1>
+                <p class="slide-desc">تصميم كوشة، مضيفات، ومطربات نسائية</p>
+                <button class="slide-btn" onclick="scrollToSection('womenServices')">استكشف الخدمات</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">️ القاعات والخيام</div>
+                <h1 class="slide-title">صالات أفراح وخيام شعبية</h1>
+                <p class="slide-desc">أكثر من 50 قاعة في جميع المديريات</p>
+                <button class="slide-btn" onclick="scrollToSection('commonServices')">شاهد القاعات</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">🍰 الولائم العائلية</div>
+                <h1 class="slide-title">زربيان، مندي، وكبسة</h1>
+                <p class="slide-desc">أشهر المطاعم اليمنية للضيافة</p>
+                <button class="slide-btn" onclick="scrollToSection('commonServices')">تصفح المطاعم</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">📸 المصورون والفيديو</div>
+                <h1 class="slide-title">توثيق احترافي لمناسبتك</h1>
+                <p class="slide-desc">أفضل المصورين بأسعار تنافسية</p>
+                <button class="slide-btn" onclick="scrollToSection('commonServices')">احجز مصور</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge">🇾🇪 خدمات تراثية</div>
+                <h1 class="slide-title">مقايل القات وليلة الغمرة</h1>
+                <p class="slide-desc">الطبخ اليمني الأصيل والقهوة والقشر</p>
+                <button class="slide-btn" onclick="scrollToSection('traditionalServices')">استكشف التراث</button>
+            </div>
+            <div class="slide">
+                <div class="slide-badge"> الأسواق والمولات</div>
+                <h1 class="slide-title">كهربائية، هدايا، عطور</h1>
+                <p class="slide-desc">عسل بلدي، مكسرات، وإكسسوارات</p>
+                <button class="slide-btn" onclick="scrollToSection('markets')">تصفح الأسواق</button>
+            </div>
+            <div class="slider-dots">
+                <div class="dot active" onclick="goToSlide(0)"></div>
+                <div class="dot" onclick="goToSlide(1)"></div>
+                <div class="dot" onclick="goToSlide(2)"></div>
+                <div class="dot" onclick="goToSlide(3)"></div>
+                <div class="dot" onclick="goToSlide(4)"></div>
+                <div class="dot" onclick="goToSlide(5)"></div>
+                <div class="dot" onclick="goToSlide(6)"></div>
+                <div class="dot" onclick="goToSlide(7)"></div>
+                <div class="dot" onclick="goToSlide(8)"></div>
+                <div class="dot" onclick="goToSlide(9)"></div>
+                <div class="dot" onclick="goToSlide(10)"></div>
+                <div class="dot" onclick="goToSlide(11)"></div>
+                <div class="dot" onclick="goToSlide(12)"></div>
+                <div class="dot" onclick="goToSlide(13)"></div>
+                <div class="dot" onclick="goToSlide(14)"></div>
+            </div>
+        </div>
+
+        <!-- Packages -->
+        <section class="section" id="packages">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🎁 الباقات الخاصة</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="packagesContainer"></div>
+        </section>
+
+        <!-- New Week -->
+        <section class="section" id="newWeek">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🔥 جديد الأسبوع</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="newWeekContainer"></div>
+        </section>
+
+        <!-- Exclusive -->
+        <section class="section" id="exclusive">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>💎 حصري للمنصة</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="exclusiveContainer"></div>
+        </section>
+
+        <!-- Occasions -->
+        <section class="section" id="occasions">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🎉 المناسبات</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="occasionsContainer"></div>
+        </section>
+
+        <!-- Men's Clothing -->
+        <section class="section" id="menClothing">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>👔 تأجير الملابس الرجالية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="menClothingContainer"></div>
+        </section>
+
+        <!-- Women's Clothing -->
+        <section class="section" id="womenClothing">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>👗 تأجير الملابس النسائية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="womenClothingContainer"></div>
+        </section>
+
+        <!-- Men's Accessories -->
+        <section class="section" id="menAccessories">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>💎 إكسسوارات رجالية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="menAccessoriesContainer"></div>
+        </section>
+
+        <!-- Women's Accessories -->
+        <section class="section" id="womenAccessories">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>💍 إكسسوارات نسائية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="womenAccessoriesContainer"></div>
+        </section>
+
+        <!-- Religious Events -->
+        <section class="section" id="religiousEvents">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🌙 المناسبات الدينية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="religiousContainer"></div>
+        </section>
+
+        <!-- Men Services -->
+        <section class="section" id="menServices">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>👔 خدمات الرجال</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="menServicesContainer"></div>
+        </section>
+
+        <!-- Women Services -->
+        <section class="section" id="womenServices">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>👰 خدمات النساء</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="womenServicesContainer"></div>
+        </section>
+
+        <!-- Common Services -->
+        <section class="section" id="commonServices">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🤝 خدمات مشتركة</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="commonContainer"></div>
+        </section>
+
+        <!-- Traditional Services -->
+        <section class="section" id="traditionalServices">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🇾 خدمات تراثية</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="traditionalContainer"></div>
+        </section>
+
+        <!-- Markets -->
+        <section class="section" id="markets">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>🏪 الأسواق والمولات</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="scroll-container" id="marketsContainer"></div>
+        </section>
+
+        <!-- Categories -->
+        <section class="section" id="categories">
+            <div class="section-header">
+                <h2 class="section-title"><span class="divider"></span>📂 أقسام المتجر</h2>
+                <a class="see-all">عرض الكل</a>
+            </div>
+            <div class="categories-grid" id="categoriesContainer"></div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3> متجر هلا</h3>
+                    <p>منصة يمنية شاملة تجمع جميع مزودي خدمات المناسبات</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <a href="#">الرئيسية</a>
+                    <a href="#">الخدمات</a>
+                    <a href="#">مقدمي الخدمات</a>
+                    <a href="#">العروض</a>
+                </div>
+                <div class="footer-section">
+                    <h3>الدعم</h3>
+                    <a href="#">من نحن</a>
+                    <a href="#">اتصل بنا</a>
+                    <a href="#">الشروط والأحكام</a>
+                </div>
+                <div class="footer-section">
+                    <h3>تواصل معنا</h3>
+                    <p>📞 واتساب: 778044803</p>
+                    <p>📧 info@hala.ye</p>
+                    <p>📍 صنعاء، اليمن</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 متجر هلا المتعاهد الشامل - يجمعنا 🇾🇪</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Sidebar - RIGHT side -->
+    <aside class="sidebar">
+        <!-- Sidebar Logo -->
+        <div class="sidebar-logo">
+            <svg class="sidebar-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="goldGrad2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#fff5b0"/>
+                        <stop offset="50%" stop-color="#ffd700"/>
+                        <stop offset="100%" stop-color="#d4a574"/>
+                    </radialGradient>
+                    <radialGradient id="silverGrad2" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="50%" stop-color="#e0e0e0"/>
+                        <stop offset="100%" stop-color="#a0a0a0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="100" cy="100" r="95" fill="url(#goldGrad2)" stroke="#b8860b" stroke-width="2"/>
+                <circle cx="100" cy="100" r="85" fill="url(#silverGrad2)"/>
+                <text x="100" y="65" text-anchor="middle" font-size="24" font-weight="900" fill="#4a148c" font-family="Tajawal">متجر</text>
+                <text x="100" y="115" text-anchor="middle" font-size="45" font-weight="900" fill="#4a148c" font-family="Tajawal">هلا</text>
+                <text x="100" y="150" text-anchor="middle" font-size="18" font-weight="900" fill="#4a148c" font-family="Tajawal">يجمعنا</text>
+            </svg>
+        </div>
+
+        <!-- Gender Sections -->
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">👥 الأقسام الرئيسية</div>
+            <div class="gender-card" onclick="showMenServices()">
+                <div class="gender-card-icon"></div>
+                <div class="gender-card-title">قسم الرجال</div>
+                <div class="gender-card-desc">المقايل، الأعراس، التجهيزات الرجالية</div>
+            </div>
+            <div class="gender-card" onclick="showWomenServices()">
+                <div class="gender-card-icon">👰</div>
+                <div class="gender-card-title">قسم النساء</div>
+                <div class="gender-card-desc">الغمرة، الزفاف، التجميل والأزياء</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">📋 القائمة الرئيسية</div>
+            <div class="sidebar-nav-item active" onclick="scrollToSection('packages')">
+                <span class="sidebar-nav-icon">🎁</span>
+                <span>الباقات المميزة</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('newWeek')">
+                <span class="sidebar-nav-icon">🔥</span>
+                <span>جديد الأسبوع</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('exclusive')">
+                <span class="sidebar-nav-icon">💎</span>
+                <span>حصري للمنصة</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('occasions')">
+                <span class="sidebar-nav-icon">🎉</span>
+                <span>المناسبات</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('categories')">
+                <span class="sidebar-nav-icon">📂</span>
+                <span>أقسام المتجر</span>
+            </div>
+        </div>
+
+        <!-- Services -->
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">🛍️ الخدمات</div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('menClothing')">
+                <span class="sidebar-nav-icon"></span>
+                <span>تأجير رجالي</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('womenClothing')">
+                <span class="sidebar-nav-icon">👗</span>
+                <span>تأجير نسائي</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('menAccessories')">
+                <span class="sidebar-nav-icon">💎</span>
+                <span>إكسسوارات رجالية</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('womenAccessories')">
+                <span class="sidebar-nav-icon">💍</span>
+                <span>إكسسوارات نسائية</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('religiousEvents')">
+                <span class="sidebar-nav-icon">🌙</span>
+                <span>مناسبات دينية</span>
+            </div>
+        </div>
+
+        <!-- More Services -->
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">⚙️ خدمات أخرى</div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('menServices')">
+                <span class="sidebar-nav-icon">👔</span>
+                <span>خدمات الرجال</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('womenServices')">
+                <span class="sidebar-nav-icon">👰</span>
+                <span>خدمات النساء</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('commonServices')">
+                <span class="sidebar-nav-icon">🤝</span>
+                <span>خدمات مشتركة</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('traditionalServices')">
+                <span class="sidebar-nav-icon">🇾🇪</span>
+                <span>خدمات تراثية</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="scrollToSection('markets')">
+                <span class="sidebar-nav-icon">🏪</span>
+                <span>الأسواق والمولات</span>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="packageModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-icon" id="modalIcon"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-body" id="modalBody"></div>
+        <button class="modal-btn" onclick="bookPackage()">احجز هذه الباقة</button>
+    </div>
+</div>
+
+<script>
+// Data
+const packagesData = [
+    { 
+        icon: '👔', name: 'باقة المقيل', 
+        desc: 'تجهيز كامل للمقايل - فرش، مجالس، قهوة، قشر', 
+        price: '80,000',
+        items: [
+            { name: 'فرش ومجالس عربية', price: '25,000' },
+            { name: 'ثلاجات القشر والقهوة', price: '8,000' },
+            { name: 'صبابين القهوة بالزي التقليدي', price: '12,000' },
+            { name: 'تنظيم السيارات', price: '10,000' },
+            { name: 'مقايل القات', price: '30,000' }
+        ]
+    },
+    { 
+        icon: '🌙', name: 'باقة ليلة الغمرة', 
+        desc: 'حناء، أزياء تراثية، تجميل، ضيافة نسائية', 
+        price: '120,000',
+        items: [
+            { name: 'نقاشات الحناء', price: '20,000' },
+            { name: 'أزياء تراثية (ستارة صنعانية)', price: '30,000' },
+            { name: 'خبيرات التجميل', price: '25,000' },
+            { name: 'بنت صحن وحلويات', price: '15,000' },
+            { name: 'مضيفات بزي موحد', price: '18,000' }
+        ]
+    },
+    { 
+        icon: '💍', name: 'باقة الزفاف الكاملة', 
+        desc: 'قاعة + ديكور + تصوير + ضيافة + ترفيه', 
+        price: '450,000',
+        items: [
+            { name: 'قاعة الأفراح', price: '150,000' },
+            { name: 'ديكور وتنسيق', price: '60,000' },
+            { name: 'تصوير وفيديو', price: '50,000' },
+            { name: 'ضيافة وطعام', price: '120,000' },
+            { name: 'فرقة موسيقية', price: '70,000' }
+        ]
+    }
+];
+
+const newWeekData = [
+    { title: 'قاعة الياسمين', subtitle: 'حي الحصبة', price: '120,000', rating: '4.9', badge: 'جديد', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' },
+    { title: 'DJ ماستر', subtitle: 'صوت وإضاءة', price: '60,000', rating: '4.8', badge: 'جديد', gradient: 'linear-gradient(135deg, #6b2d8b, #2d1b69)' },
+    { title: 'استوديو الإبداع', subtitle: 'تصوير فيديو', price: '45,000', rating: '4.7', badge: 'جديد', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'ديكور الأحلام', subtitle: 'تنسيق زهور', price: '35,000', rating: '4.6', badge: 'جديد', gradient: 'linear-gradient(135deg, #4ade80, #22c55e)' },
+    { title: 'مطعم السعادة', subtitle: 'ضيافة وطعام', price: '80,000', rating: '4.8', badge: 'جديد', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' }
+];
+
+const exclusiveData = [
+    { title: 'قاعة الملوك', subtitle: 'VIP فقط', price: '250,000', rating: '5.0', badge: 'حصري', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'فرقة الطرب', subtitle: 'فنانون حصريون', price: '100,000', rating: '4.9', badge: 'حصري', gradient: 'linear-gradient(135deg, #3d1f7a, #1a0b3e)' },
+    { title: 'ليموزين فاخر', subtitle: 'سيارات VIP', price: '150,000', rating: '4.9', badge: 'حصري', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' },
+    { title: 'مصمم أزياء', subtitle: 'تصاميم حصرية', price: '200,000', rating: '5.0', badge: 'حصري', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' }
+];
+
+const occasionsData = [
+    { icon: '💍', name: 'زفاف' },
+    { icon: '💎', name: 'خطوبة' },
+    { icon: '', name: 'عقد قران' },
+    { icon: '🎓', name: 'تخرج' },
+    { icon: '🎂', name: 'عيد ميلاد' },
+    { icon: '👶', name: 'عقيقة' },
+    { icon: '🕊️', name: 'عزاء' },
+    { icon: '🎉', name: 'حفل خاص' },
+    { icon: '🎪', name: 'فعالية' },
+    { icon: '🏆', name: 'تكريم' }
+];
+
+const menClothingData = [
+    { title: 'الثوب اليمني الرسمي', subtitle: 'أثواب فاخرة', price: '15,000', rating: '4.9', badge: 'تراثي', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' },
+    { title: 'البدلة الرسمية', subtitle: 'بدلات أوروبية', price: '25,000', rating: '4.8', badge: 'عصري', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' },
+    { title: 'الشال الصوف', subtitle: 'شالات يمنية', price: '12,000', rating: '4.9', badge: 'تراثي', gradient: 'linear-gradient(135deg, #6b2d8b, #2d1b69)' },
+    { title: 'المصر اليمني', subtitle: 'مصر فاخر', price: '18,000', rating: '5.0', badge: 'حصري', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' }
+];
+
+const womenClothingData = [
+    { title: 'الستارة الصنعانية', subtitle: 'أزياء تراثية', price: '30,000', rating: '5.0', badge: 'تراثي', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'اللبس العدني', subtitle: 'أزياء عدن', price: '28,000', rating: '4.9', badge: 'تراثي', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' },
+    { title: 'فستان الزفاف', subtitle: 'فساتين فاخرة', price: '80,000', rating: '5.0', badge: 'حصري', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'فستان السهرة', subtitle: 'فساتين عالمية', price: '50,000', rating: '4.9', badge: 'عصري', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' }
+];
+
+const menAccessoriesData = [
+    { title: 'الجنبية اليمنية', subtitle: 'جنابي أصلية', price: '50,000', rating: '5.0', badge: 'تراثي', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'العقال والغترة', subtitle: 'عقال فاخر', price: '8,000', rating: '4.8', badge: 'خليجي', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'الساعة الفاخرة', subtitle: 'رولكس وأوميغا', price: '35,000', rating: '4.9', badge: 'فاخر', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' }
+];
+
+const womenAccessoriesData = [
+    { title: 'الطقم الذهبي', subtitle: 'ذهب 18 و21 قيراط', price: '150,000', rating: '5.0', badge: 'فاخر', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'تاج العروس', subtitle: 'تيجان مرصعة', price: '80,000', rating: '5.0', badge: 'حصري', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+    { title: 'العقد واللؤلؤ', subtitle: 'لؤلؤ طبيعي', price: '60,000', rating: '4.9', badge: 'فاخر', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' }
+];
+
+const religiousEventsData = [
+    { title: 'المولد النبوي', subtitle: 'إنشاد ومدائح', price: '100,000', rating: '5.0', badge: 'ديني', gradient: 'linear-gradient(135deg, #16a34a, #22c55e)' },
+    { title: 'الحج للحجاج', subtitle: 'تجهيز كامل', price: '200,000', rating: '5.0', badge: 'ديني', gradient: 'linear-gradient(135deg, #16a34a, #22c55e)' },
+    { title: 'الإسراء والمعراج', subtitle: 'احتفالات دينية', price: '80,000', rating: '4.9', badge: 'ديني', gradient: 'linear-gradient(135deg, #16a34a, #22c55e)' },
+    { title: 'المناسبات الرمضانية', subtitle: 'خيم وإفطارات', price: '150,000', rating: '4.9', badge: 'ديني', gradient: 'linear-gradient(135deg, #16a34a, #22c55e)' }
+];
+
+const menServicesData = [
+    { title: 'تجهيز المقايل', subtitle: 'فرش ومجالس', price: '25,000', rating: '4.9', badge: 'تراثي', gradient: 'linear-gradient(135deg, #8b6914, #d4a574)' },
+    { title: 'فرق البرعة', subtitle: 'صنعاني وحضرمي', price: '60,000', rating: '5.0', badge: 'تراثي', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'منشدين ومغنيين', subtitle: 'للجلسات', price: '40,000', rating: '4.9', badge: 'مميز', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' }
+];
+
+const womenServicesData = [
+    { title: 'نقاشات الحناء', subtitle: 'حناء يمنية', price: '20,000', rating: '4.9', badge: 'مطلوب', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'خبيرات التجميل', subtitle: 'ميك أب وتساريح', price: '25,000', rating: '4.9', badge: 'مميز', gradient: 'linear-gradient(135deg, #4ade80, #22c55e)' },
+    { title: 'تصميم الكوشة', subtitle: 'كوشة العروس', price: '45,000', rating: '4.9', badge: 'مميز', gradient: 'linear-gradient(135deg, #6b2d8b, #2d1b69)' }
+];
+
+const commonServicesData = [
+    { title: 'القاعات والخيام', subtitle: 'صالات أفراح', price: '100,000', rating: '4.8', badge: 'مطلوب', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' },
+    { title: 'الولائم العائلية', subtitle: 'زربيان ومندي', price: '120,000', rating: '4.9', badge: 'يمني', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'المصورون والفيديو', subtitle: 'توثيق احترافي', price: '45,000', rating: '4.8', badge: 'مميز', gradient: 'linear-gradient(135deg, #1a0b3e, #2d1b69)' }
+];
+
+const traditionalServicesData = [
+    { title: 'مقايل القات', subtitle: 'تجهيز كامل', price: '30,000', rating: '4.9', badge: 'تراثي', gradient: 'linear-gradient(135deg, #4ade80, #22c55e)' },
+    { title: 'ليلة الغمرة', subtitle: 'تجهيز الغمرة', price: '80,000', rating: '5.0', badge: 'تراثي', gradient: 'linear-gradient(135deg, #dc2626, #991b1b)' },
+    { title: 'الطبخ اليمني', subtitle: 'زربيان وكبسة', price: '90,000', rating: '4.9', badge: 'يمني', gradient: 'linear-gradient(135deg, #d4a574, #8b6914)' }
+];
+
+const marketsData = [
+    { title: 'الأسواق الكهربائية', subtitle: 'أجهزة وإلكترونيات', price: 'متنوع', rating: '4.7', badge: 'سوق', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' },
+    { title: 'أسواق الهدايا', subtitle: 'هدايا وتوزيعات', price: 'متنوع', rating: '4.8', badge: 'سوق', gradient: 'linear-gradient(135deg, #4ade80, #22c55e)' },
+    { title: 'العطور والبخور', subtitle: 'عطور يمنية', price: 'متنوع', rating: '5.0', badge: 'تراثي', gradient: 'linear-gradient(135deg, #6b2d8b, #2d1b69)' },
+    { title: 'العسل البلدي', subtitle: 'عسل يمني أصلي', price: 'متنوع', rating: '5.0', badge: 'يمني', gradient: 'linear-gradient(135deg, #ffd700, #d4a574)' }
+];
+
+const categoriesData = [
+    { icon: '🏛️', name: 'القاعات', count: '+50 قاعة' },
+    { icon: '🌸', name: 'الديكور', count: '+30 مزود' },
+    { icon: '🔊', name: 'الصوت والإضاءة', count: '+25 مزود' },
+    { icon: '', name: 'الفنانون', count: '+40 فنان' },
+    { icon: '📸', name: 'التصوير', count: '+35 مصور' },
+    { icon: '👗', name: 'الأزياء', count: '+20 مصمم' },
+    { icon: '', name: 'التجميل', count: '+25 مزود' },
+    { icon: '🍰', name: 'الطعام', count: '+30 مطعم' }
+];
+
+const mainNavData = [
+    { icon: '🎁', label: 'الباقات', section: 'packages' },
+    { icon: '🔥', label: 'جديد الأسبوع', section: 'newWeek' },
+    { icon: '💎', label: 'حصري', section: 'exclusive' },
+    { icon: '🎉', label: 'المناسبات', section: 'occasions' },
+    { icon: '', label: 'تأجير رجالي', section: 'menClothing' },
+    { icon: '👗', label: 'تأجير نسائي', section: 'womenClothing' },
+    { icon: '💎', label: 'إكسسوارات رجالية', section: 'menAccessories' },
+    { icon: '💍', label: 'إكسسوارات نسائية', section: 'womenAccessories' },
+    { icon: '🌙', label: 'مناسبات دينية', section: 'religiousEvents' },
+    { icon: '👔', label: 'خدمات الرجال', section: 'menServices' },
+    { icon: '👰', label: 'خدمات النساء', section: 'womenServices' },
+    { icon: '🤝', label: 'خدمات مشتركة', section: 'commonServices' },
+    { icon: '🇾🇪', label: 'خدمات تراثية', section: 'traditionalServices' },
+    { icon: '', label: 'الأسواق', section: 'markets' },
+    { icon: '📂', label: 'الأقسام', section: 'categories' }
+];
+
+// Render Functions
+function renderCard(item) {
+    const badgeClass = item.badge === 'جديد' ? 'badge-new' : 
+                       item.badge === 'حصري' || item.badge === 'فاخر' ? 'badge-exclusive' : 
+                       item.badge === 'تراثي' || item.badge === 'يمني' ? 'badge-yemeni' : 
+                       item.badge === 'عصري' || item.badge === 'خليجي' ? 'badge-rental' : 
+                       item.badge === 'ديني' ? 'badge-religious' : 'badge-hot';
+    return `
+        <div class="card">
+            <div class="card-image" style="background: ${item.gradient};">
+                <span class="card-badge ${badgeClass}">${item.badge}</span>
+            </div>
+            <div class="card-info">
+                <div class="card-title">${item.title}</div>
+                <div class="card-subtitle">${item.subtitle}</div>
+                <div class="card-footer">
+                    <div class="card-price">${item.price} <span>ريال</span></div>
+                    <div class="card-rating">⭐ ${item.rating}</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderOccasion(item) {
+    return `
+        <div class="occasion-card">
+            <div class="occasion-icon">${item.icon}</div>
+            <div class="occasion-name">${item.name}</div>
+        </div>
+    `;
+}
+
+function renderPackage(item, index) {
+    return `
+        <div class="package-card" onclick="openPackageModal(${index})">
+            <div class="package-icon">${item.icon}</div>
+            <div class="package-name">${item.name}</div>
+            <div class="package-desc">${item.desc}</div>
+            <div class="package-price">${item.price} <span>ريال</span></div>
+        </div>
+    `;
+}
+
+function renderCategory(item) {
+    return `
+        <div class="category-card">
+            <div class="category-icon">${item.icon}</div>
+            <div class="category-name">${item.name}</div>
+            <div class="category-count">${item.count}</div>
+        </div>
+    `;
+}
+
+function renderMainNavItem(item) {
+    return `
+        <div class="main-nav-item" onclick="closeMainNav(); scrollToSection('${item.section}')">
+            <div class="main-nav-icon">${item.icon}</div>
+            <div class="main-nav-label">${item.label}</div>
+        </div>
+    `;
+}
+
+// Modal Functions
+function openPackageModal(index) {
+    const pkg = packagesData[index];
+    document.getElementById('modalIcon').textContent = pkg.icon;
+    document.getElementById('modalTitle').textContent = pkg.name;
+    
+    let itemsHtml = '';
+    pkg.items.forEach(item => {
+        itemsHtml += `
+            <div class="modal-item">
+                <div class="modal-item-name">${item.name}</div>
+                <div class="modal-item-price">${item.price} ريال</div>
+            </div>
+        `;
+    });
+    
+    document.getElementById('modalBody').innerHTML = `
+        <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 20px;">${pkg.desc}</p>
+        <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 18px;">محتويات الباقة:</h3>
+        ${itemsHtml}
+        <div class="modal-total">
+            <div style="font-size: 14px; color: rgba(255,255,255,0.7);">الإجمالي</div>
+            <div class="modal-total-price">${pkg.price} ريال</div>
+        </div>
+    `;
+    
+    document.getElementById('packageModal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('packageModal').classList.remove('active');
+}
+
+function bookPackage() {
+    alert('سيتم توجيهك لصفحة الدفع وإتمام الحجز');
+    closeModal();
+}
+
+function showMainNav() {
+    document.getElementById('mainNavGrid').innerHTML = mainNavData.map(renderMainNavItem).join('');
+    document.getElementById('mainNavModal').classList.add('active');
+}
+
+function closeMainNav() {
+    document.getElementById('mainNavModal').classList.remove('active');
+}
+
+function showMenServices() {
+    document.getElementById('menServices').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showWomenServices() {
+    document.getElementById('womenServices').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Initialize
+function init() {
+    document.getElementById('packagesContainer').innerHTML = packagesData.map((pkg, index) => renderPackage(pkg, index)).join('');
+    document.getElementById('newWeekContainer').innerHTML = newWeekData.map(renderCard).join('');
+    document.getElementById('exclusiveContainer').innerHTML = exclusiveData.map(renderCard).join('');
+    document.getElementById('occasionsContainer').innerHTML = occasionsData.map(renderOccasion).join('');
+    document.getElementById('menClothingContainer').innerHTML = menClothingData.map(renderCard).join('');
+    document.getElementById('womenClothingContainer').innerHTML = womenClothingData.map(renderCard).join('');
+    document.getElementById('menAccessoriesContainer').innerHTML = menAccessoriesData.map(renderCard).join('');
+    document.getElementById('womenAccessoriesContainer').innerHTML = womenAccessoriesData.map(renderCard).join('');
+    document.getElementById('religiousContainer').innerHTML = religiousEventsData.map(renderCard).join('');
+    document.getElementById('menServicesContainer').innerHTML = menServicesData.map(renderCard).join('');
+    document.getElementById('womenServicesContainer').innerHTML = womenServicesData.map(renderCard).join('');
+    document.getElementById('commonContainer').innerHTML = commonServicesData.map(renderCard).join('');
+    document.getElementById('traditionalContainer').innerHTML = traditionalServicesData.map(renderCard).join('');
+    document.getElementById('marketsContainer').innerHTML = marketsData.map(renderCard).join('');
+    document.getElementById('categoriesContainer').innerHTML = categoriesData.map(renderCategory).join('');
+}
+
+// Slider
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+    goToSlide((currentSlide + 1) % slides.length);
+}
+
+setInterval(nextSlide, 4000);
+
+document.getElementById('packageModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+document.getElementById('mainNavModal').addEventListener('click', function(e) {
+    if (e.target === this) closeMainNav();
+});
+
+init();
+</script>
+
+</body>
+</html>
