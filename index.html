@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصّة — شاهد أفلامًا ومسلسلات بدون حدود</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  :root{
+    --bg:#0a0a0c; --panel:#121216; --panel2:#17171c; --line:rgba(255,255,255,.07);
+    --acc:#e2242c; --acc2:#ff5a3c; --gold:#f5c518; --ink:#f4f4f5; --mut:#9b9ba3;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg); color:var(--ink); font-family:'Tajawal',system-ui,sans-serif; overflow-x:hidden}
+  .font-display{font-family:'Changa',sans-serif}
+  ::selection{background:rgba(226,36,44,.55); color:#fff}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#26262c;border-radius:99px}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3a42}
+  .no-sb::-webkit-scrollbar{display:none}
+  .no-sb{scrollbar-width:none}
+
+  .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(55% 38% at 85% -5%, rgba(226,36,44,.10), transparent 70%),
+      radial-gradient(45% 32% at 5% 12%, rgba(245,197,24,.05), transparent 70%),
+      radial-gradient(60% 45% at 50% 110%, rgba(226,36,44,.06), transparent 70%);}
+
+  @keyframes marquee{to{transform:translateX(50%)}}
+  .marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 28s linear infinite;white-space:nowrap}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+
+  @keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.14) translate(2%,-2%)}}
+  .kenburns{animation:kb 20s ease-in-out infinite alternate}
+
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.96)}}
+  .toast{animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3)}
+  .toast.bye{animation:toastOut .3s forwards}
+
+  @keyframes ping2{0%{transform:scale(1);opacity:.9}80%,100%{transform:scale(2.2);opacity:0}}
+  .dot-ping::after{content:"";position:absolute;inset:0;border-radius:99px;background:var(--acc);animation:ping2 1.6s cubic-bezier(0,0,.2,1) infinite}
+
+  .num10{font-family:'Changa';font-weight:800;line-height:.78;color:transparent;-webkit-text-stroke:2px #33333c;letter-spacing:-.04em;user-select:none;transition:-webkit-text-stroke .3s,color .3s}
+  .top-item:hover .num10{-webkit-text-stroke:2px var(--acc);color:rgba(226,36,44,.12)}
+
+  section.expanded .track{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;overflow:visible}
+  @media(min-width:640px){section.expanded .track{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(min-width:900px){section.expanded .track{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  @media(min-width:1280px){section.expanded .track{grid-template-columns:repeat(6,minmax(0,1fr))}}
+  section.expanded .card{width:auto !important}
+  section.expanded .top-item{width:auto !important}
+  section.expanded .num10{display:none}
+  section.expanded .rail-arrows{display:none}
+
+  .card img{transform:translateZ(0)}
+  .card:hover img{transform:scale(1.09)}
+  .card .playov{opacity:0;transition:opacity .25s}
+  .card:hover .playov{opacity:1}
+  .card .playov > span{transform:scale(.7);transition:transform .25s cubic-bezier(.2,.9,.3,1.4)}
+  .card:hover .playov > span{transform:scale(1)}
+  .card .list-btn{opacity:0;transition:opacity .2s, background .2s}
+  .card:hover .list-btn, .card .list-btn.on{opacity:1}
+
+  @keyframes hueflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .player-bg{background:linear-gradient(120deg,#1a0b10,#2b0f14,#101322,#0b1a14,#1a0b10);background-size:400% 400%;animation:hueflow 14s ease infinite}
+  @keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(400%)}}
+  .scanline{position:absolute;left:0;right:0;height:25%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.045),transparent);animation:scan 5s linear infinite}
+  @keyframes eq{0%,100%{height:30%}50%{height:95%}}
+  .eq i{display:block;width:3px;background:var(--acc2);border-radius:2px;animation:eq 1s ease-in-out infinite}
+
+  .side-link{display:flex;align-items:center;gap:.65rem;width:100%;padding:.55rem .8rem;border-radius:.7rem;color:var(--mut);font-size:.9rem;font-weight:500;transition:background .2s,color .2s,transform .15s}
+  .side-link:hover{background:rgba(255,255,255,.06);color:#fff;transform:translateX(-2px)}
+  .side-link.active{background:linear-gradient(90deg,rgba(226,36,44,.22),rgba(226,36,44,.06));color:#fff;box-shadow:inset 3px 0 0 var(--acc)}
+  .genre-chip{padding:.35rem .8rem;border-radius:99px;border:1px solid var(--line);color:var(--mut);font-size:.78rem;font-weight:500;transition:all .2s}
+  .genre-chip:hover{border-color:rgba(226,36,44,.6);color:#fff}
+  .genre-chip.active{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 6px 18px -6px rgba(226,36,44,.7)}
+
+  .navpill{padding:.4rem .95rem;border-radius:99px;font-size:.86rem;font-weight:500;color:var(--mut);transition:all .2s}
+  .navpill:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .navpill.active{color:#fff;background:rgba(226,36,44,.18);box-shadow:inset 0 0 0 1px rgba(226,36,44,.5)}
+
+  #searchWrap input{width:0;opacity:0;pointer-events:none;transition:width .35s cubic-bezier(.2,.8,.2,1),opacity .25s}
+  #searchWrap.open input{width:min(16rem,42vw);opacity:1;pointer-events:auto}
+
+  .hero-fade{background:linear-gradient(to left,rgba(10,10,12,.96) 8%,rgba(10,10,12,.55) 45%,rgba(10,10,12,.08) 75%),linear-gradient(to top,var(--bg) 2%,transparent 45%)}
+  .rail-shadow{position:relative}
+  .badge-q-4k{background:var(--gold);color:#111}
+  .badge-q-hd{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(6px)}
+  .badge-q-web{background:rgba(34,197,94,.9);color:#04120a}
+  details > summary{list-style:none;cursor:pointer}
+  details > summary::-webkit-details-marker{display:none}
+  details[open] .chev{transform:rotate(180deg)}
+  .chev{transition:transform .25s}
+</style>
+</head>
+<body class="antialiased">
+<div class="ambient"></div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="fixed top-0 inset-x-0 z-40 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/5">
+  <div class="h-16 flex items-center gap-3 px-4 sm:px-6 lg:px-8">
+    <button id="menuBtn" class="lg:hidden w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-white/10 transition" aria-label="القائمة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+    <a href="#" id="logoBtn" class="flex items-center gap-2.5 shrink-0">
+      <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff5a3c] to-[#a0121d] flex items-center justify-center shadow-[0_8px_24px_-8px_rgba(226,36,44,.9)]">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4.5 h-4.5 text-white w-5 h-5"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="leading-none">
+        <span class="font-display font-extrabold text-xl block">منصّـة</span>
+        <span class="text-[9px] tracking-[.28em] text-zinc-500 font-bold">MINASSA STREAM</span>
+      </span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 ms-6" id="topNav">
+      <button class="navpill" data-cat="home">الرئيسية</button>
+      <button class="navpill" data-cat="movies">أفلام</button>
+      <button class="navpill" data-cat="arabic">مسلسلات عربية</button>
+      <button class="navpill" data-cat="turkish">تركي</button>
+      <button class="navpill" data-cat="korean">كوري</button>
+      <button class="navpill" data-cat="anime">أنمي</button>
+      <button class="navpill flex items-center gap-1.5" data-cat="list">قائمتي <span id="listCountNav" class="text-[10px] bg-[#e2242c] text-white rounded-full px-1.5 py-px font-bold">0</span></button>
+    </nav>
+    <div class="flex-1"></div>
+    <div id="searchWrap" class="flex items-center gap-2">
+      <input id="searchInput" type="text" placeholder="ابحث عن عمل، نوع، سنة…" class="h-9 rounded-full bg-white/10 ring-1 ring-white/10 focus:ring-[#e2242c]/70 outline-none px-4 text-sm placeholder:text-zinc-500">
+      <button id="searchBtn" class="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-white/10 hover:text-white transition" aria-label="بحث">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+    </div>
+    <button id="bellBtn" class="relative w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-white/10 hover:text-white transition" aria-label="التنبيهات">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+      <span class="dot-ping absolute top-2 end-2 w-2 h-2 rounded-full bg-[#e2242c]"></span>
+    </button>
+    <button id="avatarBtn" class="w-9 h-9 rounded-full bg-gradient-to-br from-[#f5c518] via-[#ff5a3c] to-[#a0121d] flex items-center justify-center font-display font-bold text-sm text-white ring-2 ring-white/10 hover:ring-[#e2242c]/60 transition" aria-label="حسابي">م</button>
+  </div>
+</header>
+
+<!-- ===================== SIDEBAR ===================== -->
+<div id="sideBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden lg:hidden"></div>
+<aside id="sidebar" class="fixed inset-y-0 start-0 w-72 lg:w-64 z-50 bg-[#101014] border-e border-white/5 transform translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+  <div class="h-16 flex items-center justify-between px-4 border-b border-white/5 shrink-0">
+    <span class="font-display font-bold text-lg flex items-center gap-2"><span class="w-7 h-7 rounded-lg bg-gradient-to-br from-[#ff5a3c] to-[#a0121d] flex items-center justify-center"><svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-white"><path d="M8 5v14l11-7z"/></svg></span> منصّـة</span>
+    <button id="closeSide" class="lg:hidden w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-zinc-400 hover:bg-white/10" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4.5 h-4.5 w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto no-sb px-3 py-4 space-y-6">
+    <div>
+      <p class="px-2 mb-2 text-[10px] font-bold tracking-[.2em] text-zinc-500">القائمة الرئيسية</p>
+      <nav id="sideNav" class="space-y-1">
+        <button class="side-link" data-cat="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4.5 h-4.5 w-5 h-5"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg> الرئيسية</button>
+        <button class="side-link" data-cat="movies"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg> أفلام السينما</button>
+        <button class="side-link" data-cat="arabic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="m8 3 4 3 4-3"/></svg> مسلسلات عربية</button>
+        <button class="side-link" data-cat="turkish"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 3c-4 4-7 6.5-7 10a7 7 0 0 0 14 0c0-3.5-3-6-7-10Z"/></svg> مسلسلات تركية</button>
+        <button class="side-link" data-cat="korean"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="9"/><path d="M12 3a13 13 0 0 0 0 18 13 13 0 0 0 0-18Z"/><path d="M3.5 9h17M3.5 15h17"/></svg> مسلسلات كورية</button>
+        <button class="side-link" data-cat="anime"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.5"/></svg> أنمي ورسوم</button>
+        <button class="side-link" data-cat="cw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg> متابعة المشاهدة</button>
+        <button class="side-link" data-cat="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2-5.6-3.2-5.6 3.2 1.3-6.2L3 9.5l6.3-.7z"/></svg> قائمتي <span id="listCountSide" class="ms-auto text-[10px] bg-[#e2242c] text-white rounded-full px-1.5 py-px font-bold">0</span></button>
+      </nav>
+    </div>
+    <div>
+      <p class="px-2 mb-2 text-[10px] font-bold tracking-[.2em] text-zinc-500">تصفية حسب النوع</p>
+      <div id="genreBox" class="flex flex-wrap gap-1.5 px-1"></div>
+    </div>
+    <div class="rounded-2xl p-4 bg-gradient-to-br from-[#2a0d12] to-[#141419] ring-1 ring-[#e2242c]/25">
+      <p class="font-display font-bold text-sm mb-1">الاشتراك الذهبي 👑</p>
+      <p class="text-[11px] text-zinc-400 leading-5 mb-3">جودة 4K، بدون إعلانات، وتحميل غير محدود على كل أجهزتك.</p>
+      <button id="goldBtn" class="w-full h-9 rounded-xl bg-gradient-to-l from-[#f5c518] to-[#ff8a3c] text-black text-xs font-extrabold hover:brightness-110 active:scale-[.98] transition">جرّبه مجانًا 7 أيام</button>
+    </div>
+  </div>
+  <div class="p-4 border-t border-white/5 text-[10px] text-zinc-500 shrink-0 flex items-center justify-between">
+    <span>© 2026 منصّة — كل الحقوق محفوظة</span>
+    <span class="bg-white/5 rounded px-1.5 py-0.5 font-bold">v3.2.1</span>
+  </div>
+</aside>
+
+<!-- ===================== MAIN ===================== -->
+<main class="lg:ps-64 pt-16 relative z-10">
+  <!-- announcement marquee -->
+  <div class="marquee overflow-hidden bg-gradient-to-l from-[#7a1220] via-[#e2242c] to-[#7a1220] text-white text-[11px] font-bold py-1.5 border-b border-black/30">
+    <div class="marquee-track">
+      <span>🔥 جديد الأسبوع: جودة الضغط الممتازة متاحة الآن على كل الأفلام · ⚡ سيرفرات جديدة بسرعة تصل إلى 1 جيجابت · 🎬 أُضيفت ٢٤ حلقة أنمي مترجمة · 📡 طلبات الأعمال تعمل على مدار الساعة عبر قائمة الطلبات · 👑 خصم ٤٠٪ على الاشتراك الذهبي حتى نهاية الشهر</span>
+      <span>🔥 جديد الأسبوع: جودة الضغط الممتازة متاحة الآن على كل الأفلام · ⚡ سيرفرات جديدة بسرعة تصل إلى 1 جيجابت · 🎬 أُضيفت ٢٤ حلقة أنمي مترجمة · 📡 طلبات الأعمال تعمل على مدار الساعة عبر قائمة الطلبات · 👑 خصم ٤٠٪ على الاشتراك الذهبي حتى نهاية الشهر</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="relative h-[74vh] min-h-[540px] overflow-hidden">
+    <img id="heroImg" src="https://images.pexels.com/photos/39260641/pexels-photo-39260641.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" alt="مملكة الرمال" class="kenburns absolute inset-0 w-full h-full object-cover">
+    <div class="hero-fade absolute inset-0"></div>
+    <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+      <div class="me-auto max-w-2xl">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="text-[10px] font-extrabold px-2 py-1 rounded badge-q-4k">4K UHD</span>
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-white/10 backdrop-blur ring-1 ring-white/15">Dolby Atmos</span>
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-white/10 backdrop-blur ring-1 ring-white/15">مترجم ومدبلج عربي</span>
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-white/10 backdrop-blur ring-1 ring-white/15">+13</span>
+          <span class="flex items-center gap-1 text-[11px] font-bold text-[#f5c518]"><svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg> 8.4</span>
+        </div>
+        <p class="text-[11px] tracking-[.35em] font-bold text-[#ff8a7a] mb-2">عمل منصّة الأصلي · فيلم ملحمي</p>
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl leading-[1.05] mb-4 drop-shadow-[0_6px_30px_rgba(0,0,0,.7)]">مملكة الرمال</h1>
+        <p class="text-zinc-300 text-sm sm:text-base leading-7 max-w-xl mb-6">في قلب صحراء لا ترحم، يعود قائد شاب من منفاه ليواجه إرث مملكةٍ مدفونة تحت الكثبان؛ بين خيانة الأقرباء وسرٍّ تحرسه الرياح منذ ألف عام، تشتعل معركة يُكتب فيها التاريخ بالذهب والدم.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <button id="heroPlay" class="h-12 px-7 rounded-xl bg-[#e2242c] hover:bg-[#ff3b44] active:scale-[.97] transition font-display font-bold text-base flex items-center gap-2 shadow-[0_14px_40px_-12px_rgba(226,36,44,.9)]">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M8 5v14l11-7z"/></svg> تشغيل الآن
+          </button>
+          <button id="heroDetails" class="h-12 px-6 rounded-xl bg-white/10 backdrop-blur ring-1 ring-white/15 hover:bg-white/20 active:scale-[.97] transition font-bold text-sm flex items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg> التفاصيل
+          </button>
+          <button id="heroList" class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur ring-1 ring-white/15 hover:bg-white/20 transition flex items-center justify-center" aria-label="أضف لقائمتي">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2-5.6-3.2-5.6 3.2 1.3-6.2L3 9.5l6.3-.7z"/></svg>
+          </button>
+          <button id="heroShare" class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur ring-1 ring-white/15 hover:bg-white/20 transition flex items-center justify-center" aria-label="مشاركة">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="m8.3 10.8 6.4-3.6M8.3 13.2l6.4 3.6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-6 end-6 hidden md:flex flex-col items-center gap-1 bg-black/50 backdrop-blur ring-1 ring-white/10 rounded-2xl px-4 py-3">
+      <span class="text-[9px] tracking-[.25em] font-bold text-zinc-400">الأكثر مشاهدة اليوم</span>
+      <span class="font-display font-extrabold text-3xl text-[#f5c518] leading-none">#1</span>
+    </div>
+  </section>
+
+  <!-- filter bar -->
+  <div id="filterBar" class="hidden px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between gap-3 bg-[#121216]/80 border-y border-white/5 sticky top-16 z-30 backdrop-blur-xl">
+    <p id="filterText" class="text-xs sm:text-sm text-zinc-300 font-medium"></p>
+    <button id="clearFilters" class="shrink-0 text-xs font-bold text-[#ff8a7a] hover:text-white bg-[#e2242c]/15 hover:bg-[#e2242c] rounded-full px-3 py-1.5 transition flex items-center gap-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5"><path d="M6 6l12 12M18 6L6 18"/></svg> مسح التصفية
+    </button>
+  </div>
+
+  <div id="rows" class="space-y-12 py-10"></div>
+
+  <!-- empty state -->
+  <div id="emptyState" class="hidden px-6 pb-20 text-center">
+    <div class="mx-auto w-20 h-20 rounded-3xl bg-[#17171c] ring-1 ring-white/10 flex items-center justify-center mb-5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-9 h-9 text-zinc-500"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></svg>
+    </div>
+    <h3 class="font-display font-bold text-xl mb-2">لا توجد نتائج مطابقة</h3>
+    <p class="text-sm text-zinc-400 mb-6">جرّب كلمة أخرى أو أزل عوامل التصفية للعودة إلى كامل المكتبة.</p>
+    <button id="emptyClear" class="h-10 px-6 rounded-xl bg-[#e2242c] hover:bg-[#ff3b44] text-sm font-bold transition">إعادة تعيين المكتبة</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 bg-[#0c0c0f] px-6 lg:px-10 py-12">
+    <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff5a3c] to-[#a0121d] flex items-center justify-center"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="font-display font-extrabold text-xl">منصّـة</span>
+        </div>
+        <p class="text-xs text-zinc-400 leading-6">وجهتك العربية الأولى للمشاهدة: أفلام سينمائية، مسلسلات عربية وتركية وكورية، وأنمي مترجم — بجودة تصل إلى 4K وسيرفرات عربية سريعة تعمل على مدار الساعة.</p>
+        <div class="flex gap-2 mt-5">
+          <span class="eq flex items-end gap-[3px] h-5 bg-white/5 rounded px-2 py-1"><i style="animation-delay:0s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.1s"></i></span>
+          <span class="text-[10px] text-zinc-500 self-center">بثّ مباشر الآن على ١٢٬٤٠٠ جهاز</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-display font-bold text-sm mb-4">تصفّح سريعًا</p>
+        <div class="grid grid-cols-2 gap-2" id="footNav"></div>
+      </div>
+      <div>
+        <p class="font-display font-bold text-sm mb-4">أنواع رائجة هذا الشهر</p>
+        <div id="footGenres" class="flex flex-wrap gap-1.5"></div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-zinc-500">
+      <span>صُنع بشغف للمشاهد العربي · جميع الأعمال المعروضة تجريبية لأغراض العرض</span>
+      <span class="flex items-center gap-1">© 2026 منصّة <span class="text-[#e2242c]">♥</span></span>
+    </div>
+  </footer>
+</main>
+
+<!-- ===================== MODAL ===================== -->
+<div id="modal" class="fixed inset-0 z-[60] hidden">
+  <div id="modalBackdrop" class="absolute inset-0 bg-black/85 backdrop-blur-sm"></div>
+  <div class="relative h-full overflow-y-auto no-sb flex items-start justify-center p-3 sm:p-8">
+    <div id="modalPanel" class="relative w-[min(940px,96vw)] rounded-2xl bg-[#141419] ring-1 ring-white/10 shadow-[0_40px_120px_-30px_rgba(0,0,0,.9)] overflow-hidden"></div>
+  </div>
+</div>
+
+<div id="toasts" class="fixed bottom-5 inset-x-0 z-[70] flex flex-col items-center gap-2 pointer-events-none px-4"></div>
+
+<script>
+/* ============ DATA ============ */
+const IMG = {
+  m1:"https://images.pexels.com/photos/38232866/pexels-photo-38232866.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m2:"https://images.pexels.com/photos/13669302/pexels-photo-13669302.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m3:"https://images.pexels.com/photos/10187239/pexels-photo-10187239.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m4:"https://images.pexels.com/photos/33645190/pexels-photo-33645190.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m5:"https://images.pexels.com/photos/9880056/pexels-photo-9880056.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m6:"https://images.pexels.com/photos/29823377/pexels-photo-29823377.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m7:"https://images.pexels.com/photos/35171240/pexels-photo-35171240.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  m8:"https://images.pexels.com/photos/14010095/pexels-photo-14010095.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a1:"https://images.pexels.com/photos/30681572/pexels-photo-30681572.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a2:"https://images.pexels.com/photos/28639217/pexels-photo-28639217.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a3:"https://images.pexels.com/photos/35171249/pexels-photo-35171249.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a4:"https://images.pexels.com/photos/30818936/pexels-photo-30818936.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a5:"https://images.pexels.com/photos/17650344/pexels-photo-17650344.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  a6:"https://images.pexels.com/photos/35171242/pexels-photo-35171242.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t1:"https://images.pexels.com/photos/20278552/pexels-photo-20278552.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t2:"https://images.pexels.com/photos/36668710/pexels-photo-36668710.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t3:"https://images.pexels.com/photos/26903035/pexels-photo-26903035.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t4:"https://images.pexels.com/photos/12933826/pexels-photo-12933826.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t5:"https://images.pexels.com/photos/26960715/pexels-photo-26960715.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  t6:"https://images.pexels.com/photos/11053544/pexels-photo-11053544.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k1:"https://images.pexels.com/photos/30991526/pexels-photo-30991526.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k2:"https://images.pexels.com/photos/15991665/pexels-photo-15991665.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k3:"https://images.pexels.com/photos/36668719/pexels-photo-36668719.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k4:"https://images.pexels.com/photos/26903034/pexels-photo-26903034.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k5:"https://images.pexels.com/photos/31419072/pexels-photo-31419072.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  k6:"https://images.pexels.com/photos/30695962/pexels-photo-30695962.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s1:"https://images.pexels.com/photos/33441872/pexels-photo-33441872.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s2:"https://images.pexels.com/photos/33441869/pexels-photo-33441869.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s3:"https://images.pexels.com/photos/33441874/pexels-photo-33441874.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s4:"https://images.pexels.com/photos/35171243/pexels-photo-35171243.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s5:"https://images.pexels.com/photos/33441878/pexels-photo-33441878.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  s6:"https://images.pexels.com/photos/33441880/pexels-photo-33441880.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+  L1:"https://images.pexels.com/photos/39260641/pexels-photo-39260641.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  L2:"https://images.pexels.com/photos/16061882/pexels-photo-16061882.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  L4:"https://images.pexels.com/photos/28638843/pexels-photo-28638843.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  L5:"https://images.pexels.com/photos/32654474/pexels-photo-32654474.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  L7:"https://images.pexels.com/photos/27913531/pexels-photo-27913531.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  L8:"https://images.pexels.com/photos/33442715/pexels-photo-33442715.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+};
+
+const CATS = [
+  { id:"movies", title:"الأحدث: أفلام السينما", items:[
+    { id:"m1", t:"مملكة الرمال", y:2025, r:8.4, q:"4K", g:["أكشن","دراما","تراثي"], min:138, img:IMG.m1, s:"ملحمة صحراوية عن قائد عائد من المنفى يستعيد إرث مملكة مدفونة تحت الكثبان، في مواجهة خيانة الأقرباء وسرٍّ تحرسه الرياح." },
+    { id:"m2", t:"رحلة الليل", y:2024, r:7.9, q:"HD", g:["إثارة","غموض"], min:116, img:IMG.m2, s:"سائق أجرة ليلي يقود زبونًا غامضًا عبر أزقة المدينة، ليتحول المشوار الطويل إلى مطاردة مع ماضٍ ظنّ أنه دفنه." },
+    { id:"m3", t:"ما وراء الصمت", y:2025, r:8.1, q:"4K", g:["دراما","غموض"], min:124, img:IMG.m3, s:"محققة صماء تكتشف أن شهادة وحيدة في قضية اختفاء كُتبت بلغة الإشارة… وهي اللغة التي لا يتقنها سوى شخصين." },
+    { id:"m4", t:"الشاهد الأخير", y:2023, r:7.6, q:"HD", g:["جريمة","إثارة"], min:109, img:IMG.m4, s:"م projectionist سينما قديمة يحتفظ ببكرة فيلم تثبت جريمة كاملة، لتبدأ المدينة كلها بمطاردته قبل العرض الأخير." },
+    { id:"m5", t:"عاصفة القلوب", y:2024, r:7.2, q:"HD", g:["رومانسي","دراما"], min:102, img:IMG.m5, s:"قصة حب تولد تحت عمود إنارة واحد في شارع مغلق، وتكبر رغم كل العواصف التي تهبّ من عائلتين متخاصمتين." },
+    { id:"m6", t:"التحليل: البداية", y:2025, r:8.0, q:"4K", g:["أكشن","إثارة"], min:131, img:IMG.m6, s:"محلل بيانات جنائية يكتشف نمطًا رقميًا يربط خمس جرائم متباعدة، ليصبح الهدف السادس في القائمة." },
+    { id:"m7", t:"المسار الأزرق", y:2024, r:7.8, q:"WEB", g:["مغامرة","عائلي"], min:98, img:IMG.m7, s:"فتى ومترو أنفاق قديم وخريطة مرسومة على تذكرة صدئة: رحلة عائلية عبر محطات مهجورة بحثًا عن صندوق الذكريات." },
+    { id:"m8", t:"أيام الورق", y:2022, r:7.4, q:"HD", g:["دراما","كوميديا"], min:112, img:IMG.m8, s:"كاتبة نعي محترفة تفقد القدرة على الحزن، فتستعين بغريب يكتب رسائل الحب مقابل أن يعلّمها البكاء من جديد." }
+  ]},
+  { id:"arabic", title:"الأحدث: المسلسلات العربية", items:[
+    { id:"a1", t:"البلدة القديمة — م3", y:2025, r:8.6, q:"4K", g:["دراما","تراثي"], min:45, img:IMG.a1, s:"الجزء الثالث: حارة الباب الشمالي تنقسم بين ورثة الشيخ رضوان، وكل مفتاح قديم يفتح باب سرٍّ جديد." },
+    { id:"a2", t:"رياح الصحراء — م2", y:2024, r:8.2, q:"HD", g:["أكشن","تراثي"], min:42, img:IMG.a2, s:"قوافل، وثأر، وخريطة ماء تقود قبيلتين إلى صدام محتوم على آخر بئر في الدهناء." },
+    { id:"a3", t:"ليالي القاهرة — م1", y:2025, r:7.9, q:"HD", g:["دراما","جريمة"], min:48, img:IMG.a3, s:"طاهٍ ليلي في وسط البلد يسمع اعترافًا كاملاً بين طلبين، فيقرر أن يكتبه رواية… تدفعه نحو عالم لا يعرفه." },
+    { id:"a4", t:"مرآة البحر — م1", y:2024, r:7.7, q:"HD", g:["رومانسي","دراما"], min:40, img:IMG.a4, s:"غواصة آثار وصياد شاب يلتقيان عند حطام سفينة تحمل رسالة لم تُفتح منذ أربعين عامًا." },
+    { id:"a5", t:"بوابة الجبل — م4", y:2023, r:8.3, q:"4K", g:["غموض","دراما"], min:44, img:IMG.a5, s:"قرية جبلية لا يدخلها الغريب إلا بإذن، وبوابة حجرية تُغلق كل مغرب… حتى الليلة التي نسيها أحدهم مفتوحة." },
+    { id:"a6", t:"شوارع ورقية — م2", y:2025, r:7.5, q:"HD", g:["كوميديا","دراما"], min:35, img:IMG.a6, s:"ساعي بريد يفقد حقيبة تحتوي ٣٠٠ رسالة، فيقرر تسليمها اعتذارًا شخصيًا… رسالة رسالة، وفضيحة فضيحة." }
+  ]},
+  { id:"turkish", title:"الأحدث: المسلسلات التركية", items:[
+    { id:"t1", t:"البوسفور — م1", y:2025, r:8.5, q:"4K", g:["دراما","إثارة"], min:50, img:IMG.t1, s:"على ضفتي إسطنبول، تدير مرمّمة مخطوطات شبكة تهريب تراث، بينما يطارد مفتش شرطة خيوط تقود إليها." },
+    { id:"t2", t:"القصر الخفي — م2", y:2024, r:8.0, q:"HD", g:["دراما","غموض"], min:52, img:IMG.t2, s:"قصر عثماني مهجور تُفتح أبوابه لتصوير فيلم، فيكتشف الفريق أن السيناريو مكتوب بالفعل… قبل مئة عام." },
+    { id:"t3", t:"زهور الثلج — م1", y:2025, r:7.8, q:"HD", g:["رومانسي","دراما"], min:46, img:IMG.t3, s:"طبيبة تلجأ إلى قرية ساحلية بعد فضيحة، فتجد دفءً غير متوقع في أكثر القلوب برودة." },
+    { id:"t4", t:"قدر ضائع — م3", y:2023, r:8.1, q:"HD", g:["دراما","رومانسي"], min:49, img:IMG.t4, s:"توأم فُصل عند الولادة يلتقي صدفة في حقل زيتون، فيقرران تبادل حياتيهما لأسبوع واحد فقط." },
+    { id:"t5", t:"حب إسطنبول — م1", y:2025, r:7.6, q:"WEB", g:["رومانسي","كوميديا"], min:43, img:IMG.t5, s:"منظّمة أعراس تكره الزواج وسائق عبّارة يؤمن بالحب الأبدي… ورهان على عرس واحد يقلب الاثنين." },
+    { id:"t6", t:"البحر الأسود — م7", y:2024, r:8.4, q:"HD", g:["أكشن","دراما"], min:55, img:IMG.t6, s:"الموسم السابع: صراع عائلات الساحل يصل إلى ذروته مع عودة الابن المنفيّ ومعه خريطة الكنز الغارق." }
+  ]},
+  { id:"korean", title:"الأحدث: المسلسلات الكورية", items:[
+    { id:"k1", t:"أحلام سيول — م1", y:2025, r:8.7, q:"4K", g:["دراما","رومانسي"], min:60, img:IMG.k1, s:"خمسة غرباء يتشاركون سكنًا فوق مقهى في تقاطع مزدحم، وكلٌّ منهم يخفي حلمًا كبيرًا ودينًا أكبر." },
+    { id:"k2", t:"زهرة الشتاء — م2", y:2024, r:8.3, q:"HD", g:["رومانسي","دراما"], min:65, img:IMG.k2, s:"بعد عشر سنوات، تعود عازفة التشيلو إلى مدينة الثلج لتجد حبها الأول مدرّسًا لموسيقى أطفالها." },
+    { id:"k3", t:"مملكة جوسون — م1", y:2025, r:8.9, q:"4K", g:["أكشن","تراثي"], min:58, img:IMG.k3, s:"ولي عهد منفىّ يعود متنكرًا لكشف وباءٍ غامض يلتهم البلاط، بينما السيوف تُسنّ في الظل." },
+    { id:"k4", t:"حلم البحر — م1", y:2024, r:7.9, q:"HD", g:["فانتازيا","رومانسي"], min:62, img:IMG.k4, s:"غواصة أعماق تلتقط إشارة غناء لا مصدر لها، وقبطانة تؤمن أن البحر يردّ الودائع يومًا ما." },
+    { id:"k5", t:"نيون الليل — م1", y:2025, r:8.2, q:"4K", g:["إثارة","جريمة"], min:54, img:IMG.k5, s:"شرطية تتسلل إلى عالم أحياء النيون لتفكيك شبكة قروض، فتكتشف أن أخيها الأصغر مدين لها بكل شيء." },
+    { id:"k6", t:"مقهى الربيع — م1", y:2023, r:7.7, q:"WEB", g:["رومانسي","كوميديا"], min:48, img:IMG.k6, s:"مقهى يفتح ساعة واحدة كل فجر، لا يرتاده إلا من لا يستطيع النوم… ومن لا يستطيع النسيان." }
+  ]},
+  { id:"anime", title:"الأحدث: الأنمي والرسوم", items:[
+    { id:"s1", t:"نصل الأرواح", y:2025, r:9.0, q:"4K", g:["أكشن","فانتازيا"], min:24, img:IMG.s1, s:"سيّاف يبتلعه نجم محتضر فيعود بنصلٍ من ضوء وسبع دقائق فقط في كل حياة ليحمي من أحب." },
+    { id:"s2", t:"الحارس الأخير", y:2024, r:8.6, q:"HD", g:["فانتازيا","مغامرة"], min:24, img:IMG.s2, s:"آخر حرّاس بوابة المجرة يوقظ وحشًا نائمًا كي لا تنطفئ النجوم واحدة تلو الأخرى." },
+    { id:"s3", t:"أكاديمية السحر", y:2025, r:8.1, q:"HD", g:["فانتازيا","كوميديا"], min:22, img:IMG.s3, s:"طالبة لا تجيد سوى تعويذة واحدة… لكنها التعويذة الوحيدة التي لا يستطيع الأساتذة كسرها." },
+    { id:"s4", t:"عاصفة طوكيو", y:2024, r:8.8, q:"4K", g:["أكشن","خيال علمي"], min:25, img:IMG.s4, s:"دراجة توصيل، ومطر نيوني، وعاصفة كهرومغناطيسية تفتح طوكيو على نسخها الموازية كل منتصف ليل." },
+    { id:"s5", t:"روح الفولاذ", y:2023, r:8.0, q:"HD", g:["خيال علمي","أكشن"], min:24, img:IMG.s5, s:"روبوت إنقاذ قديم يرفض التفكيك لأنه ما زال يبحث عن طفلة أنقذها قبل ثلاثين عامًا." },
+    { id:"s6", t:"ما وراء الغيوم", y:2025, r:8.4, q:"WEB", g:["مغامرة","عائلي"], min:23, img:IMG.s6, s:"منطاد بريد يعبر بحر السحاب مرة كل موسم، وطاقم من ثلاثة أطفال وقطّ يعرف الطريق." }
+  ]}
+];
+
+const TOP10 = ["m1","a1","t1","k1","s1","m3","a5","t4","k2","s4"];
+const CW = [
+  { id:"m1", ep:"فيلم · الدقيقة 62", prog:45, img:IMG.L4 },
+  { id:"a1", ep:"م3 · الحلقة 2", prog:72, img:IMG.L5 },
+  { id:"m3", ep:"فيلم · الدقيقة 25", prog:20, img:IMG.L7 },
+  { id:"s1", ep:"م1 · الحلقة 5", prog:88, img:IMG.s6 },
+  { id:"t6", ep:"م7 · الحلقة 11", prog:55, img:IMG.L8 }
+];
+const GENRES = ["أكشن","دراما","كوميديا","رومانسي","إثارة","خيال علمي","غموض","مغامرة","عائلي","تراثي","فانتازيا","جريمة"];
+
+/* ============ STATE ============ */
+let state = { cat:"home", genre:null, q:"" };
+let myList = new Set();
+try { myList = new Set(JSON.parse(localStorage.getItem("minassa_list") || "[]")); } catch(e){}
+const saveList = () => { try { localStorage.setItem("minassa_list", JSON.stringify([...myList])); } catch(e){} };
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const findItem = id => CATS.flatMap(c=>c.items).find(i=>i.id===id);
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============ TOASTS ============ */
+function toast(msg){
+  const box = $("#toasts");
+  const el = document.createElement("div");
+  el.className = "toast pointer-events-auto flex items-center gap-2 bg-[#1d1d24]/95 ring-1 ring-white/10 rounded-full px-4 py-2.5 text-xs sm:text-sm font-medium shadow-2xl backdrop-blur";
+  el.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-[#e2242c] shrink-0"></span><span>${msg}</span>`;
+  box.appendChild(el);
+  setTimeout(()=>{ el.classList.add("bye"); setTimeout(()=>el.remove(),320); }, 2600);
+}
+
+/* ============ ICONS ============ */
+const IC = {
+  star:'<svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>',
+  starO:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2-5.6-3.2-5.6 3.2 1.3-6.2L3 9.5l6.3-.7z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>',
+  playS:'<svg viewBox="0 0 24 24" fill="currentColor" class="w-4.5 h-4.5 w-5 h-5"><path d="M8 5v14l11-7z"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
+  row:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M4 8h16M4 12h16M4 16h16"/></svg>',
+  chevL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m14 6-6 6 6 6"/></svg>',
+  chevR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="m10 6 6 6-6 6"/></svg>'
+};
+
+/* ============ RENDER ============ */
+function posterCard(it, cls="w-40 sm:w-44 lg:w-48"){
+  const inList = myList.has(it.id);
+  const qCls = it.q==="4K" ? "badge-q-4k" : it.q==="WEB" ? "badge-q-web" : "badge-q-hd";
+  return `<article class="card group relative shrink-0 cursor-pointer ${cls}" data-id="${it.id}" data-title="${esc(it.t)}" data-genres="${it.g.join(",")}" data-year="${it.y}">
+    <div class="relative aspect-[2/3] rounded-xl overflow-hidden ring-1 ring-white/10 transition duration-300 group-hover:ring-[#e2242c]/70 group-hover:shadow-[0_16px_44px_-14px_rgba(226,36,44,.55)]">
+      <img loading="lazy" src="${it.img}" alt="${esc(it.t)}" class="absolute inset-0 w-full h-full object-cover transition duration-500">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-black/10"></div>
+      <span class="absolute top-2 start-2 text-[9px] font-extrabold px-1.5 py-0.5 rounded ${qCls}">${it.q}</span>
+      <span class="absolute top-2 end-2 flex items-center gap-1 text-[10px] font-bold bg-black/60 backdrop-blur rounded px-1.5 py-0.5 text-[#f5c518]">${IC.star}${it.r.toFixed(1)}</span>
+      <button class="list-btn ${inList?"on":""} absolute bottom-2 end-2 w-8 h-8 rounded-full ${inList?"bg-[#e2242c] text-white":"bg-black/60 text-zinc-200"} backdrop-blur flex items-center justify-center hover:bg-[#e2242c] hover:text-white" data-list="${it.id}" aria-label="قائمتي">${inList?IC.check:IC.starO}</button>
+      <div class="playov absolute inset-0 flex items-center justify-center bg-black/25">
+        <span class="w-14 h-14 rounded-full bg-[#e2242c]/95 flex items-center justify-center text-white shadow-[0_10px_30px_-6px_rgba(226,36,44,.9)]">${IC.play}</span>
+      </div>
+      <div class="absolute bottom-2 start-2 end-12">
+        <p class="text-[10px] text-zinc-300 font-medium truncate">${it.y} · ${it.g[0]}</p>
+      </div>
+    </div>
+    <h3 class="font-display font-semibold text-sm mt-2 truncate group-hover:text-[#ff8a7a] transition">${esc(it.t)}</h3>
+  </article>`;
+}
+
+function topItem(it, n){
+  return `<div class="top-item flex items-end shrink-0 cursor-pointer" data-top="${it.id}">
+    <span class="num10 text-[92px] sm:text-[110px] -me-5 sm:-me-6 z-0">${n}</span>
+    ${posterCard(it,"w-32 sm:w-36 relative z-10")}
+  </div>`;
+}
+
+function cwCard(c){
+  const it = findItem(c.id);
+  return `<article class="card group relative w-64 sm:w-72 shrink-0 cursor-pointer" data-id="${it.id}" data-title="${esc(it.t)}" data-genres="${it.g.join(",")}" data-year="${it.y}">
+    <div class="relative aspect-video rounded-xl overflow-hidden ring-1 ring-white/10 group-hover:ring-[#e2242c]/70 transition">
+      <img loading="lazy" src="${c.img}" alt="${esc(it.t)}" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20"></div>
+      <div class="playov absolute inset-0 flex items-center justify-center"><span class="w-12 h-12 rounded-full bg-white/90 text-black flex items-center justify-center">${IC.playS}</span></div>
+      <div class="absolute bottom-3 start-3 end-3">
+        <p class="font-display font-bold text-sm truncate">${esc(it.t)}</p>
+        <p class="text-[10px] text-zinc-300">${c.ep}</p>
+      </div>
+      <div class="absolute bottom-0 inset-x-0 h-1 bg-white/20"><i class="block h-full bg-[#e2242c]" style="width:${c.prog}%"></i></div>
+    </div>
+    <p class="text-[11px] text-zinc-500 mt-2">أكمل من حيث توقفت · ${c.prog}%</p>
+  </article>`;
+}
+
+function sectionShell(catId, title, inner, extra=""){
+  return `<section class="row rv px-4 sm:px-6 lg:px-10" data-cat="${catId}" ${extra}>
+    <div class="flex items-center justify-between mb-4 gap-3">
+      <h2 class="font-display text-lg sm:text-xl lg:text-2xl font-bold flex items-center gap-3">
+        <span class="w-1.5 h-6 sm:h-7 rounded-full bg-gradient-to-b from-[#ff5a3c] to-[#a0121d] shrink-0"></span>${title}
+      </h2>
+      <div class="flex items-center gap-2 rail-arrows">
+        <button class="expand w-9 h-9 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition" data-expand="${catId}" title="عرض شبكي">${IC.grid}</button>
+        <button class="prev w-9 h-9 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition" aria-label="السابق">${IC.chevR}</button>
+        <button class="next w-9 h-9 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition" aria-label="التالي">${IC.chevL}</button>
+      </div>
+    </div>
+    <div class="rail rail-shadow"><div class="track flex gap-4 overflow-x-auto no-sb scroll-smooth pb-2">${inner}</div></div>
+  </section>`;
+}
+
+function renderRows(){
+  const html = [];
+  html.push(sectionShell("top","🔥 الأعلى مشاهدة هذا الأسبوع", TOP10.map((id,i)=>topItem(findItem(id), i+1)).join("")));
+  html.push(sectionShell("cw","▶ متابعة المشاهدة", CW.map(cwCard).join("")));
+  CATS.forEach(c => html.push(sectionShell(c.id, c.title, c.items.map(i=>posterCard(i)).join(""))));
+  html.push(sectionShell("list","⭐ قائمتي", "", 'data-dynamic="1"'));
+  $("#rows").innerHTML = html.join("");
+  renderListSection();
+  wireRails();
+  observeReveal();
+}
+
+function renderListSection(){
+  const sec = $('#rows section[data-cat="list"]');
+  const track = sec.querySelector(".track");
+  if(!myList.size){
+    track.innerHTML = `<div class="w-full rounded-2xl border border-dashed border-white/15 bg-white/[.02] p-8 text-center">
+      <p class="font-display font-bold mb-1">قائمتك فارغة حتى الآن</p>
+      <p class="text-xs text-zinc-400">مرّر على أي عمل واضغط ★ ليُحفظ هنا تلقائيًا على هذا الجهاز.</p>
+    </div>`;
+  } else {
+    track.innerHTML = [...myList].map(id=>{ const it=findItem(id); return it?posterCard(it):""; }).join("");
+  }
+}
+
+/* ============ FILTERING ============ */
+function applyFilters(){
+  const { cat, genre, q } = state;
+  const norm = q.trim();
+  let total = 0;
+  $$("#rows section[data-cat]").forEach(sec=>{
+    const sc = sec.dataset.cat;
+    let catVisible;
+    if(cat==="home") catVisible = true;
+    else if(cat==="top") catVisible = false;
+    else catVisible = sc===cat;
+    if(cat==="home" && (norm||genre) && (sc==="top"||sc==="cw")) catVisible = false;
+    let shown = 0;
+    sec.querySelectorAll(".card").forEach(card=>{
+      const okG = !genre || (card.dataset.genres||"").split(",").includes(genre);
+      const okQ = !norm || (card.dataset.title||"").includes(norm) || (card.dataset.genres||"").includes(norm) || (card.dataset.year||"")===norm;
+      const ok = okG && okQ;
+      card.classList.toggle("hidden", !ok);
+      card.parentElement.classList.toggle("hidden", !ok && card.parentElement.classList.contains("top-item"));
+      if(ok) shown++;
+    });
+    if(sc==="list" && !myList.size) shown = 0;
+    const hide = !catVisible || shown===0;
+    sec.classList.toggle("hidden", hide);
+    if(!hide) total += shown;
+  });
+  const active = cat!=="home" || genre || norm;
+  $("#filterBar").classList.toggle("hidden", !active);
+  $("#emptyState").classList.toggle("hidden", !(active && total===0));
+  if(active){
+    const parts = [];
+    if(cat!=="home") parts.push("القسم: " + catLabel(cat));
+    if(genre) parts.push("النوع: " + genre);
+    if(norm) parts.push(`بحث: «${norm}»`);
+    $("#filterText").innerHTML = `عرض <b class="text-white">${total}</b> عملًا مطابقًا — ${parts.join(" · ")}`;
+  }
+}
+const catLabel = c => ({home:"الرئيسية",movies:"أفلام السينما",arabic:"مسلسلات عربية",turkish:"مسلسلات تركية",korean:"مسلسلات كورية",anime:"أنمي",list:"قائمتي",cw:"متابعة المشاهدة",top:"الأعلى مشاهدة"})[c] || c;
+
+function setCat(cat){
+  state.cat = cat;
+  $$("[data-cat]").forEach(b=>{
+    if(b.tagName==="SECTION") return;
+    b.classList.toggle("active", b.dataset.cat===cat);
+  });
+  applyFilters();
+  closeSide();
+  const y = cat==="home" ? 0 : ($("#rows").getBoundingClientRect().top + window.scrollY - 90);
+  window.scrollTo({ top: cat==="home"?0:y, behavior:"smooth" });
+}
+
+/* ============ RAILS ============ */
+function wireRails(){
+  $$("#rows section").forEach(sec=>{
+    const track = sec.querySelector(".track");
+    sec.querySelector(".next")?.addEventListener("click", ()=> track.scrollBy({left:-track.clientWidth*.8, behavior:"smooth"}));
+    sec.querySelector(".prev")?.addEventListener("click", ()=> track.scrollBy({left: track.clientWidth*.8, behavior:"smooth"}));
+    sec.querySelector(".expand")?.addEventListener("click", e=>{
+      const on = sec.classList.toggle("expanded");
+      e.currentTarget.innerHTML = on ? IC.row : IC.grid;
+      e.currentTarget.title = on ? "عرض شريطي" : "عرض شبكي";
+      toast(on ? "تم التبديل إلى العرض الشبكي" : "تم التبديل إلى العرض الشريطي");
+    });
+  });
+}
+
+/* ============ REVEAL ============ */
+let io;
+function observeReveal(){
+  io?.disconnect();
+  io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }), {threshold:.12});
+  $$(".rv").forEach(el=>io.observe(el));
+}
+
+/* ============ MODAL + PLAYER ============ */
+let player = null;
+function stopPlayer(){ if(player?.timer) clearInterval(player.timer); player = null; }
+
+function openModal(id, autoplay=false){
+  const it = findItem(id); if(!it) return;
+  stopPlayer();
+  const inList = myList.has(it.id);
+  $("#modalPanel").innerHTML = `
+    <div class="relative h-60 sm:h-80">
+      <img src="${it.img}" alt="${esc(it.t)}" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#141419] via-[#141419]/30 to-transparent"></div>
+      <button id="mClose" class="absolute top-3 end-3 w-10 h-10 rounded-full bg-black/60 backdrop-blur ring-1 ring-white/15 flex items-center justify-center text-zinc-200 hover:bg-[#e2242c] hover:text-white transition" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="absolute bottom-4 start-5 end-5">
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded ${it.q==="4K"?"badge-q-4k":it.q==="WEB"?"badge-q-web":"badge-q-hd"}">${it.q}</span>
+          <span class="flex items-center gap-1 text-xs font-bold text-[#f5c518]">${IC.star}${it.r.toFixed(1)}</span>
+          <span class="text-[11px] text-zinc-300 bg-black/40 rounded px-2 py-0.5">${it.y}</span>
+          <span class="text-[11px] text-zinc-300 bg-black/40 rounded px-2 py-0.5">${it.min} دقيقة</span>
+          <span class="text-[11px] text-zinc-300 bg-black/40 rounded px-2 py-0.5">+13</span>
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl drop-shadow-lg">${esc(it.t)}</h2>
+      </div>
+    </div>
+    <div class="p-5 sm:p-7">
+      <div id="playerBox" class="hidden mb-6"></div>
+      <p class="text-sm text-zinc-300 leading-7 mb-5">${it.s}</p>
+      <div class="flex flex-wrap gap-1.5 mb-6">${it.g.map(g=>`<button class="genre-chip" data-gjump="${g}">${g}</button>`).join("")}</div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button id="mPlay" class="h-11 px-6 rounded-xl bg-[#e2242c] hover:bg-[#ff3b44] active:scale-[.97] transition font-display font-bold text-sm flex items-center gap-2">${IC.playS} تشغيل</button>
+        <button id="mList" class="h-11 px-5 rounded-xl bg-white/10 ring-1 ring-white/15 hover:bg-white/20 transition text-sm font-bold flex items-center gap-2">${inList?IC.check:IC.starO} <span>${inList?"في قائمتي":"أضف لقائمتي"}</span></button>
+        <button id="mShare" class="h-11 px-5 rounded-xl bg-white/10 ring-1 ring-white/15 hover:bg-white/20 transition text-sm font-bold flex items-center gap-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="m8.3 10.8 6.4-3.6M8.3 13.2l6.4 3.6"/></svg> مشاركة</button>
+        <span class="ms-auto text-[11px] text-zinc-500">سيرفر عربي · ترجمة مدمجة · صوت 5.1</span>
+      </div>
+    </div>`;
+  $("#modal").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  $("#mClose").onclick = closeModal;
+  $("#mPlay").onclick = ()=> startPlayer(it);
+  $("#mList").onclick = e=>{ toggleList(it.id); const on=myList.has(it.id); e.currentTarget.innerHTML = `${on?IC.check:IC.starO} <span>${on?"في قائمتي":"أضف لقائمتي"}</span>`; };
+  $("#mShare").onclick = ()=>{ try{ navigator.clipboard?.writeText(location.href + "#" + it.id); }catch(e){} toast("تم نسخ رابط المشاركة 🔗"); };
+  $("#modalPanel").querySelectorAll("[data-gjump]").forEach(b=> b.onclick = ()=>{ closeModal(); state.genre = b.dataset.gjump; syncGenreChips(); applyFilters(); toast("تمت التصفية حسب نوع: " + b.dataset.gjump); });
+  if(autoplay) startPlayer(it);
+}
+function closeModal(){
+  stopPlayer();
+  $("#modal").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+function fmt(sec){ const m=Math.floor(sec/60), s=Math.floor(sec%60); return `${m}:${String(s).padStart(2,"0")}`; }
+
+function startPlayer(it){
+  stopPlayer();
+  const box = $("#playerBox");
+  box.classList.remove("hidden");
+  const total = it.min*60;
+  player = { playing:true, pos: total*0.0, total };
+  box.innerHTML = `
+    <div id="pStage" class="relative aspect-video rounded-xl overflow-hidden ring-1 ring-white/10 bg-black select-none">
+      <div class="player-bg absolute inset-0 opacity-80"></div>
+      <img src="${it.img}" alt="" class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity">
+      <div class="scanline"></div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center gap-3">
+        <span class="font-display font-extrabold text-2xl sm:text-3xl drop-shadow">${esc(it.t)}</span>
+        <span id="pState" class="text-[11px] tracking-[.3em] font-bold text-[#ff8a7a]">جارٍ التشغيل…</span>
+      </div>
+      <button id="pBig" class="absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/30 transition group" aria-label="تشغيل/إيقاف">
+        <span id="pBigIcon" class="w-16 h-16 rounded-full bg-black/55 backdrop-blur ring-1 ring-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition">${IC.pause}</span>
+      </button>
+      <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent px-3 sm:px-4 pt-8 pb-3">
+        <div id="pBar" class="h-1.5 rounded-full bg-white/20 cursor-pointer mb-2.5 group">
+          <div class="relative h-full"><i id="pFill" class="block h-full rounded-full bg-[#e2242c]" style="width:0%"></i>
+          <span id="pKnob" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white shadow scale-0 group-hover:scale-100 transition" style="inset-inline-start:0%"></span></div>
+        </div>
+        <div class="flex items-center gap-3 text-zinc-200">
+          <button id="pToggle" class="hover:text-white transition">${IC.pause}</button>
+          <button id="pVol" class="hover:text-white transition" aria-label="الصوت"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4.5 h-4.5 w-5 h-5"><path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
+          <span id="pTime" class="text-[11px] font-bold tabular-nums">0:00 / ${fmt(total)}</span>
+          <span class="ms-auto text-[10px] font-extrabold badge-q-4k rounded px-1.5 py-0.5">${it.q}</span>
+          <button id="pFull" class="hover:text-white transition" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4.5 h-4.5 w-5 h-5"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+      </div>
+    </div>`;
+  const stage = $("#pStage");
+  const tick = ()=>{
+    if(!player || !player.playing) return;
+    player.pos = Math.min(player.total, player.pos + player.total/240);
+    const pct = player.pos/player.total*100;
+    $("#pFill").style.width = pct+"%";
+    $("#pKnob").style.insetInlineStart = pct+"%";
+    $("#pTime").textContent = `${fmt(player.pos)} / ${fmt(player.total)}`;
+    if(player.pos>=player.total){ player.playing=false; $("#pState").textContent="انتهى العرض"; syncPlayIcon(); }
+  };
+  player.timer = setInterval(tick, 250);
+  const syncPlayIcon = ()=>{
+    $("#pToggle").innerHTML = player.playing ? IC.pause : IC.playS;
+    $("#pBigIcon").innerHTML = player.playing ? IC.pause : IC.playS;
+    $("#pState").textContent = player.playing ? "جارٍ التشغيل…" : "متوقف مؤقتًا";
+  };
+  const toggle = ()=>{ if(!player) return; player.playing=!player.playing; syncPlayIcon(); };
+  $("#pToggle").onclick = toggle;
+  $("#pBig").onclick = toggle;
+  $("#pBar").onclick = e=>{
+    if(!player) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const ratio = 1 - (e.clientX - r.left)/r.width; /* RTL */
+    player.pos = Math.max(0, Math.min(1, ratio))*player.total;
+    tick(); 
+  };
+  $("#pVol").onclick = e=>{ e.currentTarget.classList.toggle("text-[#e2242c]"); toast(e.currentTarget.classList.contains("text-[#e2242c]") ? "تم كتم الصوت 🔇" : "تم تشغيل الصوت 🔊"); };
+  $("#pFull").onclick = ()=>{ if(stage.requestFullscreen) stage.requestFullscreen().catch(()=>toast("ملء الشاشة غير مدعوم هنا")); else toast("ملء الشاشة غير مدعوم هنا"); };
+  box.scrollIntoView({behavior:"smooth", block:"center"});
+  syncPlayIcon();
+  toast(`بدء تشغيل «${it.t}» على السيرفر العربي ▶`);
+}
+
+/* ============ LIST ============ */
+function toggleList(id){
+  const it = findItem(id);
+  if(myList.has(id)){ myList.delete(id); toast(`أُزيل «${it.t}» من قائمتك`); }
+  else { myList.add(id); toast(`أُضيف «${it.t}» إلى قائمتك ⭐`); }
+  saveList(); updateListUI(); renderListSection(); applyFilters();
+}
+function updateListUI(){
+  const n = myList.size;
+  $("#listCountNav").textContent = n;
+  $("#listCountSide").textContent = n;
+  $$("[data-list]").forEach(b=>{
+    const on = myList.has(b.dataset.list);
+    b.classList.toggle("on", on);
+    b.classList.toggle("bg-[#e2242c]", on);
+    b.classList.toggle("text-white", on);
+    b.innerHTML = on ? IC.check : IC.starO;
+  });
+  const hl = myList.has("m1");
+  const hb = $("#heroList");
+  hb.style.background = hl ? "#e2242c" : "";
+  hb.style.boxShadow = hl ? "0 0 0 1px rgba(226,36,44,.8)" : "";
+}
+
+/* ============ SIDE / MISC ============ */
+function openSide(){ $("#sidebar").classList.remove("translate-x-full"); $("#sideBackdrop").classList.remove("hidden"); }
+function closeSide(){ if(window.innerWidth<1024){ $("#sidebar").classList.add("translate-x-full"); $("#sideBackdrop").classList.add("hidden"); } }
+function syncGenreChips(){
+  $$("[data-genre]").forEach(b=> b.classList.toggle("active", b.dataset.genre===state.genre));
+}
+
+/* ============ INIT ============ */
+document.addEventListener("DOMContentLoaded", ()=>{
+  renderRows();
+
+  /* genre chips (sidebar + footer) */
+  const chipHTML = GENRES.map(g=>`<button class="genre-chip" data-genre="${g}">${g}</button>`).join("");
+  $("#genreBox").innerHTML = chipHTML;
+  $("#footGenres").innerHTML = chipHTML;
+  $("#footNav").innerHTML = [["home","الرئيسية"],["movies","أفلام"],["arabic","عربي"],["turkish","تركي"],["korean","كوري"],["anime","أنمي"],["cw","متابعة"],["list","قائمتي"]]
+    .map(([c,l])=>`<button class="side-link justify-center text-xs" data-cat="${c}">${l}</button>`).join("");
+
+  /* delegated clicks */
+  document.addEventListener("click", e=>{
+    const catBtn = e.target.closest("[data-cat]:not(section)");
+    if(catBtn){ setCat(catBtn.dataset.cat); return; }
+    const gBtn = e.target.closest("[data-genre]");
+    if(gBtn){ state.genre = state.genre===gBtn.dataset.genre ? null : gBtn.dataset.genre; syncGenreChips(); applyFilters(); return; }
+    const lBtn = e.target.closest("[data-list]");
+    if(lBtn){ e.stopPropagation(); toggleList(lBtn.dataset.list); return; }
+    const topIt = e.target.closest("[data-top]");
+    if(topIt){ openModal(topIt.dataset.top); return; }
+    const card = e.target.closest(".card[data-id]");
+    if(card){ openModal(card.dataset.id); return; }
+  });
+
+  /* search */
+  const sw = $("#searchWrap"), si = $("#searchInput");
+  $("#searchBtn").onclick = ()=>{ sw.classList.toggle("open"); if(sw.classList.contains("open")) si.focus(); else { si.value=""; state.q=""; applyFilters(); } };
+  si.addEventListener("input", ()=>{ state.q = si.value; applyFilters(); });
+
+  $("#clearFilters").onclick = resetFilters;
+  $("#emptyClear").onclick = resetFilters;
+  function resetFilters(){ state.q=""; state.genre=null; state.cat="home"; si.value=""; syncGenreChips(); setCat("home"); toast("تمت إعادة تعيين المكتبة"); }
+
+  /* hero */
+  $("#heroPlay").onclick = ()=> openModal("m1", true);
+  $("#heroDetails").onclick = ()=> openModal("m1");
+  $("#heroList").onclick = ()=> toggleList("m1");
+  $("#heroShare").onclick = ()=>{ try{ navigator.clipboard?.writeText(location.href); }catch(e){} toast("تم نسخ رابط الصفحة 🔗"); };
+  $("#logoBtn").onclick = e=>{ e.preventDefault(); setCat("home"); };
+
+  /* side */
+  $("#menuBtn").onclick = openSide;
+  $("#closeSide").onclick = closeSide;
+  $("#sideBackdrop").onclick = closeSide;
+  $("#goldBtn").onclick = ()=> toast("تم تفعيل التجربة الذهبية 7 أيام 👑 (وضع تجريبي)");
+  $("#bellBtn").onclick = e=>{ e.currentTarget.querySelector("span").classList.add("hidden"); toast("٣ تنبيهات جديدة: حلقات الأربعاء وصلت 🎬"); };
+  $("#avatarBtn").onclick = ()=> toast("مرحبًا بك يا مُشاهدنا الذهبي ✨");
+
+  /* modal backdrop + esc */
+  $("#modalBackdrop").onclick = closeModal;
+  document.addEventListener("keydown", e=>{
+    if(e.key==="Escape"){ closeModal(); closeSide(); }
+    if(e.key==="/" && document.activeElement!==si){ e.preventDefault(); sw.classList.add("open"); si.focus(); }
+  });
+
+  updateListUI();
+  syncGenreChips();
+  setCat("home");
+  window.scrollTo({top:0});
+});
+</script>
+</body>
+</html>
